@@ -4,3 +4,4 @@ Terá 3 tabelas:
 -Jogos: Informação detalhada sobre jogos.
 -VoiceActors: Informação detalhada dos voice-actors.
 -JogosActors:Relação entre as tabelas anteriores.
+Representação do modelo ER:https://i.imgur.com/kPjnMCv.png
