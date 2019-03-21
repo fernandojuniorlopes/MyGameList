@@ -11,6 +11,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,7 +54,9 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
     public void ProcurarJogo(View view){
+        Toast.makeText(this, "Procurou um jogo", Toast.LENGTH_LONG).show();
     }
     public void ProcurarPlat(View view){
+        Toast.makeText(this, "Procurou uma Plataforma", Toast.LENGTH_LONG).show();
     }
 }
