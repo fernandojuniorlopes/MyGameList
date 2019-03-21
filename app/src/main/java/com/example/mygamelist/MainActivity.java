@@ -1,5 +1,6 @@
 package com.example.mygamelist;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -47,8 +48,13 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.Settings) {
             return true;
+        }
+        if (id == R.id.MinhaConta) {
+            Intent intent = new Intent(MainActivity.this, MinhaConta.class);
+            startActivity(intent);
+            return false;
         }
 
         return super.onOptionsItemSelected(item);

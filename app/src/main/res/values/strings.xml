@@ -5,4 +5,5 @@
     <string name="jogo">Jogo</string>
     <string name="procurarJogo">Procurar</string>
     <string name="procurarPlat">Procurar</string>
+    <string name="title_activity_minha_conta">MinhaConta</string>
 </resources>
