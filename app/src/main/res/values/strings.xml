@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">MyGameList</string>
     <string name="action_settings">Settings</string>
+    <string name="plataforma">Plataforma</string>
+    <string name="jogo">Jogo</string>
+    <string name="procurarJogo">Procurar</string>
+    <string name="procurarPlat">Procurar</string>
 </resources>
