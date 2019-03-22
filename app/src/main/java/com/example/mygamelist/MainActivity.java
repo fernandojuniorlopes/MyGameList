@@ -49,12 +49,13 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.Settings) {
+            Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
             return true;
         }
         if (id == R.id.MinhaConta) {
             Intent intent = new Intent(MainActivity.this, MinhaConta.class);
             startActivity(intent);
-            return false;
+            Toast.makeText(this, "Minha Conta", Toast.LENGTH_LONG).show();
         }
 
         return super.onOptionsItemSelected(item);
