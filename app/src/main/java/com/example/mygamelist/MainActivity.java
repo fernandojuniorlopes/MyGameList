@@ -22,15 +22,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
     @Override
@@ -52,18 +43,25 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
             return true;
         }
-        if (id == R.id.MinhaConta) {
+        else if (id == R.id.MinhaConta) {
             Intent intent = new Intent(MainActivity.this, MinhaConta.class);
             startActivity(intent);
             Toast.makeText(this, "Minha Conta", Toast.LENGTH_LONG).show();
+            return true;
+        }
+        else if (id == R.id.Jogos) {
+            Intent intent2 = new Intent(MainActivity.this, Jogos.class);
+            startActivity(intent2);
+            Toast.makeText(this, "Jogos", Toast.LENGTH_LONG).show();
+            return true;
+        }
+        else if (id == R.id.Plataformas) {
+            Intent intent3 = new Intent(MainActivity.this, Plataformas.class);
+            startActivity(intent3);
+            Toast.makeText(this, "Plataformas", Toast.LENGTH_LONG).show();
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
-    }
-    public void ProcurarJogo(View view){
-        Toast.makeText(this, "Procurou um jogo", Toast.LENGTH_LONG).show();
-    }
-    public void ProcurarPlat(View view){
-        Toast.makeText(this, "Procurou uma Plataforma", Toast.LENGTH_LONG).show();
     }
 }

@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">MyGameList</string>
-    <string name="action_settings">Settings</string>
-    <string name="plataforma">Plataforma</string>
-    <string name="jogo">Jogo</string>
-    <string name="procurarJogo">Procurar</string>
-    <string name="procurarPlat">Procurar</string>
+    <string name="settings">Settings</string>
     <string name="title_activity_minha_conta">MinhaConta</string>
+    <string name="title_activity_jogos">Jogos</string>
+    <string name="title_activity_plataformas">Plataformas</string>
+    <string name="plataformas">Plataformas</string>
+    <string name="jogos">Jogos</string>
+    <string name="itemsettings">Settings</string>
+    <string name="itemminhaconta">MinhaConta</string>
 </resources>

@@ -10,12 +10,12 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
 
-public class MinhaConta extends AppCompatActivity {
+public class Plataformas extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_minha_conta);
+        setContentView(R.layout.activity_plataformas);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
