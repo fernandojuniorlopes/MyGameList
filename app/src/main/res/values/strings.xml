@@ -7,5 +7,8 @@
     <string name="plataformas">Plataformas</string>
     <string name="jogos">Jogos</string>
     <string name="itemsettings">Settings</string>
-    <string name="itemminhaconta">MinhaConta</string>
+    <string name="itemminhaconta">Minha Conta</string>
+    <string name="Novojogo">Novo Jogo</string>
+    <string name="itemadicionarnovojogo">Adicionar Novo Jogo</string>
+    <string name="title_activity_novo_jogo">NovoJogo</string>
 </resources>

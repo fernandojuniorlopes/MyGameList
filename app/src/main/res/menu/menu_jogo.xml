@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.mygamelist.Jogos">
+    <item
+        android:id="@+id/NovoJogo"
+        android:orderInCategory="100"
+        android:title="@string/itemadicionarnovojogo"
+        app:showAsAction="ifRoom" />
+</menu>
