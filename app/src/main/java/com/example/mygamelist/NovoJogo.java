@@ -70,7 +70,7 @@ public class NovoJogo extends AppCompatActivity implements AdapterView.OnItemSel
                 textviewplataforma.setError(getString(R.string.plataforma_obrigatorio));
             }else
                 textviewplataforma.setError(null);
-            if((NomeJogo.trim().length() == 0)&&(Genero!=0)&&(Plataforma!=0)){
+            if((NomeJogo.trim().length() != 0)&&(Genero!=0)&&(Plataforma!=0)){
                 finish();
                 Toast.makeText(this, getString(R.string.dados_sucesso), Toast.LENGTH_LONG).show();
             }
