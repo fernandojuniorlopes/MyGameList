@@ -56,11 +56,21 @@ public class NovoJogo extends AppCompatActivity implements AdapterView.OnItemSel
 
             if (NomeJogo.trim().length() == 0) {
                 editTextNomeJogo.setError(getString(R.string.nome_obrigatorio));
-            }else if (Genero == 0) {
+
+            }else
+                editTextNomeJogo.setError(null);
+
+
+            if (Genero == 0) {
                 textviewgenero.setError(getString(R.string.genero_obrigatorio));
-            }else if (Plataforma == 0) {
+            }else
+                textviewgenero.setError(null);
+
+            if (Plataforma == 0) {
                 textviewplataforma.setError(getString(R.string.plataforma_obrigatorio));
-            }else {
+            }else
+                textviewplataforma.setError(null);
+            if((NomeJogo.trim().length() == 0)&&(Genero!=0)&&(Plataforma!=0)){
                 finish();
                 Toast.makeText(this, getString(R.string.dados_sucesso), Toast.LENGTH_LONG).show();
             }
