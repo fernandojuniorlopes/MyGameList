@@ -24,7 +24,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MinhaConta"
-            android:label="Minha Conta"
+            android:label="@string/itemminhaconta"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MainActivity"
