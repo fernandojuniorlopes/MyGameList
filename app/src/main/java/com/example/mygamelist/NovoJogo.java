@@ -1,6 +1,7 @@
 package com.example.mygamelist;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -56,19 +57,22 @@ public class NovoJogo extends AppCompatActivity {
 
             if (Genero == 0) {
                 errorGenero.setError(getString(R.string.genero_obrigatorio));
-                errorGenero.requestFocus();
+                errorGenero.setTextColor(Color.RED);
+                errorGenero.setText(R.string.genero_obrigatorio);
             }else
                 errorGenero.setError(null);
 
             if (Plataforma == 0) {
                 errorPlataforma.setError(getString(R.string.plataforma_obrigatorio));
-                errorPlataforma.requestFocus();
+                errorPlataforma.setTextColor(Color.RED);
+                errorPlataforma.setText(R.string.plataforma_obrigatorio);
             }else
                 errorPlataforma.setError(null);
 
             if (Jogado == 0) {
                 errorJogado.setError(getString(R.string.jogados_obrigatorio));
-                errorJogado.requestFocus();
+                errorJogado.setTextColor(Color.RED);
+                errorJogado.setText(R.string.jogados_obrigatorio);
             }else
                 errorJogado.setError(null);
 
