@@ -16,6 +16,7 @@
     <string name="nome_obrigatorio">Nome do Jogo é obrigatório</string>
     <string name="genero_obrigatorio">Género é obrigatório</string>
     <string name="plataforma_obrigatorio">Plataforma é obrigatória</string>
+    <string name="jogados_obrigatorio">Actividade é obrigatória</string>
     <string name="dados_sucesso">Dados guardados com sucesso!</string>
     <string name="spinner_plataforma">Escolher Plataforma</string>
     <string name="buttonguardar">Guardar</string>

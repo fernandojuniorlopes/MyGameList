@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
-public class NovoJogo extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class NovoJogo extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,47 +29,49 @@ public class NovoJogo extends AppCompatActivity implements AdapterView.OnItemSel
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Spinner spinner = findViewById(R.id.spinnerGeneros);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.generos, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
-
-        Spinner spinner2 = findViewById(R.id.spinnerPlataformas);
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.plataformas, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner2.setAdapter(adapter2);
-        spinner2.setOnItemSelectedListener(this);
-
     }
 
     public void ConfirmarJogo(View view){
-        TextView textviewgenero = findViewById(R.id.textViewGeneros);
-        TextView textviewplataforma = findViewById(R.id.textViewPlataformas);
         EditText editTextNomeJogo = findViewById(R.id.textViewNomeJogo);
-        Spinner spinnerGenero = findViewById(R.id.spinnerGeneros);
-        Spinner spinnerPlataforma = findViewById(R.id.spinnerPlataformas);
+        Spinner spinnerGenero = findViewById(R.id.spinnerGenero);
+        Spinner spinnerPlataforma = findViewById(R.id.spinnerPlataforma);
+        Spinner spinnerJogado = findViewById(R.id.spinnerJogado);
 
         String NomeJogo = editTextNomeJogo.getText().toString();
-        int Genero = spinnerGenero.getSelectedItemPosition();
         int Plataforma = spinnerPlataforma.getSelectedItemPosition();
+        int Genero = spinnerGenero.getSelectedItemPosition();
+        int Jogado = spinnerJogado.getSelectedItemPosition();
+
+
+        TextView errorGenero = (TextView)spinnerGenero.getSelectedView();
+        TextView errorPlataforma = (TextView)spinnerPlataforma.getSelectedView();
+        TextView errorJogado = (TextView)spinnerJogado.getSelectedView();
 
             if (NomeJogo.trim().length() == 0) {
                 editTextNomeJogo.setError(getString(R.string.nome_obrigatorio));
-
+                editTextNomeJogo.requestFocus();
             }else
                 editTextNomeJogo.setError(null);
 
 
             if (Genero == 0) {
-                textviewgenero.setError(getString(R.string.genero_obrigatorio));
+                errorGenero.setError(getString(R.string.genero_obrigatorio));
+                errorGenero.requestFocus();
             }else
-                textviewgenero.setError(null);
+                errorGenero.setError(null);
 
             if (Plataforma == 0) {
-                textviewplataforma.setError(getString(R.string.plataforma_obrigatorio));
+                errorPlataforma.setError(getString(R.string.plataforma_obrigatorio));
+                errorPlataforma.requestFocus();
             }else
-                textviewplataforma.setError(null);
+                errorPlataforma.setError(null);
+
+            if (Jogado == 0) {
+                errorJogado.setError(getString(R.string.jogados_obrigatorio));
+                errorJogado.requestFocus();
+            }else
+                errorJogado.setError(null);
+
             if((NomeJogo.trim().length() != 0)&&(Genero!=0)&&(Plataforma!=0)){
                 finish();
                 Toast.makeText(this, getString(R.string.dados_sucesso), Toast.LENGTH_LONG).show();
@@ -78,14 +80,5 @@ public class NovoJogo extends AppCompatActivity implements AdapterView.OnItemSel
 
     public void CancelarJogo(View view){
         finish();
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
     }
 }

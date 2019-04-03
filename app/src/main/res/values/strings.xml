@@ -15,9 +15,10 @@
     <string name="nome_obrigatorio">Name of the game is required</string>
     <string name="genero_obrigatorio">Genre is required</string>
     <string name="plataforma_obrigatorio">Platform is required</string>
+    <string name="jogados_obrigatorio">Activity is required</string>
     <string name="dados_sucesso">Data saved successfully</string>
     <string-array name="generos">
-        <item>--</item>
+        <item>Escolha o Género</item>
         <item>FPS</item>
         <item>Luta</item>
         <item>Estrategia</item>
@@ -30,9 +31,15 @@
     <string name="textviewgeneros">Genres</string>
     <string name="textviewplataformas">Platforms</string>
     <string-array name="plataformas">
-        <item>--</item>
+        <item>Escolha Plataforma</item>
         <item>Plataforma1</item>
         <item>Plataforma2</item>
         <item>Plataforma3</item>
+    </string-array>
+    <string-array name="jogados">
+        <item>Atividade do jogo</item>
+        <item>Não jogado</item>
+        <item>A jogar</item>
+        <item>Completado</item>
     </string-array>
 </resources>
