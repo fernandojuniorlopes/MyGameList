@@ -11,9 +11,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".EliminarJogo"
+            android:label="@string/title_activity_eliminar_jogo"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".EditarJogo"
+            android:label="@string/title_activity_editar_jogo"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".NovoJogo"
             android:label="@string/Novojogo"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Plataformas"
             android:label="@string/title_activity_plataformas"

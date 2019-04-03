@@ -7,4 +7,14 @@
         android:orderInCategory="100"
         android:title="@string/itemadicionarnovojogo"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/EditarJogo"
+        android:orderInCategory="100"
+        android:title="@string/itemeditarjogo"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/EliminarJogo"
+        android:orderInCategory="100"
+        android:title="@string/itemeliminarjogo"
+        app:showAsAction="ifRoom" />
 </menu>

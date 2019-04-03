@@ -42,7 +42,19 @@ public class Jogos extends AppCompatActivity {
         if (id == R.id.NovoJogo) {
             Intent intent = new Intent(Jogos.this, NovoJogo.class);
             startActivity(intent);
-            Toast.makeText(this, "Adicionar Novo Jogo", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.itemadicionarnovojogo), Toast.LENGTH_LONG).show();
+            return true;
+        }
+        if (id == R.id.EditarJogo) {
+            Intent intent = new Intent(Jogos.this, EditarJogo.class);
+            startActivity(intent);
+            Toast.makeText(this, getString(R.string.EditarJogo), Toast.LENGTH_LONG).show();
+            return true;
+        }
+        if (id == R.id.EliminarJogo) {
+            Intent intent = new Intent(Jogos.this, EliminarJogo.class);
+            startActivity(intent);
+            Toast.makeText(this, getString(R.string.itemeliminarjogo), Toast.LENGTH_LONG).show();
             return true;
         }
         return super.onOptionsItemSelected(item);

@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".NovoJogo"
-    tools:showIn="@layout/activity_novo_jogo"
+    tools:context=".EditarJogo"
+    tools:showIn="@layout/activity_editar_jogo"
     tools:ignore="PrivateResource">
 
     <com.google.android.material.textfield.TextInputLayout
