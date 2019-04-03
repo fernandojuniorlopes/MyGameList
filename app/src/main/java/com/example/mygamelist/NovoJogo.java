@@ -33,12 +33,12 @@ public class NovoJogo extends AppCompatActivity {
     }
 
     public void ConfirmarJogo(View view){
-        EditText editTextNomeJogo = findViewById(R.id.textViewNomeJogo);
+        EditText editTextnomejogo = findViewById(R.id.textViewnomejogo);
         Spinner spinnerGenero = findViewById(R.id.spinnerGenero);
         Spinner spinnerPlataforma = findViewById(R.id.spinnerPlataforma);
         Spinner spinnerJogado = findViewById(R.id.spinnerJogado);
 
-        String NomeJogo = editTextNomeJogo.getText().toString();
+        String NomeJogo = editTextnomejogo.getText().toString();
         int Plataforma = spinnerPlataforma.getSelectedItemPosition();
         int Genero = spinnerGenero.getSelectedItemPosition();
         int Jogado = spinnerJogado.getSelectedItemPosition();
@@ -49,29 +49,29 @@ public class NovoJogo extends AppCompatActivity {
         TextView errorJogado = (TextView)spinnerJogado.getSelectedView();
 
             if (NomeJogo.trim().length() == 0) {
-                editTextNomeJogo.setError(getString(R.string.nome_obrigatorio));
-                editTextNomeJogo.requestFocus();
+                editTextnomejogo.setError(getString(R.string.nome_obrigatorio));
+                editTextnomejogo.requestFocus();
             }else
-                editTextNomeJogo.setError(null);
+                editTextnomejogo.setError(null);
 
 
             if (Genero == 0) {
                 errorGenero.setError(getString(R.string.genero_obrigatorio));
-                errorGenero.setTextColor(Color.RED);
+                errorGenero.setTextColor(getResources().getColor(R.color.colorRed));
                 errorGenero.setText(R.string.genero_obrigatorio);
             }else
                 errorGenero.setError(null);
 
             if (Plataforma == 0) {
                 errorPlataforma.setError(getString(R.string.plataforma_obrigatorio));
-                errorPlataforma.setTextColor(Color.RED);
+                errorPlataforma.setTextColor(getResources().getColor(R.color.colorRed));
                 errorPlataforma.setText(R.string.plataforma_obrigatorio);
             }else
                 errorPlataforma.setError(null);
 
             if (Jogado == 0) {
                 errorJogado.setError(getString(R.string.jogados_obrigatorio));
-                errorJogado.setTextColor(Color.RED);
+                errorJogado.setTextColor(getResources().getColor(R.color.colorRed));
                 errorJogado.setText(R.string.jogados_obrigatorio);
             }else
                 errorJogado.setError(null);
