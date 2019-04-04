@@ -43,12 +43,6 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
             return true;
         }
-        else if (id == R.id.MinhaConta) {
-            Intent intent = new Intent(MainActivity.this, MinhaConta.class);
-            startActivity(intent);
-            Toast.makeText(this, "Minha Conta", Toast.LENGTH_LONG).show();
-            return true;
-        }
         else if (id == R.id.Jogos) {
             Intent intent2 = new Intent(MainActivity.this, Jogos.class);
             startActivity(intent2);

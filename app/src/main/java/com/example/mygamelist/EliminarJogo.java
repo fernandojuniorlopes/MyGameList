@@ -22,8 +22,6 @@ public class EliminarJogo extends AppCompatActivity {
         setContentView(R.layout.activity_eliminar_jogo);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
     }
     public void Eliminar(View view){
 
@@ -46,6 +44,7 @@ public class EliminarJogo extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Toast.makeText(EliminarJogo.this, "O "+NomeJogo+" foi eliminado com sucesso!", Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
             builder.show();
@@ -53,4 +52,4 @@ public class EliminarJogo extends AppCompatActivity {
     public void Cancelar(View view){
         finish();
     }
-}
+    }
