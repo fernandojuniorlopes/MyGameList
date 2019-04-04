@@ -30,5 +30,7 @@
     <string name="title_activity_eliminar_jogo">Eliminar Jogo</string>
     <string name="eliminado_sucesso">Eliminado com sucesso</string>
     <string name="title_activity_editar_jogo">Editar Jogo</string>
+    <string name="mensagem_aviso">"Tem a certeza que quer eliminar este jogo?"</string>
+    <string name="titulo_aviso">Mensagem de aviso</string>
 
 </resources>

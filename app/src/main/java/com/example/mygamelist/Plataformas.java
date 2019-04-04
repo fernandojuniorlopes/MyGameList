@@ -9,6 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class Plataformas extends AppCompatActivity {
 
@@ -20,4 +24,23 @@ public class Plataformas extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
 
+    public void ConfirmarPlataforma(View view) {
+        EditText editTextnomeplataforma = findViewById(R.id.textViewPlataforma);
+        String NomePlataforma = editTextnomeplataforma.getText().toString();
+
+        if (NomePlataforma.trim().length() == 0) {
+            editTextnomeplataforma.setError(getString(R.string.plataforma_obrigatorio));
+            editTextnomeplataforma.requestFocus();
+        } else
+            editTextnomeplataforma.setError(null);
+
+        if (NomePlataforma.trim().length() != 0) {
+            finish();
+            Toast.makeText(this, getString(R.string.dados_sucesso), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void CancelarPlataforma(View view){
+        finish();
+    }
 }

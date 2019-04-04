@@ -27,6 +27,8 @@
         <item>Estrategia</item>
         <item>RPG</item>
     </string-array>
+    <string name="titulo_aviso">Warning message!</string>
+    <string name="mensagem_aviso">Are you sure you want to delete it?</string>
     <string name="spinner_plataforma">Choose platform</string>
     <string name="buttonguardar">Save</string>
     <string name="nome_do_jogo">Name of the game</string>
