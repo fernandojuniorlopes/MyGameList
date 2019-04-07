@@ -20,6 +20,7 @@
     <string name="dados_sucesso">Data saved successfully</string>
     <string name="itemeditarjogo">Edit</string>
     <string name="itemeliminarjogo">Delete</string>
+    <string name="completado">Completed</string>
     <string-array name="generos">
         <item>Escolha o Género</item>
         <item>FPS</item>
@@ -38,6 +39,7 @@
     <string name="eliminado_sucesso">Successfully Eliminated</string>
     <string name="title_activity_eliminar_jogo">Delete Game</string>
     <string name="title_activity_editar_jogo">Edit Game</string>
+    <string name="atividade">Activity</string>
     <string-array name="plataformas">
         <item>Escolha Plataforma</item>
         <item>Plataforma1</item>

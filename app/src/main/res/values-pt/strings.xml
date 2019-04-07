@@ -32,5 +32,7 @@
     <string name="title_activity_editar_jogo">Editar Jogo</string>
     <string name="mensagem_aviso">"Tem a certeza que quer eliminar este jogo?"</string>
     <string name="titulo_aviso">Mensagem de aviso</string>
+    <string name="completado">Completado</string>
+    <string name="atividade">Atividade</string>
 
 </resources>

@@ -25,9 +25,6 @@ public class EliminarJogo extends AppCompatActivity {
     }
     public void Eliminar(View view){
 
-        EditText editTextnomejogo = findViewById(R.id.TextViewEliminar);
-        final String NomeJogo = editTextnomejogo.getText().toString();
-
         AlertDialog.Builder builder = new AlertDialog.Builder(EliminarJogo.this);
         builder.setCancelable(true);
         builder.setTitle(getString(R.string.titulo_aviso));
@@ -43,7 +40,7 @@ public class EliminarJogo extends AppCompatActivity {
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(EliminarJogo.this, "O "+NomeJogo+" foi eliminado com sucesso!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EliminarJogo.this, "O jogo foi eliminado com sucesso!", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
