@@ -34,5 +34,8 @@
     <string name="titulo_aviso">Mensagem de aviso</string>
     <string name="completado">Completado</string>
     <string name="atividade">Atividade</string>
+    <string name="dias_obrigatorio"> dd </string>
+    <string name="mes_obrigatorio"> mm </string>
+    <string name="ano_obrigatorio">aaaa</string>
 
 </resources>

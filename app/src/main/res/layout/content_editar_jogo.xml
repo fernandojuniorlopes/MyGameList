@@ -36,30 +36,28 @@
         android:id="@+id/buttonGuardar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_button"
-        android:layout_marginLeft="@dimen/margin_button"
-        android:layout_marginTop="@dimen/margin_height"
-        android:layout_marginEnd="@dimen/marginend_button"
+        android:layout_marginStart="90dp"
+        android:layout_marginLeft="90dp"
+        android:layout_marginEnd="64dp"
         android:layout_marginRight="@dimen/margin_button"
         android:onClick="ConfirmarJogo"
         android:text="@string/buttonguardar"
+        app:layout_constraintBaseline_toBaselineOf="@+id/buttonEliminarCancelar"
         app:layout_constraintEnd_toStartOf="@+id/buttonEliminarCancelar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerJogado" />
+        app:layout_constraintHorizontal_bias="0.818"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/buttonEliminarCancelar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_button"
-        android:layout_marginLeft="@dimen/margin_button"
-        android:layout_marginTop="@dimen/margin_height"
-        android:layout_marginEnd="@dimen/marginend_button"
-        android:layout_marginRight="@dimen/margin_button"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="90dp"
+        android:layout_marginRight="90dp"
         android:onClick="CancelarJogo"
         android:text="@string/buttoncancelar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerJogado" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerAno" />
 
     <Spinner
         android:id="@+id/spinnerGenero"
@@ -103,4 +101,38 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerPlataforma" />
+
+    <Spinner
+        android:id="@+id/spinnerDia"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="50dp"
+        android:entries="@array/dia"
+        app:layout_constraintBaseline_toBaselineOf="@+id/spinnerMes"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Spinner
+        android:id="@+id/spinnerMes"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:entries="@array/mes"
+        app:layout_constraintEnd_toStartOf="@+id/spinnerAno"
+        app:layout_constraintStart_toEndOf="@+id/spinnerDia"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerJogado" />
+
+    <Spinner
+        android:id="@+id/spinnerAno"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginRight="50dp"
+        android:entries="@array/ano"
+        app:layout_constraintBaseline_toBaselineOf="@+id/spinnerMes"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

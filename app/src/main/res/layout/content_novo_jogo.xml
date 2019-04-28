@@ -2,12 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".NovoJogo"
-    tools:showIn="@layout/activity_novo_jogo"
-    tools:ignore="PrivateResource">
+    tools:ignore="PrivateResource"
+    tools:showIn="@layout/activity_novo_jogo">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textViewNomeJogo"
@@ -36,30 +37,28 @@
         android:id="@+id/buttonGuardar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_button"
-        android:layout_marginLeft="@dimen/margin_button"
-        android:layout_marginTop="@dimen/margin_height"
+        android:layout_marginStart="90dp"
+        android:layout_marginLeft="90dp"
         android:layout_marginEnd="64dp"
         android:layout_marginRight="@dimen/margin_button"
         android:onClick="ConfirmarJogo"
         android:text="@string/buttonguardar"
+        app:layout_constraintBaseline_toBaselineOf="@+id/buttonEliminarCancelar"
         app:layout_constraintEnd_toStartOf="@+id/buttonEliminarCancelar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerJogado" />
+        app:layout_constraintHorizontal_bias="0.818"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/buttonEliminarCancelar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_button"
-        android:layout_marginLeft="@dimen/margin_button"
-        android:layout_marginTop="@dimen/margin_height"
-        android:layout_marginEnd="64dp"
-        android:layout_marginRight="@dimen/margin_button"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="90dp"
+        android:layout_marginRight="90dp"
         android:onClick="CancelarJogo"
         android:text="@string/buttoncancelar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerJogado" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerAno" />
 
     <Spinner
         android:id="@+id/spinnerGenero"
@@ -103,4 +102,54 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerPlataforma" />
+
+    <Spinner
+        android:id="@+id/spinnerDia"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:entries="@array/dia"
+        app:layout_constraintBaseline_toBaselineOf="@+id/spinnerMes"
+        app:layout_constraintStart_toEndOf="@+id/textView10" />
+
+    <Spinner
+        android:id="@+id/spinnerMes"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:entries="@array/mes"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView10"
+        app:layout_constraintEnd_toStartOf="@+id/spinnerAno"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/spinnerDia" />
+
+    <Spinner
+        android:id="@+id/spinnerAno"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
+        android:entries="@array/ano"
+        app:layout_constraintBaseline_toBaselineOf="@+id/spinnerMes"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="Release:"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/spinnerDia"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerJogado" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
