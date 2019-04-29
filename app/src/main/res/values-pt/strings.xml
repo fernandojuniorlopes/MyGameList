@@ -47,7 +47,7 @@
     <string name="title_activity_novo_genero">Novo Género</string>
     <string name="title_activity_editar_genero">Editar Género</string>
     <string name="title_activity_eliminar_genero">Eliminar Género</string>
-    <string name="nome_genero">Name of genre</string>
+    <string name="nome_genero">Nome do genero</string>
     <string name="botao_ok">OK</string>
     <string name="genero_elimando_sucesso">O género foi eliminado com sucesso!</string>
     <string name="plataforma_elimando_sucesso">A plataforma foi eliminado com sucesso!</string>

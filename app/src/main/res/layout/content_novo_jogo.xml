@@ -107,8 +107,8 @@
         android:id="@+id/spinnerDia"
         android:layout_width="0dp"
         android:layout_height="30dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
         android:entries="@array/dia"
         app:layout_constraintBaseline_toBaselineOf="@+id/spinnerMes"
         app:layout_constraintStart_toEndOf="@+id/textViewRelease" />
@@ -119,23 +119,22 @@
         android:layout_height="30dp"
         android:layout_marginStart="5dp"
         android:layout_marginLeft="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
         android:entries="@array/mes"
         app:layout_constraintBaseline_toBaselineOf="@+id/textViewRelease"
-        app:layout_constraintEnd_toStartOf="@+id/spinnerAno"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/spinnerDia" />
 
     <Spinner
         android:id="@+id/spinnerAno"
         android:layout_width="0dp"
         android:layout_height="30dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
         android:layout_marginEnd="30dp"
         android:layout_marginRight="30dp"
         android:entries="@array/ano"
         app:layout_constraintBaseline_toBaselineOf="@+id/spinnerMes"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/spinnerMes" />
 
     <TextView
         android:id="@+id/textViewRelease"
