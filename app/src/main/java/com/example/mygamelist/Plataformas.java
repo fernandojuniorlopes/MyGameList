@@ -79,7 +79,7 @@ public class Plataformas extends AppCompatActivity {
             return true;
         }
         if (id == R.id.EliminarPlataforma) {
-            Intent intent = new Intent(Plataformas.this, EditarPlataforma.class);
+            Intent intent = new Intent(Plataformas.this, EliminarPlataforma.class);
             startActivity(intent);
             Toast.makeText(this, getString(R.string.itemeliminarjogo), Toast.LENGTH_LONG).show();
             return true;
