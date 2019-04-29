@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".NovaPlataforma"
+    tools:showIn="@layout/activity_nova_plataforma">
+
+    <Button
+        android:id="@+id/buttonGuardarPlataforma"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginLeft="64dp"
+        android:layout_marginTop="48dp"
+        android:onClick="ConfirmarPlataforma"
+        android:text="@string/buttonguardar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNomePlataforma" />
+
+    <Button
+        android:id="@+id/buttonEliminarCancelarPlataforma"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_button"
+        android:layout_marginLeft="@dimen/margin_button"
+        android:layout_marginTop="@dimen/margin_button"
+        android:layout_marginEnd="@dimen/margin_button"
+        android:layout_marginRight="@dimen/margin_button"
+        android:onClick="CancelarPlataforma"
+        android:text="@string/buttoncancelar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/buttonGuardarPlataforma"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNomePlataforma" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textViewNomePlataforma"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_button"
+        android:layout_marginLeft="@dimen/margin_button"
+        android:layout_marginTop="@dimen/margin_height"
+        android:layout_marginEnd="@dimen/marginend_button"
+        android:layout_marginRight="@dimen/margin_button"
+        android:autofillHints=""
+        android:inputType=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textViewPlataforma"
+            android:layout_width="352dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/nome_da_plataforma" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

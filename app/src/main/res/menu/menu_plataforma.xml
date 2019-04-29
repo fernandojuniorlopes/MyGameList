@@ -1,24 +1,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.mygamelist.Jogos">
+    tools:context="com.example.mygamelist.Plataformas">
     <item
-        android:id="@+id/NovoJogo"
+        android:id="@+id/AdicionarPlataformas"
         android:icon="@drawable/ic_add_box_black_24dp"
         android:orderInCategory="100"
         android:tint="#FFFFFF"
-        android:title="@string/itemadicionarnovojogo"
+        android:title="@string/title_activity_nova_plataforma"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/EditarJogo"
+        android:id="@+id/EditarPlataforma"
         android:icon="@drawable/ic_edit_black_24dp"
         android:orderInCategory="100"
-        android:title="@string/itemeditarjogo"
+        android:title="@string/title_activity_editar_plataforma"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/EliminarJogo"
+        android:id="@+id/EliminarPlataforma"
         android:icon="@drawable/ic_delete_black_24dp"
         android:orderInCategory="100"
-        android:title="@string/itemeliminarjogo"
+        android:title="@string/title_activity_eliminar_plataforma"
         app:showAsAction="never" />
 </menu>

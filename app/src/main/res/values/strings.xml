@@ -32,23 +32,69 @@
         <item>RPG</item>
     </string-array>
     <string-array name="dia">
-        <item> dd </item><item>1</item><item>2</item><item>3</item><item>4</item><item>5</item><item>6</item><item>7</item><item>8</item>
-        <item>9</item><item>10</item><item>11</item><item>12</item><item>13</item><item>14</item><item>15</item><item>16</item><item>17</item>
-        <item>18</item><item>19</item><item>20</item><item>21</item><item>22</item><item>23</item><item>24</item><item>25</item>
-        <item>26</item><item>27</item><item>28</item><item>29</item><item>30</item><item>31</item>
+        <item> dd </item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>27</item>
+        <item>28</item>
+        <item>29</item>
+        <item>30</item>
+        <item>31</item>
     </string-array>
     <string-array name="mes">
-        <item> mm </item><item>1</item><item>2</item><item>3</item><item>4</item><item>5</item><item>6</item><item>7</item><item>8</item><item>9</item>
-        <item>10</item><item>11</item><item>12</item>
+        <item> mm </item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
     </string-array>
     <string-array name="ano">
-    <item>aaaa</item><item>1990</item><item>1991</item><item>1992</item><item>1993</item><item>1994</item><item>1995</item>
+        <item>aaaa</item>
+        <item>1990</item>
+        <item>1991</item>
+        <item>1992</item>
+        <item>1993</item>
+        <item>1994</item>
+        <item>1995</item>
     </string-array>
     <string name="titulo_aviso">Warning message!</string>
     <string name="mensagem_aviso">Are you sure you want to delete it?</string>
     <string name="spinner_plataforma">Choose platform</string>
     <string name="buttonguardar">Save</string>
     <string name="nome_do_jogo">Name of the game</string>
+    <string name="nome_da_plataforma">Name of the platform</string>
     <string name="buttoncancelar">Cancel</string>
     <string name="textviewgeneros">Genres</string>
     <string name="textviewplataformas">Platforms</string>
@@ -68,4 +114,9 @@
         <item>A jogar</item>
         <item>Completado</item>
     </string-array>
+    <string name="release">Release:</string>
+    <string name="title_activity_editar_plataforma">Edit Plataform</string>
+    <string name="title_activity_eliminar_plataforma">Delete Plataform</string>
+    <string name="title_activity_nova_plataforma">Add Plataform</string>
+    <string name="nome_plataforma">Name of platform</string>
 </resources>

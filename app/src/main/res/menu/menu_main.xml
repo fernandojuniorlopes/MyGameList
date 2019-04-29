@@ -4,17 +4,21 @@
     tools:context="com.example.mygamelist.MainActivity">
     <item
         android:id="@+id/Settings"
+        android:icon="@drawable/ic_settings_black_24dp"
         android:orderInCategory="100"
         android:title="@string/itemsettings"
+        android:visible="true"
         app:showAsAction="never" />
     <item
         android:id="@+id/Jogos"
+        android:icon="@drawable/ic_videogame_asset_black_24dp"
         android:orderInCategory="100"
         android:title="@string/jogos"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/Plataformas"
+        android:icon="@drawable/ic_filter_none_black_24dp"
         android:orderInCategory="100"
         android:title="@string/plataformas"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never" />
 </menu>

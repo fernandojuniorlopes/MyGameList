@@ -11,9 +11,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".NovaPlataforma"
+            android:label="@string/title_activity_nova_plataforma"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".EliminarPlataforma"
+            android:label="@string/title_activity_eliminar_plataforma"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".EditarPlataforma"
+            android:label="@string/title_activity_editar_plataforma"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".EliminarJogo"
             android:label="@string/title_activity_eliminar_jogo"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".EditarJogo"
             android:label="@string/title_activity_editar_jogo"

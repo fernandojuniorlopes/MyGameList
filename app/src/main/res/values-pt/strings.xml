@@ -37,5 +37,10 @@
     <string name="dias_obrigatorio"> dd </string>
     <string name="mes_obrigatorio"> mm </string>
     <string name="ano_obrigatorio">aaaa</string>
-
+    <string name="release">Lançado:</string>
+    <string name="nome_da_plataforma">Nome da Plataforma</string>
+    <string name="title_activity_editar_plataforma">Editar Plataforma</string>
+    <string name="title_activity_eliminar_plataforma">Eliminar Plataforma</string>
+    <string name="title_activity_nova_plataforma">Adicionar Plataforma</string>
+    <string name="nome_plataforma">Name da plataforma</string>
 </resources>
