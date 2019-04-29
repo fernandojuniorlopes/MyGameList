@@ -49,7 +49,7 @@ public class NovoJogo extends AppCompatActivity {
         int Dia = spinnerDia.getSelectedItemPosition();
         int Mes = spinnerMes.getSelectedItemPosition();
         int Ano = spinnerAno.getSelectedItemPosition();
-        int flag = 0;
+        boolean flag = true;
 
         TextView errorGenero = (TextView)spinnerGenero.getSelectedView();
         TextView errorPlataforma = (TextView)spinnerPlataforma.getSelectedView();
@@ -62,6 +62,7 @@ public class NovoJogo extends AppCompatActivity {
         if (NomeJogo.trim().length() == 0) {
             editTextnomejogo.setError(getString(R.string.nome_obrigatorio));
             editTextnomejogo.requestFocus();
+            flag = false;
         }else
             editTextnomejogo.setError(null);
 
@@ -70,6 +71,7 @@ public class NovoJogo extends AppCompatActivity {
             errorGenero.setError(getString(R.string.genero_obrigatorio));
             errorGenero.setTextColor(getResources().getColor(R.color.colorRed));
             errorGenero.setText(R.string.genero_obrigatorio);
+            flag = false;
         }else
             errorGenero.setError(null);
 
@@ -77,6 +79,7 @@ public class NovoJogo extends AppCompatActivity {
             errorPlataforma.setError(getString(R.string.plataforma_obrigatorio));
             errorPlataforma.setTextColor(getResources().getColor(R.color.colorRed));
             errorPlataforma.setText(R.string.plataforma_obrigatorio);
+            flag = false;
         }else
             errorPlataforma.setError(null);
 
@@ -84,24 +87,28 @@ public class NovoJogo extends AppCompatActivity {
             errorJogado.setError(getString(R.string.jogados_obrigatorio));
             errorJogado.setTextColor(getResources().getColor(R.color.colorRed));
             errorJogado.setText(R.string.jogados_obrigatorio);
+            flag = false;
         }else
             errorJogado.setError(null);
 
         if (Dia == 0) {
             errorDia.setTextColor(getResources().getColor(R.color.colorRed));
             errorDia.setText(R.string.dias_obrigatorio);
+            flag = false;
         }else
             errorDia.setError(null);
 
         if (Mes == 0) {
             errorMes.setTextColor(getResources().getColor(R.color.colorRed));
             errorMes.setText(R.string.mes_obrigatorio);
+            flag = false;
         }else
             errorMes.setError(null);
 
         if (Ano == 0) {
             errorAno.setTextColor(getResources().getColor(R.color.colorRed));
             errorAno.setText(R.string.ano_obrigatorio);
+            flag = false;
         }else
             errorAno.setError(null);
 
@@ -121,9 +128,8 @@ public class NovoJogo extends AppCompatActivity {
                         errorMes.setText(R.string.mes_obrigatorio);
                         errorAno.setTextColor(getResources().getColor(R.color.colorRed));
                         errorAno.setText(R.string.ano_obrigatorio);
-                        flag = 0;
+                        flag = false;
                     } else {
-                        flag = 1;
                         errorDia.setError(null);
                         errorMes.setError(null);
                         errorAno.setError(null);
@@ -140,9 +146,8 @@ public class NovoJogo extends AppCompatActivity {
                         errorMes.setText(R.string.mes_obrigatorio);
                         errorAno.setTextColor(getResources().getColor(R.color.colorRed));
                         errorAno.setText(R.string.ano_obrigatorio);
-                        flag = 0;
+                        flag = false;
                     } else {
-                        flag = 1;
                         errorDia.setError(null);
                         errorMes.setError(null);
                         errorAno.setError(null);
@@ -157,9 +162,8 @@ public class NovoJogo extends AppCompatActivity {
                             errorMes.setText(R.string.mes_obrigatorio);
                             errorAno.setTextColor(getResources().getColor(R.color.colorRed));
                             errorAno.setText(R.string.ano_obrigatorio);
-                            flag = 0;
+                            flag = false;
                         } else {
-                            flag = 1;
                             errorDia.setError(null);
                             errorMes.setError(null);
                             errorAno.setError(null);
@@ -172,15 +176,11 @@ public class NovoJogo extends AppCompatActivity {
                             errorMes.setText(R.string.mes_obrigatorio);
                             errorAno.setTextColor(getResources().getColor(R.color.colorRed));
                             errorAno.setText(R.string.ano_obrigatorio);
-                            flag = 0;
+                            flag = false;
                         } else {
-                            flag = 1;
-                            errorDia.setTextColor(getResources().getColor(R.color.colorRed));
-                            errorDia.setText(R.string.dias_obrigatorio);
-                            errorMes.setTextColor(getResources().getColor(R.color.colorRed));
-                            errorMes.setText(R.string.mes_obrigatorio);
-                            errorAno.setTextColor(getResources().getColor(R.color.colorRed));
-                            errorAno.setText(R.string.ano_obrigatorio);
+                            errorDia.setError(null);
+                            errorMes.setError(null);
+                            errorAno.setError(null);
                         }
                         break;
                     }
@@ -194,7 +194,7 @@ public class NovoJogo extends AppCompatActivity {
             errorAno.setTextColor(getResources().getColor(R.color.colorRed));
             errorAno.setText(R.string.ano_obrigatorio);
         }
-        if((NomeJogo.trim().length() != 0)&&(Genero!=0)&&(Plataforma!=0)&&(Dia!=0)&&(Mes!=0)&&(Ano!=0)&&(flag == 1)){
+        if(flag){
             finish();
             Toast.makeText(this, getString(R.string.dados_sucesso), Toast.LENGTH_LONG).show();
         }
