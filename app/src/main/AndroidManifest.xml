@@ -11,9 +11,25 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".EliminarGenero"
+            android:label="@string/title_activity_eliminar_genero"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".EditarGenero"
+            android:label="@string/title_activity_editar_genero"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".NovoGenero"
+            android:label="@string/title_activity_novo_genero"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Generos"
+            android:label="@string/title_activity_generos"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".NovaPlataforma"
             android:label="@string/title_activity_nova_plataforma"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".EliminarPlataforma"
             android:label="@string/title_activity_eliminar_plataforma"

@@ -55,6 +55,12 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Plataformas", Toast.LENGTH_LONG).show();
             return true;
         }
+        else if (id == R.id.Generos) {
+            Intent intent3 = new Intent(MainActivity.this, Generos.class);
+            startActivity(intent3);
+            Toast.makeText(this, "Generos", Toast.LENGTH_LONG).show();
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }

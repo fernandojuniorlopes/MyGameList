@@ -119,4 +119,14 @@
     <string name="title_activity_eliminar_plataforma">Delete Plataform</string>
     <string name="title_activity_nova_plataforma">Add Plataform</string>
     <string name="nome_plataforma">Name of platform</string>
+    <string name="nome_genero">Name of genre</string>
+    <string name="title_activity_generos">Generos</string>
+    <string name="title_activity_novo_genero">New Genre</string>
+    <string name="title_activity_editar_genero">Edit Genre</string>
+    <string name="title_activity_eliminar_genero">Delete Genre</string>
+    <string name="genero_elimando_sucesso">The genre was deleted successfully</string>
+    <string name="plataforma_elimando_sucesso">The platform was deleted successfully</string>
+    <string name="jogo_elimando_sucesso">The game was deleted successfully</string>
+    <string name="botao_ok">OK</string>
+    <string name="botao_cancelar">Cancel</string>
 </resources>

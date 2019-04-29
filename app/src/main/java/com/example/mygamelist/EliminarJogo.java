@@ -31,16 +31,16 @@ public class EliminarJogo extends AppCompatActivity {
         builder.setMessage(getString(R.string.mensagem_aviso));
 
 
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(getString(R.string.botao_cancelar), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int which) {
                 dialogInterface.cancel();
             }
         });
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.botao_ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(EliminarJogo.this, "O jogo foi eliminado com sucesso!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EliminarJogo.this, getString(R.string.jogo_elimando_sucesso), Toast.LENGTH_SHORT).show();
                 finish();
             }
         });

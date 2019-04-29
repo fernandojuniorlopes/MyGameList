@@ -1,0 +1,24 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.mygamelist.Generos">
+    <item
+        android:id="@+id/AdicionarGeneros"
+        android:icon="@drawable/ic_add_box_black_24dp"
+        android:orderInCategory="100"
+        android:tint="#FFFFFF"
+        android:title="@string/title_activity_novo_genero"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/EditarGeneros"
+        android:icon="@drawable/ic_edit_black_24dp"
+        android:orderInCategory="100"
+        android:title="@string/title_activity_editar_genero"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/EliminarGeneros"
+        android:icon="@drawable/ic_delete_black_24dp"
+        android:orderInCategory="100"
+        android:title="@string/title_activity_eliminar_genero"
+        app:showAsAction="never" />
+</menu>

@@ -30,7 +30,7 @@
     <string name="title_activity_eliminar_jogo">Eliminar Jogo</string>
     <string name="eliminado_sucesso">Eliminado com sucesso</string>
     <string name="title_activity_editar_jogo">Editar Jogo</string>
-    <string name="mensagem_aviso">"Tem a certeza que quer eliminar este jogo?"</string>
+    <string name="mensagem_aviso">Tem a certeza que quer eliminar ?</string>
     <string name="titulo_aviso">Mensagem de aviso</string>
     <string name="completado">Completado</string>
     <string name="atividade">Atividade</string>
@@ -43,4 +43,14 @@
     <string name="title_activity_eliminar_plataforma">Eliminar Plataforma</string>
     <string name="title_activity_nova_plataforma">Adicionar Plataforma</string>
     <string name="nome_plataforma">Name da plataforma</string>
+    <string name="title_activity_generos">Géneros</string>
+    <string name="title_activity_novo_genero">Novo Género</string>
+    <string name="title_activity_editar_genero">Editar Género</string>
+    <string name="title_activity_eliminar_genero">Eliminar Género</string>
+    <string name="nome_genero">Name of genre</string>
+    <string name="botao_ok">OK</string>
+    <string name="genero_elimando_sucesso">O género foi eliminado com sucesso!</string>
+    <string name="plataforma_elimando_sucesso">A plataforma foi eliminado com sucesso!</string>
+    <string name="jogo_elimando_sucesso">O jogo foi eliminado com sucesso!</string>
+    <string name="botao_cancelar">Cancelar</string>
 </resources>

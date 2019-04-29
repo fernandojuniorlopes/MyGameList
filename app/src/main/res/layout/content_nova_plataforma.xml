@@ -9,7 +9,7 @@
     tools:showIn="@layout/activity_nova_plataforma">
 
     <Button
-        android:id="@+id/buttonGuardarPlataforma"
+        android:id="@+id/buttonGuardarGenero"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
@@ -18,7 +18,7 @@
         android:onClick="ConfirmarPlataforma"
         android:text="@string/buttonguardar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewNomePlataforma" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewNomeGenero" />
 
     <Button
         android:id="@+id/buttonEliminarCancelarPlataforma"
@@ -32,11 +32,11 @@
         android:onClick="CancelarPlataforma"
         android:text="@string/buttoncancelar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/buttonGuardarPlataforma"
-        app:layout_constraintTop_toBottomOf="@+id/textViewNomePlataforma" />
+        app:layout_constraintStart_toEndOf="@+id/buttonGuardarGenero"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNomeGenero" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textViewNomePlataforma"
+        android:id="@+id/textViewNomeGenero"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_button"

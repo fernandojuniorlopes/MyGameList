@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".EditarPlataforma"
-    tools:showIn="@layout/activity_editar_plataforma">
+    tools:context=".EditarGenero"
+    tools:showIn="@layout/activity_editar_genero">
 
     <Button
         android:id="@+id/buttonGuardarGenero"
@@ -15,13 +15,13 @@
         android:layout_marginStart="64dp"
         android:layout_marginLeft="64dp"
         android:layout_marginTop="48dp"
-        android:onClick="ConfirmarPlataforma"
+        android:onClick="ConfirmarGenero"
         android:text="@string/buttonguardar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewNomeGenero" />
 
     <Button
-        android:id="@+id/buttonEliminarCancelarPlataforma"
+        android:id="@+id/buttonEliminarCancelarGenero"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_button"
@@ -29,7 +29,7 @@
         android:layout_marginTop="@dimen/margin_button"
         android:layout_marginEnd="@dimen/margin_button"
         android:layout_marginRight="@dimen/margin_button"
-        android:onClick="CancelarPlataforma"
+        android:onClick="CancelarGenero"
         android:text="@string/buttoncancelar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/buttonGuardarGenero"
@@ -51,11 +51,11 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textViewPlataforma"
+            android:id="@+id/textViewGenero"
             android:layout_width="352dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="@string/nome_da_plataforma" />
+            android:hint="@string/nome_genero" />
 
     </com.google.android.material.textfield.TextInputLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
