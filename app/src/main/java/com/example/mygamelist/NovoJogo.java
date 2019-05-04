@@ -1,21 +1,13 @@
 package com.example.mygamelist;
 
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -68,46 +60,37 @@ public class NovoJogo extends AppCompatActivity {
 
 
         if (Genero == 0) {
-            errorGenero.setError(getString(R.string.genero_obrigatorio));
-            errorGenero.setTextColor(getResources().getColor(R.color.colorRed));
-            errorGenero.setText(R.string.genero_obrigatorio);
+            tratarErros(errorGenero,(getString(R.string.genero_obrigatorio)));
             flag = false;
         }else
             errorGenero.setError(null);
 
         if (Plataforma == 0) {
-            errorPlataforma.setError(getString(R.string.plataforma_obrigatorio));
-            errorPlataforma.setTextColor(getResources().getColor(R.color.colorRed));
-            errorPlataforma.setText(R.string.plataforma_obrigatorio);
+            tratarErros(errorPlataforma, (getString(R.string.plataforma_obrigatorio)));
             flag = false;
         }else
             errorPlataforma.setError(null);
 
         if (Jogado == 0) {
-            errorJogado.setError(getString(R.string.jogados_obrigatorio));
-            errorJogado.setTextColor(getResources().getColor(R.color.colorRed));
-            errorJogado.setText(R.string.jogados_obrigatorio);
+            tratarErros(errorJogado, (getString(R.string.jogados_obrigatorio)));
             flag = false;
         }else
             errorJogado.setError(null);
 
         if (Dia == 0) {
-            errorDia.setTextColor(getResources().getColor(R.color.colorRed));
-            errorDia.setText(R.string.dias_obrigatorio);
+            ErroData(errorDia, (getString(R.string.dias_obrigatorio)));
             flag = false;
         }else
             errorDia.setError(null);
 
         if (Mes == 0) {
-            errorMes.setTextColor(getResources().getColor(R.color.colorRed));
-            errorMes.setText(R.string.mes_obrigatorio);
+            ErroData(errorMes,(getString(R.string.mes_obrigatorio)));
             flag = false;
         }else
             errorMes.setError(null);
 
         if (Ano == 0) {
-            errorAno.setTextColor(getResources().getColor(R.color.colorRed));
-            errorAno.setText(R.string.ano_obrigatorio);
+            ErroData(errorAno,(getString(R.string.ano_obrigatorio)));
             flag = false;
         }else
             errorAno.setError(null);
@@ -122,12 +105,9 @@ public class NovoJogo extends AppCompatActivity {
                 case 10:
                 case 12:
                     if (Dia > 31) {
-                        errorDia.setTextColor(getResources().getColor(R.color.colorRed));
-                        errorDia.setText(R.string.dias_obrigatorio);
-                        errorMes.setTextColor(getResources().getColor(R.color.colorRed));
-                        errorMes.setText(R.string.mes_obrigatorio);
-                        errorAno.setTextColor(getResources().getColor(R.color.colorRed));
-                        errorAno.setText(R.string.ano_obrigatorio);
+                        ErroData(errorDia, (getString(R.string.dias_obrigatorio)));
+                        ErroData(errorMes,(getString(R.string.mes_obrigatorio)));
+                        ErroData(errorAno,(getString(R.string.ano_obrigatorio)));
                         flag = false;
                     } else {
                         errorDia.setError(null);
@@ -140,12 +120,9 @@ public class NovoJogo extends AppCompatActivity {
                 case 9:
                 case 11:
                     if (Dia > 30) {
-                        errorDia.setTextColor(getResources().getColor(R.color.colorRed));
-                        errorDia.setText(R.string.dias_obrigatorio);
-                        errorMes.setTextColor(getResources().getColor(R.color.colorRed));
-                        errorMes.setText(R.string.mes_obrigatorio);
-                        errorAno.setTextColor(getResources().getColor(R.color.colorRed));
-                        errorAno.setText(R.string.ano_obrigatorio);
+                        ErroData(errorDia, (getString(R.string.dias_obrigatorio)));
+                        ErroData(errorMes,(getString(R.string.mes_obrigatorio)));
+                        ErroData(errorAno,(getString(R.string.ano_obrigatorio)));
                         flag = false;
                     } else {
                         errorDia.setError(null);
@@ -156,12 +133,9 @@ public class NovoJogo extends AppCompatActivity {
                 case 2:
                     if (Ano % 4 == 0) {
                         if (Dia > 29) {
-                            errorDia.setTextColor(getResources().getColor(R.color.colorRed));
-                            errorDia.setText(R.string.dias_obrigatorio);
-                            errorMes.setTextColor(getResources().getColor(R.color.colorRed));
-                            errorMes.setText(R.string.mes_obrigatorio);
-                            errorAno.setTextColor(getResources().getColor(R.color.colorRed));
-                            errorAno.setText(R.string.ano_obrigatorio);
+                            ErroData(errorDia, (getString(R.string.dias_obrigatorio)));
+                            ErroData(errorMes,(getString(R.string.mes_obrigatorio)));
+                            ErroData(errorAno,(getString(R.string.ano_obrigatorio)));
                             flag = false;
                         } else {
                             errorDia.setError(null);
@@ -170,12 +144,9 @@ public class NovoJogo extends AppCompatActivity {
                         }
                     } else {
                         if (Dia > 28) {
-                            errorDia.setTextColor(getResources().getColor(R.color.colorRed));
-                            errorDia.setText(R.string.dias_obrigatorio);
-                            errorMes.setTextColor(getResources().getColor(R.color.colorRed));
-                            errorMes.setText(R.string.mes_obrigatorio);
-                            errorAno.setTextColor(getResources().getColor(R.color.colorRed));
-                            errorAno.setText(R.string.ano_obrigatorio);
+                            ErroData(errorDia, (getString(R.string.dias_obrigatorio)));
+                            ErroData(errorMes,(getString(R.string.mes_obrigatorio)));
+                            ErroData(errorAno,(getString(R.string.ano_obrigatorio)));
                             flag = false;
                         } else {
                             errorDia.setError(null);
@@ -187,12 +158,9 @@ public class NovoJogo extends AppCompatActivity {
             }
 
         }else{
-            errorDia.setTextColor(getResources().getColor(R.color.colorRed));
-            errorDia.setText(R.string.dias_obrigatorio);
-            errorMes.setTextColor(getResources().getColor(R.color.colorRed));
-            errorMes.setText(R.string.mes_obrigatorio);
-            errorAno.setTextColor(getResources().getColor(R.color.colorRed));
-            errorAno.setText(R.string.ano_obrigatorio);
+            ErroData(errorDia, (getString(R.string.dias_obrigatorio)));
+            ErroData(errorMes,(getString(R.string.mes_obrigatorio)));
+            ErroData(errorAno,(getString(R.string.ano_obrigatorio)));
         }
         if(flag){
             finish();
@@ -202,5 +170,15 @@ public class NovoJogo extends AppCompatActivity {
 
     public void CancelarJogo(View view){
         finish();
+    }
+
+    public void tratarErros(TextView textView, String string){
+        textView.setError(string);
+        textView.setTextColor(getResources().getColor(R.color.colorRed));
+        textView.setText(string);
+    }
+    public void ErroData(TextView textView, String string){
+        textView.setTextColor(getResources().getColor(R.color.colorRed));
+        textView.setText(string);
     }
 }
