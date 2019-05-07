@@ -57,7 +57,7 @@
         android:onClick="CancelarJogo"
         android:text="@string/buttoncancelar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerAno" />
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxFavoritos" />
 
     <Spinner
         android:id="@+id/spinnerGenero"
@@ -147,4 +147,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerJogado" />
 
+    <CheckBox
+        android:id="@+id/checkBoxFavoritos"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:text="@string/add_favoritos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewRelease" />
 </androidx.constraintlayout.widget.ConstraintLayout>

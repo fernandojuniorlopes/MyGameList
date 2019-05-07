@@ -129,4 +129,5 @@
     <string name="jogo_elimando_sucesso">The game was deleted successfully</string>
     <string name="botao_ok">OK</string>
     <string name="botao_cancelar">Cancel</string>
+    <string name="add_favoritos">Add to favorites</string>
 </resources>

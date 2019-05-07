@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -25,7 +26,9 @@ public class NovoJogo extends AppCompatActivity {
     }
 
     public void ConfirmarJogo(View view){
+
         EditText editTextnomejogo = findViewById(R.id.textViewnomejogo);
+
         Spinner spinnerGenero = findViewById(R.id.spinnerGenero);
         Spinner spinnerPlataforma = findViewById(R.id.spinnerPlataforma);
         Spinner spinnerJogado = findViewById(R.id.spinnerJogado);
@@ -33,15 +36,7 @@ public class NovoJogo extends AppCompatActivity {
         Spinner spinnerMes = findViewById(R.id.spinnerMes);
         Spinner spinnerAno = findViewById(R.id.spinnerAno);
 
-
-        String NomeJogo = editTextnomejogo.getText().toString();
-        int Plataforma = spinnerPlataforma.getSelectedItemPosition();
-        int Genero = spinnerGenero.getSelectedItemPosition();
-        int Jogado = spinnerJogado.getSelectedItemPosition();
-        int Dia = spinnerDia.getSelectedItemPosition();
-        int Mes = spinnerMes.getSelectedItemPosition();
-        int Ano = spinnerAno.getSelectedItemPosition();
-        boolean flag = true;
+        CheckBox checkBoxFavoritos = findViewById(R.id.checkBoxFavoritos);
 
         TextView errorGenero = (TextView)spinnerGenero.getSelectedView();
         TextView errorPlataforma = (TextView)spinnerPlataforma.getSelectedView();
@@ -50,6 +45,21 @@ public class NovoJogo extends AppCompatActivity {
         TextView errorMes = (TextView)spinnerMes.getSelectedView();
         TextView errorAno = (TextView)spinnerAno.getSelectedView();
 
+        String NomeJogo = editTextnomejogo.getText().toString();
+
+        int Plataforma = spinnerPlataforma.getSelectedItemPosition();
+        int Genero = spinnerGenero.getSelectedItemPosition();
+        int Jogado = spinnerJogado.getSelectedItemPosition();
+        int Dia = spinnerDia.getSelectedItemPosition();
+        int Mes = spinnerMes.getSelectedItemPosition();
+        int Ano = spinnerAno.getSelectedItemPosition();
+
+        boolean flag = true;
+        boolean favoritos = false;
+
+        if(checkBoxFavoritos.isChecked()){
+            favoritos = true;
+        }
 
         if (NomeJogo.trim().length() == 0) {
             editTextnomejogo.setError(getString(R.string.nome_obrigatorio));
