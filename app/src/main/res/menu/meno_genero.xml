@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.mygamelist.Generos">
+    tools:context="com.example.mygamelist.GenerosActivity">
     <item
         android:id="@+id/AdicionarGeneros"
         android:icon="@drawable/ic_add_box_black_24dp"

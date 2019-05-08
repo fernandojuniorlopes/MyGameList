@@ -12,35 +12,34 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class NovoGenero extends AppCompatActivity {
+public class NovaPlataformaActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_novo_genero);
+        setContentView(R.layout.activity_nova_plataforma);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
     }
-    public void ConfirmarGenero(View view) {
-        EditText editTextNomeGenero = findViewById(R.id.textViewGenero);
-        String NomeGenero = editTextNomeGenero.getText().toString();
+    public void ConfirmarPlataforma(View view) {
+        EditText editTextnomeplataforma = findViewById(R.id.textViewPlataforma);
+        String NomePlataforma = editTextnomeplataforma.getText().toString();
 
-        if (NomeGenero.trim().length() == 0) {
-            editTextNomeGenero.setError(getString(R.string.genero_obrigatorio));
-            editTextNomeGenero.requestFocus();
+        if (NomePlataforma.trim().length() == 0) {
+            editTextnomeplataforma.setError(getString(R.string.plataforma_obrigatorio));
+            editTextnomeplataforma.requestFocus();
         } else
-            editTextNomeGenero.setError(null);
+            editTextnomeplataforma.setError(null);
 
-        if (NomeGenero.trim().length() != 0) {
+        if (NomePlataforma.trim().length() != 0) {
             finish();
             Toast.makeText(this, getString(R.string.dados_sucesso), Toast.LENGTH_LONG).show();
         }
     }
 
-    public void CancelarGenero(View view){
+    public void CancelarPlataforma(View view){
         finish();
     }
 
 }
-
-

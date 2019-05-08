@@ -1,66 +1,42 @@
 package com.example.mygamelist;
 
-import android.content.Intent;
-import android.os.Bundle;
+import android.database.Cursor;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+public class Plataformas {
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+    public long Id;
+    public String Nome;
 
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
-
-public class Plataformas extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_plataformas);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-    }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_plataforma, menu);
-        return true;
+    public long getId() {
+        return Id;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-
-        if (id == R.id.AdicionarPlataformas) {
-            Intent intent = new Intent(Plataformas.this, NovaPlataforma.class);
-            startActivity(intent);
-            Toast.makeText(this, getString(R.string.itemadicionarnovojogo), Toast.LENGTH_LONG).show();
-            return true;
-        }
-        if (id == R.id.EditarPlataforma) {
-            Intent intent = new Intent(Plataformas.this, EditarPlataforma.class);
-            startActivity(intent);
-            Toast.makeText(this, getString(R.string.EditarJogo), Toast.LENGTH_LONG).show();
-            return true;
-        }
-        if (id == R.id.EliminarPlataforma) {
-            Intent intent = new Intent(Plataformas.this, EliminarPlataforma.class);
-            startActivity(intent);
-            Toast.makeText(this, getString(R.string.itemeliminarjogo), Toast.LENGTH_LONG).show();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    public void setId(long id) {
+        Id = id;
     }
 
+    public String getNome() {
+        return Nome;
+    }
+
+    public void setNome(String nome) {
+        Nome = nome;
+    }
+
+    public static Plataformas fromCursor(Cursor cursor) {
+        long id = cursor.getLong(
+                cursor.getColumnIndex(BdTablePlataformas._ID)
+        );
+
+        String nome = cursor.getString(
+                cursor.getColumnIndex(BdTablePlataformas.NOME_PLATAFORMA)
+        );
+
+        Plataformas plataforma = new Plataformas();
+
+        plataforma.setId(id);
+        plataforma.setNome(nome);
+
+        return plataforma;
+    }
 }

@@ -10,20 +10,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class GenerosActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_generos);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.meno_genero, menu);
         return true;
     }
 
@@ -35,29 +34,26 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.Settings) {
-            Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
-            return true;
-        }
-        else if (id == R.id.Jogos) {
-            Intent intent2 = new Intent(MainActivity.this, JogosActivity.class);
-            startActivity(intent2);
-            Toast.makeText(this, "JogosActivity", Toast.LENGTH_LONG).show();
-            return true;
-        }
-        else if (id == R.id.Plataformas) {
-            Intent intent3 = new Intent(MainActivity.this, PlataformasActivity.class);
-            startActivity(intent3);
-            Toast.makeText(this, "PlataformasActivity", Toast.LENGTH_LONG).show();
-            return true;
-        }
-        else if (id == R.id.Generos) {
-            Intent intent3 = new Intent(MainActivity.this, GenerosActivity.class);
-            startActivity(intent3);
-            Toast.makeText(this, "GenerosActivity", Toast.LENGTH_LONG).show();
-            return true;
-        }
 
+        if (id == R.id.AdicionarGeneros) {
+            Intent intent = new Intent(GenerosActivity.this, NovoGeneroActivity.class);
+            startActivity(intent);
+            Toast.makeText(this, getString(R.string.itemadicionarnovojogo), Toast.LENGTH_LONG).show();
+            return true;
+        }
+        if (id == R.id.EditarGeneros) {
+            Intent intent = new Intent(GenerosActivity.this, EditarGeneroActivity.class);
+            startActivity(intent);
+            Toast.makeText(this, getString(R.string.EditarJogo), Toast.LENGTH_LONG).show();
+            return true;
+        }
+        if (id == R.id.EliminarGeneros) {
+            Intent intent = new Intent(GenerosActivity.this, EliminarGeneroActivity.class);
+            startActivity(intent);
+            Toast.makeText(this, getString(R.string.itemeliminarjogo), Toast.LENGTH_LONG).show();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
+
 }

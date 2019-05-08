@@ -1,64 +1,85 @@
 package com.example.mygamelist;
 
-import android.content.Intent;
-import android.os.Bundle;
+import android.database.Cursor;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+public class Jogos {
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+    private long Id;
+    private String Nome;
+    private String Atividade;
+    private String DataLancamento;
+    private int favorito;
 
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
-
-public class Jogos extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_jogos);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-    }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_jogo, menu);
-        return true;
+    public long getId() {
+        return Id;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-
-        if (id == R.id.NovoJogo) {
-            Intent intent = new Intent(Jogos.this, NovoJogo.class);
-            startActivity(intent);
-            Toast.makeText(this, getString(R.string.itemadicionarnovojogo), Toast.LENGTH_LONG).show();
-            return true;
-        }
-        if (id == R.id.EditarJogo) {
-            Intent intent = new Intent(Jogos.this, EditarJogo.class);
-            startActivity(intent);
-            Toast.makeText(this, getString(R.string.EditarJogo), Toast.LENGTH_LONG).show();
-            return true;
-        }
-        if (id == R.id.EliminarJogo) {
-            Intent intent = new Intent(Jogos.this, EliminarJogo.class);
-            startActivity(intent);
-            Toast.makeText(this, getString(R.string.itemeliminarjogo), Toast.LENGTH_LONG).show();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    public void setId(long id) {
+        Id = id;
     }
 
+    public String getNome() {
+        return Nome;
+    }
+
+    public void setNome(String nome) {
+        Nome = nome;
+    }
+
+    public String getAtividade() {
+        return Atividade;
+    }
+
+    public void setAtividade(String atividade) {
+        Atividade = atividade;
+    }
+
+    public String getDataLancamento() {
+        return DataLancamento;
+    }
+
+    public void setDataLancamento(String dataLancamento) {
+        DataLancamento = dataLancamento;
+    }
+
+    public int getFavorito() {
+        return favorito;
+    }
+
+    public void setFavorito(int favorito) {
+        this.favorito = favorito;
+    }
+
+    public static Jogos fromCursor(Cursor cursor) {
+        long id = cursor.getLong(
+                cursor.getColumnIndex(BdTableJogos._ID)
+        );
+
+        String nome = cursor.getString(
+                cursor.getColumnIndex(BdTableJogos.CAMPO_NOME)
+        );
+
+        String atividade = cursor.getString(
+                cursor.getColumnIndex(BdTableJogos.CAMPO_ATIVIDADE)
+        );
+
+        String data_lancamento = cursor.getString(
+                cursor.getColumnIndex(BdTableJogos.CAMPO_DATA_LANCAMENTO)
+        );
+
+        int favorito = cursor.getInt(
+                cursor.getColumnIndex(BdTableJogos.CAMPO_FAVORITO)
+        );
+
+
+        Jogos jogo = new Jogos();
+
+        jogo.setId(id);
+        jogo.setNome(nome);
+        jogo.setAtividade(atividade);
+        jogo.setDataLancamento(data_lancamento);
+        jogo.setFavorito(favorito);
+
+        return jogo;
+    }
 }
