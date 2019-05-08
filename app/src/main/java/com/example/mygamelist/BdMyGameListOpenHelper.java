@@ -25,10 +25,6 @@ public class BdMyGameListOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         new BdTableJogos(db).cria();
-        new BdTableJogosGeneros(db).cria();
-        new BdTableJogosPlataformas(db).cria();
-        new BdTableGeneros(db).cria();
-        new BdTablePlataformas(db).cria();
     }
 
     /**

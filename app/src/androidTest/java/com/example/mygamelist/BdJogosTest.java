@@ -1,6 +1,7 @@
 package com.example.mygamelist;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 
 import androidx.test.InstrumentationRegistry;
 import androidx.test.runner.AndroidJUnit4;
@@ -16,12 +17,20 @@ import static org.junit.Assert.*;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 @RunWith(AndroidJUnit4.class)
-public class ExampleInstrumentedTest {
+public class BdJogosTest {
     @Test
-    public void useAppContext() {
+    public void criaBdJogos() {
         // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getTargetContext();
+        Context appContext = getAppContext();
 
-        assertEquals("com.example.mygamelist", appContext.getPackageName());
+        BdMyGameListOpenHelper openHelper = new BdMyGameListOpenHelper(appContext);
+
+        SQLiteDatabase db = openHelper.getReadableDatabase();
+
+        assertTrue(db.isOpen());
+    }
+
+    private Context getAppContext()  {
+        return InstrumentationRegistry.getTargetContext();
     }
 }
