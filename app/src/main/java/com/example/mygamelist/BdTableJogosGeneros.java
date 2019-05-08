@@ -15,11 +15,13 @@ public class BdTableJogosGeneros implements BaseColumns {
     }
 
     public void cria() {
-        db.execSQL( "CREATE TABLE " + NOME_TABELA + "(" +
-                        _ID +" INTEGER PRIMARY KEY (BdTableJogos._ID, BdTableGeneros._ID)" +
-                        " FOREIGN KEY (" + ID_GENERO + ") REFERENCES, " + BdTableGeneros._ID +
-                        " FOREIGN KEY (" + ID_JOGO + ") REFERENCES, " + BdTableJogos._ID +
-                ")"
+       db.execSQL( "CREATE TABLE " + NOME_TABELA + "(" +
+               ID_GENERO + " INTEGER NOT NULL," +
+               ID_JOGO + " INTEGER NOT NULL," +
+               "FOREIGN KEY (" + ID_GENERO + ") REFERENCES " + BdTableGeneros.NOME_TABELA + "(" + BdTableGeneros._ID + ")," +
+               "FOREIGN KEY (" + ID_JOGO + ") REFERENCES " + BdTableJogos.NOME_TABELA + "(" + BdTableJogos._ID + ")," +
+               "PRIMARY KEY (" + ID_GENERO + "," + ID_JOGO + ")" +
+               ")"
         );
     }
 }
