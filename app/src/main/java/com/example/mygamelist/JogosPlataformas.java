@@ -1,5 +1,6 @@
 package com.example.mygamelist;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 
 public class JogosPlataformas {
@@ -21,6 +22,16 @@ public class JogosPlataformas {
     public void setId_jogo(long id_jogo) {
         this.id_jogo = id_jogo;
     }
+
+    public ContentValues getContentValues() {
+        ContentValues valores = new ContentValues();
+
+        valores.put(BdTableJogos._ID, id_jogo);
+        valores.put(BdTablePlataformas._ID, id_plataforma);
+
+        return valores;
+    }
+
     public static JogosPlataformas fromCursor(Cursor cursor) {
         long id_jogo = cursor.getLong(
                 cursor.getColumnIndex(BdTableJogos._ID)

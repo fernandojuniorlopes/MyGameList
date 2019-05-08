@@ -1,5 +1,6 @@
 package com.example.mygamelist;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 
 public class Jogos {
@@ -48,6 +49,17 @@ public class Jogos {
 
     public void setFavorito(int favorito) {
         this.favorito = favorito;
+    }
+
+    public ContentValues getContentValues() {
+        ContentValues valores = new ContentValues();
+
+        valores.put(BdTableJogos.CAMPO_NOME, Nome);
+        valores.put(BdTableJogos.CAMPO_ATIVIDADE, Atividade);
+        valores.put(BdTableJogos.CAMPO_DATA_LANCAMENTO, DataLancamento);
+        valores.put(BdTableJogos.CAMPO_FAVORITO, favorito);
+
+        return valores;
     }
 
     public static Jogos fromCursor(Cursor cursor) {

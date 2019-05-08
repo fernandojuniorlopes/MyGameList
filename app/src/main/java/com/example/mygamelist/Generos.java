@@ -22,6 +22,7 @@ public class Generos {
     public void setNome(String nome) {
         Nome = nome;
     }
+
     public ContentValues getContentValues() {
         ContentValues valores = new ContentValues();
 

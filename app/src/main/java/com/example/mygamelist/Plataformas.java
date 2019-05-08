@@ -1,5 +1,6 @@
 package com.example.mygamelist;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 
 public class Plataformas {
@@ -21,6 +22,14 @@ public class Plataformas {
 
     public void setNome(String nome) {
         Nome = nome;
+    }
+
+    public ContentValues getContentValues() {
+        ContentValues valores = new ContentValues();
+
+        valores.put(BdTablePlataformas.NOME_PLATAFORMA, Nome);
+
+        return valores;
     }
 
     public static Plataformas fromCursor(Cursor cursor) {
