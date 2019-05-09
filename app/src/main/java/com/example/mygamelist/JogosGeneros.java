@@ -26,19 +26,19 @@ public class JogosGeneros {
     public ContentValues getContentValues() {
         ContentValues valores = new ContentValues();
 
-        valores.put(BdTableJogos._ID, id_jogo);
-        valores.put(BdTableGeneros._ID, id_genero);
+        valores.put(BdTableJogosGeneros.ID_JOGO, id_jogo);
+        valores.put(BdTableJogosGeneros.ID_GENERO, id_genero);
 
         return valores;
     }
 
     public static JogosGeneros fromCursor(Cursor cursor) {
         long id_jogo = cursor.getLong(
-                cursor.getColumnIndex(BdTableJogos._ID)
+                cursor.getColumnIndex(BdTableJogosGeneros.ID_JOGO)
         );
 
         long id_genero = cursor.getLong(
-                cursor.getColumnIndex(BdTableGeneros._ID)
+                cursor.getColumnIndex(BdTableJogosGeneros.ID_GENERO)
         );
 
         JogosGeneros jogoGenero = new JogosGeneros();

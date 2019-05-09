@@ -26,19 +26,19 @@ public class JogosPlataformas {
     public ContentValues getContentValues() {
         ContentValues valores = new ContentValues();
 
-        valores.put(BdTableJogos._ID, id_jogo);
-        valores.put(BdTablePlataformas._ID, id_plataforma);
+        valores.put(BdTableJogosPlataformas.ID_JOGO, id_jogo);
+        valores.put(BdTableJogosPlataformas.ID_PLATAFORMA, id_plataforma);
 
         return valores;
     }
 
     public static JogosPlataformas fromCursor(Cursor cursor) {
         long id_jogo = cursor.getLong(
-                cursor.getColumnIndex(BdTableJogos._ID)
+                cursor.getColumnIndex(BdTableJogosPlataformas.ID_JOGO)
         );
 
         long id_plataforma = cursor.getLong(
-                cursor.getColumnIndex(BdTablePlataformas._ID)
+                cursor.getColumnIndex(BdTableJogosPlataformas.ID_PLATAFORMA)
         );
 
         JogosPlataformas jogoPlataforma = new JogosPlataformas();

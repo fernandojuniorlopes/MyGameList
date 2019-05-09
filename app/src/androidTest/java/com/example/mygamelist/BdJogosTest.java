@@ -47,14 +47,9 @@ public class BdJogosTest {
         BdTableGeneros tabelaGeneros = new BdTableGeneros(db);
 
         Generos genero = new Generos();
-        genero.setNome("RPG");
+        genero.setNome("Estratégia");
         long idRPG = tabelaGeneros.insert(genero.getContentValues());
         assertNotEquals(-1, idRPG);
-
-        genero = new Generos();
-        genero.setNome("FPS");
-        long idFPS = tabelaGeneros.insert(genero.getContentValues());
-        assertNotEquals(-1, idFPS);
 
         BdTablePlataformas tabelaPlataformas = new BdTablePlataformas(db);
 
@@ -71,15 +66,24 @@ public class BdJogosTest {
         jogo.setDataLancamento("20-01-1990");
         jogo.setFavorito(1);
         long idTetris = tabelaJogos.insert(jogo.getContentValues());
-        assertNotEquals(-1, idPS4);
+        assertNotEquals(-1, idTetris);
 
-       /* BdTableJogosPlataformas tabelaJogosPlatormas = new BdTableJogosPlataformas(db);
+       BdTableJogosPlataformas tabelaJogosPlatormas = new BdTableJogosPlataformas(db);
 
         JogosPlataformas jogosPlataformas = new JogosPlataformas();
-        jogosPlataformas.setId_plataforma(idTetris);
-        jogosPlataformas.setId_jogo(idPS4);
+        jogosPlataformas.setId_plataforma(plataforma.getId());
+        jogosPlataformas.setId_jogo(jogo.getId());
         long idTetrisPS4 = tabelaJogosPlatormas.insert(jogosPlataformas.getContentValues());
-        assertNotEquals(-1, idTetrisPS4);*/
+        assertNotEquals(-1, idTetrisPS4);
+
+
+        BdTableJogosGeneros tabelaJogosGeneros = new BdTableJogosGeneros(db);
+
+        JogosGeneros jogosGeneros = new JogosGeneros();
+        jogosGeneros.setId_genero(genero.getId());
+        jogosGeneros.setId_jogo(jogo.getId());
+        long idTetrisEstrategia = tabelaJogosGeneros.insert(jogosGeneros.getContentValues());
+        assertNotEquals(-1, idTetrisEstrategia);
 
     }
 }
