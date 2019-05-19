@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public class MyGamesListContentProvider extends ContentProvider {
-
+    private  BdMyGameListOpenHelper bdMyGameListOpenHelper;
     /**
      * Implement this to initialize your content provider on startup.
      * This method is called for all registered content providers on the
@@ -40,7 +40,8 @@ public class MyGamesListContentProvider extends ContentProvider {
      */
     @Override
     public boolean onCreate() {
-        return false;
+        bdMyGameListOpenHelper = new BdMyGameListOpenHelper(getContext());
+        return true;
     }
 
     /**
