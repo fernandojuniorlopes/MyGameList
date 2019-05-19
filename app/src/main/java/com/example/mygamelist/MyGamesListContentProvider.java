@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.ContentObserver;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.os.Build;
@@ -133,7 +134,32 @@ public class MyGamesListContentProvider extends ContentProvider {
     @Nullable
     @Override
     public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
-        return null;
+        SQLiteDatabase bd = bdMyGameListOpenHelper.getReadableDatabase();
+
+        String id = uri.getLastPathSegment();
+
+        switch (getUriMatcher().match(uri)) {
+            case URI_GENEROS:
+                return new BdTableGeneros(bd).query(projection, selection, selectionArgs, null, null, sortOrder);
+
+            case URI_UNICO_GENERO:
+                return new BdTableGeneros(bd).query(projection, BdTableGeneros._ID + "=?", new String[] { id }, null, null, null);
+
+            case URI_JOGOS:
+                return new BdTableJogos(bd).query(projection, selection, selectionArgs, null, null, sortOrder);
+
+            case URI_UNICO_JOGO:
+                return  new BdTableJogos(bd).query(projection, BdTableJogos._ID + "=?", new String[] { id }, null, null, null);
+
+            case URI_PLATAFORMAS:
+                    return new BdTablePlataformas(bd).query(projection, selection, selectionArgs, null, null, sortOrder);
+
+            case URI_UNICA_PLATAFORMA:
+                return  new BdTablePlataformas(bd).query(projection, BdTablePlataformas._ID + "=?", new String[] { id }, null, null, null);
+
+            default:
+                throw new UnsupportedOperationException("URI inválida (QUERY): " + uri.toString());
+        }
     }
 
     /**
