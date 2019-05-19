@@ -2,6 +2,7 @@ package com.example.mygamelist;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
+import android.content.UriMatcher;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -12,7 +13,32 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public class MyGamesListContentProvider extends ContentProvider {
+    public static final String AUTHORITY = "com.example.mygamelist";
+    public static final String GENEROS = "generos";
+    public static final String JOGOS = "jogos";
+    public static final String PLATAFORMAS = "plataformas";
+
+    public static final int URI_GENEROS = 100;
+    public static final int URI_UNICO_GENERO = 101;
+    public static final int URI_JOGOS = 200;
+    public static final int URI_UNICO_JOGO = 201;
+    public static final int URI_PLATAFORMAS = 300;
+    public static final int URI_UNICA_PLATAFORMA = 301;
+
     private  BdMyGameListOpenHelper bdMyGameListOpenHelper;
+
+    private UriMatcher getUriMatcher(){
+        UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+
+        uriMatcher.addURI(AUTHORITY, GENEROS, URI_GENEROS);
+        uriMatcher.addURI(AUTHORITY, GENEROS + "/#", URI_UNICO_GENERO);
+        uriMatcher.addURI(AUTHORITY, JOGOS, URI_JOGOS);
+        uriMatcher.addURI(AUTHORITY, JOGOS + "/#", URI_UNICO_JOGO);
+        uriMatcher.addURI(AUTHORITY, PLATAFORMAS, URI_PLATAFORMAS);
+        uriMatcher.addURI(AUTHORITY, PLATAFORMAS + "/#", URI_UNICA_PLATAFORMA);
+
+        return uriMatcher;
+    }
     /**
      * Implement this to initialize your content provider on startup.
      * This method is called for all registered content providers on the
