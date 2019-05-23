@@ -85,7 +85,9 @@ public class AdaptadorJogos extends RecyclerView.Adapter<AdaptadorJogos.ViewHold
      */
     @Override
     public int getItemCount() {
-        return 0;
+        if (cursor == null) return 0;
+
+        return cursor.getCount();
     }
 
     public class ViewHolderJogos extends RecyclerView.ViewHolder{
