@@ -22,6 +22,13 @@ public class MyGamesListContentProvider extends ContentProvider {
     public static final String JOGOS_GENEROS= "jogosGeneros";
     public static final String JOGOS_PLATAFORMAS = "jogosPlataformas";
 
+    private static final Uri ENDERECO_BASE = Uri.parse("content://" + AUTHORITY);
+    public static final Uri ENDERECO_GENEROS = Uri.withAppendedPath(ENDERECO_BASE, GENEROS);
+    public static final Uri ENDERECO_JOGOS = Uri.withAppendedPath(ENDERECO_BASE, JOGOS);
+    public static final Uri ENDERECO_PLATAFORMAS = Uri.withAppendedPath(ENDERECO_BASE, PLATAFORMAS);
+    public static final Uri ENDERECO_JOGOS_GENEROS = Uri.withAppendedPath(ENDERECO_BASE, JOGOS_GENEROS);
+    public static final Uri ENDERECO_JOGOS_PLATAFORMAS = Uri.withAppendedPath(ENDERECO_BASE, JOGOS_PLATAFORMAS);
+
     public static final int URI_GENEROS = 100;
     public static final int URI_GENERO_ESPECIFICO = 101;
     public static final int URI_JOGOS = 200;

@@ -100,6 +100,7 @@ public class AdaptadorJogos extends RecyclerView.Adapter<AdaptadorJogos.ViewHold
         public ViewHolderJogos(@NonNull View itemView) {
             super(itemView);
         }
+
         public  void setJogo(Jogos jogo){
             this.jogo = jogo;
         }
