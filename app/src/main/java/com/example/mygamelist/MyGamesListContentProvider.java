@@ -23,15 +23,15 @@ public class MyGamesListContentProvider extends ContentProvider {
     public static final String JOGOS_PLATAFORMAS = "jogosPlataformas";
 
     public static final int URI_GENEROS = 100;
-    public static final int URI_UNICO_GENERO = 101;
+    public static final int URI_GENERO_ESPECIFICO = 101;
     public static final int URI_JOGOS = 200;
-    public static final int URI_UNICO_JOGO = 201;
+    public static final int URI_JOGO_ESPECIFICO = 201;
     public static final int URI_PLATAFORMAS = 300;
-    public static final int URI_UNICA_PLATAFORMA = 301;
+    public static final int URI_PLATAFORMA_ESPECIFICA = 301;
     public static final int URI_JOGOS_GENEROS = 400;
-    public static final int URI_UNICO_JOGO_GENERO = 401;
+    public static final int URI_JOGO_GENERO_ESPECIFICO = 401;
     public static final int URI_JOGOS_PLATAFORMAS = 500;
-    public static final int URI_UNICO_JOGO_PLATAFORMA = 501;
+    public static final int URI_JOGO_PLATAFORMA_ESPECIFICO = 501;
 
     private  BdMyGameListOpenHelper bdMyGameListOpenHelper;
 
@@ -39,15 +39,15 @@ public class MyGamesListContentProvider extends ContentProvider {
         UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
         uriMatcher.addURI(AUTHORITY, GENEROS, URI_GENEROS);
-        uriMatcher.addURI(AUTHORITY, GENEROS + "/#", URI_UNICO_GENERO);
+        uriMatcher.addURI(AUTHORITY, GENEROS + "/#", URI_GENERO_ESPECIFICO);
         uriMatcher.addURI(AUTHORITY, JOGOS, URI_JOGOS);
-        uriMatcher.addURI(AUTHORITY, JOGOS + "/#", URI_UNICO_JOGO);
+        uriMatcher.addURI(AUTHORITY, JOGOS + "/#", URI_JOGO_ESPECIFICO);
         uriMatcher.addURI(AUTHORITY, PLATAFORMAS, URI_PLATAFORMAS);
-        uriMatcher.addURI(AUTHORITY, PLATAFORMAS + "/#", URI_UNICA_PLATAFORMA);
+        uriMatcher.addURI(AUTHORITY, PLATAFORMAS + "/#", URI_PLATAFORMA_ESPECIFICA);
         uriMatcher.addURI(AUTHORITY, JOGOS_GENEROS, URI_JOGOS_GENEROS);
-        uriMatcher.addURI(AUTHORITY, JOGOS_GENEROS + "/#", URI_UNICO_JOGO_GENERO);
+        uriMatcher.addURI(AUTHORITY, JOGOS_GENEROS + "/#", URI_JOGO_GENERO_ESPECIFICO);
         uriMatcher.addURI(AUTHORITY, JOGOS_PLATAFORMAS, URI_JOGOS_PLATAFORMAS);
-        uriMatcher.addURI(AUTHORITY, JOGOS_PLATAFORMAS + "/#", URI_UNICO_JOGO_PLATAFORMA);
+        uriMatcher.addURI(AUTHORITY, JOGOS_PLATAFORMAS + "/#", URI_JOGO_PLATAFORMA_ESPECIFICO);
 
         return uriMatcher;
     }
@@ -153,31 +153,31 @@ public class MyGamesListContentProvider extends ContentProvider {
             case URI_GENEROS:
                 return new BdTableGeneros(bd).query(projection, selection, selectionArgs, null, null, sortOrder);
 
-            case URI_UNICO_GENERO:
+            case URI_GENERO_ESPECIFICO:
                 return new BdTableGeneros(bd).query(projection, BdTableGeneros._ID + "=?", new String[] { id }, null, null, null);
 
             case URI_JOGOS:
                 return new BdTableJogos(bd).query(projection, selection, selectionArgs, null, null, sortOrder);
 
-            case URI_UNICO_JOGO:
+            case URI_JOGO_ESPECIFICO:
                 return  new BdTableJogos(bd).query(projection, BdTableJogos._ID + "=?", new String[] { id }, null, null, null);
 
             case URI_PLATAFORMAS:
                     return new BdTablePlataformas(bd).query(projection, selection, selectionArgs, null, null, sortOrder);
 
-            case URI_UNICA_PLATAFORMA:
+            case URI_PLATAFORMA_ESPECIFICA:
                 return  new BdTablePlataformas(bd).query(projection, BdTablePlataformas._ID + "=?", new String[] { id }, null, null, null);
 
             case URI_JOGOS_GENEROS:
                 return new BdTableJogosGeneros(bd).query(projection, selection, selectionArgs, null, null, sortOrder);
 
-            case URI_UNICO_JOGO_GENERO:
+            case URI_JOGO_GENERO_ESPECIFICO:
                 return  new BdTableJogosGeneros(bd).query(projection, BdTableJogos._ID + "=?", new String[] { id }, null, null, null);
 
             case URI_JOGOS_PLATAFORMAS:
                 return new BdTableJogosPlataformas(bd).query(projection, selection, selectionArgs, null, null, sortOrder);
 
-            case URI_UNICO_JOGO_PLATAFORMA:
+            case URI_JOGO_PLATAFORMA_ESPECIFICO:
                 return  new BdTableJogosPlataformas(bd).query(projection, BdTablePlataformas._ID + "=?", new String[] { id }, null, null, null);
 
             default:
@@ -307,6 +307,22 @@ public class MyGamesListContentProvider extends ContentProvider {
      */
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
-        return 0;
+        SQLiteDatabase bd = bdMyGameListOpenHelper.getWritableDatabase();
+
+        String id = uri.getLastPathSegment();
+
+        switch (getUriMatcher().match(uri)) {
+            case URI_GENERO_ESPECIFICO:
+                return new BdTableGeneros(bd).update(values, BdTableGeneros._ID + "=?", new String[]{id});
+            case URI_JOGO_ESPECIFICO:
+                return new BdTableJogos(bd).update(values, BdTableJogos._ID + "=?", new String[]{id});
+            case URI_PLATAFORMA_ESPECIFICA:
+                return new BdTableJogosPlataformas(bd).update(values, BdTableJogosPlataformas.ID_JOGO + "=? AND " + BdTableJogosPlataformas.ID_PLATAFORMA + "=?", new String[]{id});
+            case URI_JOGO_GENERO_ESPECIFICO:
+                return new BdTableJogosGeneros(bd).update(values, BdTableJogosGeneros.ID_JOGO + "=? AND " + BdTableJogosGeneros.ID_GENERO + "=?", new String[]{id});
+
+            default:
+                throw new UnsupportedOperationException("URI inválida (UPDATE): " + uri.toString());
+        }
     }
 }
