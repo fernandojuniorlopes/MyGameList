@@ -284,7 +284,22 @@ public class MyGamesListContentProvider extends ContentProvider {
      */
     @Override
     public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
-        return 0;
+        SQLiteDatabase bd = bdMyGameListOpenHelper.getWritableDatabase();
+
+        String id = uri.getLastPathSegment();
+
+        switch (getUriMatcher().match(uri)) {
+            case URI_GENERO_ESPECIFICO:
+                return new BdTableGeneros(bd).delete(BdTableGeneros._ID + "=?", new String[]{id});
+            case URI_JOGO_ESPECIFICO:
+                return new BdTableJogos(bd).delete(BdTableJogos._ID + "=?", new String[]{id});
+            case URI_PLATAFORMA_ESPECIFICA:
+                return new BdTableJogosPlataformas(bd).delete(BdTableJogosPlataformas.ID_JOGO + "=? AND " + BdTableJogosPlataformas.ID_PLATAFORMA + "=?", new String[]{id});
+            case URI_JOGO_GENERO_ESPECIFICO:
+                return new BdTableJogosGeneros(bd).delete(BdTableJogosGeneros.ID_JOGO + "=? AND " + BdTableJogosGeneros.ID_GENERO + "=?", new String[]{id});
+            default:
+                throw new UnsupportedOperationException("URI inválida (DELETE): " + uri.toString());
+        }
     }
 
     /**
