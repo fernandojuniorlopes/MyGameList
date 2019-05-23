@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.ContentObserver;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
@@ -18,6 +19,8 @@ public class MyGamesListContentProvider extends ContentProvider {
     public static final String GENEROS = "generos";
     public static final String JOGOS = "jogos";
     public static final String PLATAFORMAS = "plataformas";
+    public static final String JOGOS_GENEROS= "jogosGeneros";
+    public static final String JOGOS_PLATAFORMAS = "jogosPlataformas";
 
     public static final int URI_GENEROS = 100;
     public static final int URI_UNICO_GENERO = 101;
@@ -25,6 +28,10 @@ public class MyGamesListContentProvider extends ContentProvider {
     public static final int URI_UNICO_JOGO = 201;
     public static final int URI_PLATAFORMAS = 300;
     public static final int URI_UNICA_PLATAFORMA = 301;
+    public static final int URI_JOGOS_GENEROS = 400;
+    public static final int URI_UNICO_JOGO_GENERO = 401;
+    public static final int URI_JOGOS_PLATAFORMAS = 500;
+    public static final int URI_UNICO_JOGO_PLATAFORMA = 501;
 
     private  BdMyGameListOpenHelper bdMyGameListOpenHelper;
 
@@ -37,6 +44,10 @@ public class MyGamesListContentProvider extends ContentProvider {
         uriMatcher.addURI(AUTHORITY, JOGOS + "/#", URI_UNICO_JOGO);
         uriMatcher.addURI(AUTHORITY, PLATAFORMAS, URI_PLATAFORMAS);
         uriMatcher.addURI(AUTHORITY, PLATAFORMAS + "/#", URI_UNICA_PLATAFORMA);
+        uriMatcher.addURI(AUTHORITY, JOGOS_GENEROS, URI_JOGOS_GENEROS);
+        uriMatcher.addURI(AUTHORITY, JOGOS_GENEROS + "/#", URI_UNICO_JOGO_GENERO);
+        uriMatcher.addURI(AUTHORITY, JOGOS_PLATAFORMAS, URI_JOGOS_PLATAFORMAS);
+        uriMatcher.addURI(AUTHORITY, JOGOS_PLATAFORMAS + "/#", URI_UNICO_JOGO_PLATAFORMA);
 
         return uriMatcher;
     }
@@ -157,6 +168,18 @@ public class MyGamesListContentProvider extends ContentProvider {
             case URI_UNICA_PLATAFORMA:
                 return  new BdTablePlataformas(bd).query(projection, BdTablePlataformas._ID + "=?", new String[] { id }, null, null, null);
 
+            case URI_JOGOS_GENEROS:
+                return new BdTableJogosGeneros(bd).query(projection, selection, selectionArgs, null, null, sortOrder);
+
+            case URI_UNICO_JOGO_GENERO:
+                return  new BdTableJogosGeneros(bd).query(projection, BdTableJogos._ID + "=?", new String[] { id }, null, null, null);
+
+            case URI_JOGOS_PLATAFORMAS:
+                return new BdTableJogosPlataformas(bd).query(projection, selection, selectionArgs, null, null, sortOrder);
+
+            case URI_UNICO_JOGO_PLATAFORMA:
+                return  new BdTableJogosPlataformas(bd).query(projection, BdTablePlataformas._ID + "=?", new String[] { id }, null, null, null);
+
             default:
                 throw new UnsupportedOperationException("URI inválida (QUERY): " + uri.toString());
         }
@@ -202,7 +225,40 @@ public class MyGamesListContentProvider extends ContentProvider {
     @Nullable
     @Override
     public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
-        return null;
+        SQLiteDatabase bd = bdMyGameListOpenHelper.getWritableDatabase();
+
+        long id = -1;
+
+        switch (getUriMatcher().match(uri)) {
+            case URI_GENEROS:
+                id = new BdTableGeneros(bd).insert(values);
+                break;
+
+            case URI_JOGOS:
+                id = new BdTableJogos(bd).insert(values);
+                break;
+
+            case URI_PLATAFORMAS:
+                id = new BdTablePlataformas(bd).insert(values);
+                break;
+
+             case URI_JOGOS_GENEROS:
+                id = new BdTableJogosGeneros(bd).insert(values);
+                break;
+
+            case URI_JOGOS_PLATAFORMAS:
+                id = new BdTableJogosPlataformas(bd).insert(values);
+                break;
+
+            default:
+                throw new UnsupportedOperationException("URI inválida (INSERT):" + uri.toString());
+        }
+
+        if (id == -1) {
+            throw new SQLException("Não foi possível inserir o registo");
+        }
+
+        return Uri.withAppendedPath(uri, String.valueOf(id));
     }
 
     /**
