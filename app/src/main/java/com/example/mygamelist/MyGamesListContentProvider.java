@@ -33,6 +33,9 @@ public class MyGamesListContentProvider extends ContentProvider {
     public static final int URI_JOGOS_PLATAFORMAS = 500;
     public static final int URI_JOGO_PLATAFORMA_ESPECIFICO = 501;
 
+    public static final String UNICO_ITEM = "vnd.android.cursor.item/";
+    public static final String MULTIPLOS_ITEMS = "vnd.android.cursor.dir/";
+
     private  BdMyGameListOpenHelper bdMyGameListOpenHelper;
 
     private UriMatcher getUriMatcher(){
@@ -206,7 +209,30 @@ public class MyGamesListContentProvider extends ContentProvider {
     @Nullable
     @Override
     public String getType(@NonNull Uri uri) {
-        return null;
+        switch (getUriMatcher().match(uri)) {
+            case URI_PLATAFORMAS:
+                return MULTIPLOS_ITEMS + PLATAFORMAS;
+            case URI_PLATAFORMA_ESPECIFICA:
+                return UNICO_ITEM + PLATAFORMAS;
+            case URI_JOGOS:
+                return MULTIPLOS_ITEMS + JOGOS;
+            case URI_JOGO_ESPECIFICO:
+                return UNICO_ITEM + JOGOS;
+            case URI_GENEROS:
+                return MULTIPLOS_ITEMS + GENEROS;
+            case URI_GENERO_ESPECIFICO:
+                return UNICO_ITEM + GENEROS;
+            case URI_JOGOS_PLATAFORMAS:
+                return MULTIPLOS_ITEMS + JOGOS_PLATAFORMAS;
+            case URI_JOGO_PLATAFORMA_ESPECIFICO:
+                return UNICO_ITEM + JOGOS_PLATAFORMAS;
+            case URI_JOGOS_GENEROS:
+                return MULTIPLOS_ITEMS + JOGOS_GENEROS;
+            case URI_JOGO_GENERO_ESPECIFICO:
+                return UNICO_ITEM + JOGOS_GENEROS;
+            default:
+                return null;
+        }
     }
 
     /**
