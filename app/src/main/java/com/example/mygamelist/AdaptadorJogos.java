@@ -50,7 +50,9 @@ public class AdaptadorJogos extends RecyclerView.Adapter<AdaptadorJogos.ViewHold
     @NonNull
     @Override
     public ViewHolderJogos onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        View itemJogo = LayoutInflater.from(context).inflate(R.layout.item_jogo, parent, false);
+
+        return new ViewHolderJogos(itemJogo);
     }
 
     /**
@@ -75,7 +77,6 @@ public class AdaptadorJogos extends RecyclerView.Adapter<AdaptadorJogos.ViewHold
      */
     @Override
     public void onBindViewHolder(@NonNull ViewHolderJogos holder, int position) {
-
     }
 
     /**
