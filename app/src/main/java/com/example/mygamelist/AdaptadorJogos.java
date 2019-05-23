@@ -77,6 +77,9 @@ public class AdaptadorJogos extends RecyclerView.Adapter<AdaptadorJogos.ViewHold
      */
     @Override
     public void onBindViewHolder(@NonNull ViewHolderJogos holder, int position) {
+        cursor.moveToPosition(position);
+        Jogos jogo = Jogos.fromCursor(cursor);
+        holder.setJogo(jogo);
     }
 
     /**
