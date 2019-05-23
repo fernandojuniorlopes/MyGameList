@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,12 +14,20 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    private RecyclerView recyclerViewJogos;
+    private AdaptadorJogos adaptadorJogos;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        recyclerViewJogos = (RecyclerView) findViewById(R.id.recyclerViewJogos);
+        adaptadorJogos = new AdaptadorJogos(this);
+        recyclerViewJogos.setAdapter(adaptadorJogos);
+        recyclerViewJogos.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
