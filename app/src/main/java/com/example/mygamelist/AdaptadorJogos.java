@@ -17,6 +17,10 @@ public class AdaptadorJogos extends RecyclerView.Adapter<AdaptadorJogos.ViewHold
 
     public void setCursor(Cursor cursor) {
         this.cursor = cursor;
+        if (this.cursor != cursor) {
+            this.cursor = cursor;
+            notifyDataSetChanged();
+        }
     }
 
     public AdaptadorJogos(Context context) {
