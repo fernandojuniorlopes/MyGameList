@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 
 import androidx.annotation.NonNull;
@@ -95,14 +96,31 @@ public class AdaptadorJogos extends RecyclerView.Adapter<AdaptadorJogos.ViewHold
     }
 
     public class ViewHolderJogos extends RecyclerView.ViewHolder{
+        private TextView textViewTitulo;
+        private TextView textViewAtividade;
+        private TextView textViewDataLancamento;
+        private TextView textViewFavorito;
+
         private Jogos jogo;
 
         public ViewHolderJogos(@NonNull View itemView) {
             super(itemView);
+
+            textViewTitulo = (TextView)itemView.findViewById(R.id.textViewNome);
+            textViewAtividade = (TextView)itemView.findViewById(R.id.textViewAtividade);
+            textViewDataLancamento = (TextView)itemView.findViewById(R.id.textViewDataLancamento);
+            textViewFavorito = (TextView)itemView.findViewById(R.id.textViewFavorito);
+
+
         }
 
         public  void setJogo(Jogos jogo){
             this.jogo = jogo;
+
+            textViewTitulo.setText(jogo.getNome());
+            textViewAtividade.setText(jogo.getAtividade());
+            textViewDataLancamento.setText(jogo.getDataLancamento());
+            textViewFavorito.setText(jogo.getDataLancamento());
         }
     }
 }

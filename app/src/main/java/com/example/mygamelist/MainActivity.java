@@ -1,7 +1,6 @@
 package com.example.mygamelist;
 
 import android.content.Context;
-import android.content.CursorLoader;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -104,9 +103,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
-        CursorLoader cursorLoader = new CursorLoader(this, MyGamesListContentProvider.ENDERECO_JOGOS, BdTableJogos.TODAS_COLUNAS, null, null, BdTableJogos.CAMPO_NOME
-        );
-        return null;
+        CursorLoader cursorLoader = new CursorLoader(this, MyGamesListContentProvider.ENDERECO_JOGOS, BdTableJogos.TODAS_COLUNAS, null, null, BdTableJogos.CAMPO_NOME);
+
+        return cursorLoader;
     }
 
     /**
