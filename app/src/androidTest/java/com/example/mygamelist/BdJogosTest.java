@@ -46,7 +46,7 @@ public class BdJogosTest {
         SQLiteDatabase db = openHelper.getWritableDatabase();
 
 
-       /* //CREATE Tabela Generos
+       //CREATE Tabela Generos
         BdTableGeneros tabelaGeneros = new BdTableGeneros(db);
 
         Cursor cursorGenero = getGenero(tabelaGeneros);
@@ -140,7 +140,7 @@ public class BdJogosTest {
         //DELETE Tabela Plataformas
         tabelaplataforma.delete(BdTablePlataformas._ID + "=?", new String[] {String.valueOf(idXbox1)});
         cursorPlataforma = getPlataforma(tabelaplataforma);
-        assertEquals(2,cursorPlataforma.getCount());*/
+        assertEquals(2,cursorPlataforma.getCount());
 
         //CREATE Tabela Jogos
         BdTableJogos tabelaJogo = new BdTableJogos(db);
@@ -184,7 +184,7 @@ public class BdJogosTest {
         jogo = getJogosComID(cursorJogo, idPES);
         verificarDadosJogo(nomeJogo,atividade,datalancamento, favorito, idPES, jogo);
 
-        /*//UPDATE Tabela Jogos
+        //UPDATE Tabela Jogos
         cursorJogo = getJogo(tabelaJogo);
         jogo = getJogosComID(cursorJogo, idTetris);
         nomeJogo = "Tetris2";
@@ -265,7 +265,7 @@ public class BdJogosTest {
         //DELETE Tabela JogosPlataformas
         tabelaJogosPlataformas.delete(BdTableJogosPlataformas.ID_JOGO + "=? AND " + BdTableJogosPlataformas.ID_PLATAFORMA + "=?", new String[] {String.valueOf(idFifa), String.valueOf(idPS3)});
         cursorJogosPlataformas = getJogoPlataforma(tabelaJogosPlataformas);
-        assertEquals(1, cursorJogosPlataformas.getCount());*/
+        assertEquals(1, cursorJogosPlataformas.getCount());
     }
 
     private Cursor getGenero(BdTableGeneros tabelaGeneros) {

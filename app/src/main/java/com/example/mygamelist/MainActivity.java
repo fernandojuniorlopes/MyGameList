@@ -38,20 +38,17 @@ public class MainActivity extends AppCompatActivity{
         if (id == R.id.Settings) {
             Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
             return true;
-        }
-        else if (id == R.id.Jogos) {
+        } else if (id == R.id.Jogos) {
             Intent intent2 = new Intent(MainActivity.this, JogosActivity.class);
             startActivity(intent2);
             Toast.makeText(this, "JogosActivity", Toast.LENGTH_LONG).show();
             return true;
-        }
-        else if (id == R.id.Plataformas) {
+        } else if (id == R.id.Plataformas) {
             Intent intent3 = new Intent(MainActivity.this, PlataformasActivity.class);
             startActivity(intent3);
             Toast.makeText(this, "PlataformasActivity", Toast.LENGTH_LONG).show();
             return true;
-        }
-        else if (id == R.id.Generos) {
+        } else if (id == R.id.Generos) {
             Intent intent3 = new Intent(MainActivity.this, GenerosActivity.class);
             startActivity(intent3);
             Toast.makeText(this, "GenerosActivity", Toast.LENGTH_LONG).show();

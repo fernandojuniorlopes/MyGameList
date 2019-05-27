@@ -8,5 +8,8 @@
     tools:context=".PlataformasActivity"
     tools:showIn="@layout/activity_plataformas"
     tools:ignore="PrivateResource">
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewPlataformas"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

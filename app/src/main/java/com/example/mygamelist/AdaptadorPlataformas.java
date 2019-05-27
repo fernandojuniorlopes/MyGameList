@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.ViewHolderGeneros> {
+public class AdaptadorPlataformas extends RecyclerView.Adapter<AdaptadorPlataformas.ViewHolderPlataformas> {
     private Cursor cursor;
     private Context context;
 
@@ -23,7 +23,7 @@ public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.View
         }
     }
 
-    public AdaptadorGeneros(Context context)
+    public AdaptadorPlataformas(Context context)
     {
         this.context = context;
     }
@@ -50,10 +50,10 @@ public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.View
      */
     @NonNull
     @Override
-    public ViewHolderGeneros onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemGenero = LayoutInflater.from(context).inflate(R.layout.item_genero, parent, false);
+    public ViewHolderPlataformas onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View itemPlataforma = LayoutInflater.from(context).inflate(R.layout.item_plataforma, parent, false);
 
-        return new ViewHolderGeneros(itemGenero);
+        return new ViewHolderPlataformas(itemPlataforma);
     }
 
     /**
@@ -77,10 +77,10 @@ public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.View
      * @param position The position of the item within the adapter's data set.
      */
     @Override
-    public void onBindViewHolder(@NonNull ViewHolderGeneros holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolderPlataformas holder, int position) {
         cursor.moveToPosition(position);
-        Generos genero = Generos.fromCursor(cursor);
-        holder.setGenero(genero);
+        Plataformas plataforma = Plataformas.fromCursor(cursor);
+        holder.setPlataforma(plataforma);
     }
 
     /**
@@ -101,19 +101,19 @@ public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.View
      *
      * @return The total number of items in this adapter.
      */
-    public class ViewHolderGeneros extends RecyclerView.ViewHolder {
-        private Generos genero;
-        private TextView textViewNomeGenero;
+    public class ViewHolderPlataformas extends RecyclerView.ViewHolder {
+        private Plataformas plataforma;
+        private TextView textViewNomePlataforma;
 
-        public ViewHolderGeneros(@NonNull View itemView) {
+        public ViewHolderPlataformas(@NonNull View itemView) {
             super(itemView);
-            textViewNomeGenero  = itemView.findViewById(R.id.textViewNomeItem);
+            textViewNomePlataforma  = itemView.findViewById(R.id.textViewPlataformaItem);
 
         }
 
-        public void setGenero(Generos genero){
-            this.genero= genero;
-            textViewNomeGenero.setText(genero.getNome());
+        public void setPlataforma(Plataformas plataforma){
+            this.plataforma= plataforma;
+            textViewNomePlataforma.setText(plataforma.getNome());
         }
     }
 }

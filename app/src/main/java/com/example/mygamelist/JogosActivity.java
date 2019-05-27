@@ -78,14 +78,12 @@ public class JogosActivity extends AppCompatActivity implements LoaderManager.Lo
             startActivity(intent);
             Toast.makeText(this, getString(R.string.itemadicionarnovojogo), Toast.LENGTH_LONG).show();
             return true;
-        }
-        if (id == R.id.EditarJogo) {
+        } else if (id == R.id.EditarJogo) {
             Intent intent = new Intent(JogosActivity.this, EditarJogoActivity.class);
             startActivity(intent);
             Toast.makeText(this, getString(R.string.EditarJogo), Toast.LENGTH_LONG).show();
             return true;
-        }
-        if (id == R.id.EliminarJogo) {
+        } else if (id == R.id.EliminarJogo) {
             Intent intent = new Intent(JogosActivity.this, EliminarJogoActivity.class);
             startActivity(intent);
             Toast.makeText(this, getString(R.string.itemeliminarjogo), Toast.LENGTH_LONG).show();

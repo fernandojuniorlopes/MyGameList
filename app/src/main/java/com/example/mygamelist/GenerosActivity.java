@@ -36,7 +36,7 @@ public class GenerosActivity extends AppCompatActivity implements LoaderManager.
 
         getSupportLoaderManager().initLoader(ID_CURSOR_LOADER_GENEROS, null, this);
 
-        recyclerViewGeneros = findViewById(R.id.recyclerViewJogos);
+        recyclerViewGeneros = findViewById(R.id.recyclerViewGeneros);
         adaptadorGeneros = new AdaptadorGeneros(this);
         recyclerViewGeneros.setAdapter(adaptadorGeneros);
         recyclerViewGeneros.setLayoutManager(new LinearLayoutManager(this));
