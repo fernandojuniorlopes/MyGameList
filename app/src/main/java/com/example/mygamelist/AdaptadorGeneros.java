@@ -8,11 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class AdaptadorJogos extends RecyclerView.Adapter<AdaptadorJogos.ViewHolderJogos> {
+public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.ViewHolderGeneros> {
     private Cursor cursor;
     private Context context;
 
@@ -24,7 +23,7 @@ public class AdaptadorJogos extends RecyclerView.Adapter<AdaptadorJogos.ViewHold
         }
     }
 
-    public AdaptadorJogos(Context context)
+    public AdaptadorGeneros(Context context)
     {
         this.context = context;
     }
@@ -51,10 +50,10 @@ public class AdaptadorJogos extends RecyclerView.Adapter<AdaptadorJogos.ViewHold
      */
     @NonNull
     @Override
-    public ViewHolderJogos onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemJogo = LayoutInflater.from(context).inflate(R.layout.item_jogo, parent, false);
+    public ViewHolderGeneros onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View itemGenero = LayoutInflater.from(context).inflate(R.layout.item_jogo, parent, false);
 
-        return new ViewHolderJogos(itemJogo);
+        return new ViewHolderGeneros(itemGenero);
     }
 
     /**
@@ -78,10 +77,10 @@ public class AdaptadorJogos extends RecyclerView.Adapter<AdaptadorJogos.ViewHold
      * @param position The position of the item within the adapter's data set.
      */
     @Override
-    public void onBindViewHolder(@NonNull ViewHolderJogos holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolderGeneros holder, int position) {
         cursor.moveToPosition(position);
-        Jogos jogo = Jogos.fromCursor(cursor);
-        holder.setJogo(jogo);
+        Generos genero = Generos.fromCursor(cursor);
+        holder.setGenero(genero);
     }
 
     /**
@@ -91,50 +90,30 @@ public class AdaptadorJogos extends RecyclerView.Adapter<AdaptadorJogos.ViewHold
      */
     @Override
     public int getItemCount() {
+
         if (cursor == null) return 0;
 
         return cursor.getCount();
     }
 
-    public class ViewHolderJogos extends RecyclerView.ViewHolder implements  View.OnClickListener{
-        private TextView textViewTitulo;
-        private TextView textViewAtividade;
-        private TextView textViewDataLancamento;
-        private TextView textViewFavorito;
-        private TextView textViewGenero;
+    /**
+     * Returns the total number of items in the data set held by the adapter.
+     *
+     * @return The total number of items in this adapter.
+     */
+    public class ViewHolderGeneros extends RecyclerView.ViewHolder {
+        private Generos genero;
+        private TextView textViewNomeGenero;
 
-        private Jogos jogo;
-
-        public ViewHolderJogos (@NonNull View itemView) {
+        public ViewHolderGeneros(@NonNull View itemView) {
             super(itemView);
-
-            textViewTitulo = (TextView)itemView.findViewById(R.id.textViewNomeItem);
-            textViewAtividade = (TextView)itemView.findViewById(R.id.textViewAtividadeItem);
-            textViewDataLancamento = (TextView)itemView.findViewById(R.id.textViewDataLancamentoItem);
-            textViewFavorito = (TextView)itemView.findViewById(R.id.textViewFavoritoItem);
-            textViewGenero = itemView.findViewById(R.id.textViewGeneroItem);
+            textViewNomeGenero  = itemView.findViewById(R.id.textViewNomeItem);
 
         }
 
-        public  void setJogo(Jogos jogo){
-            this.jogo = jogo;
-
-            textViewTitulo.setText(jogo.getNome());
-            textViewAtividade.setText(jogo.getAtividade());
-            textViewDataLancamento.setText(jogo.getDataLancamento());
-            textViewFavorito.setText(jogo.getDataLancamento());
-            textViewGenero.setText(jogo.getNomeGenero());
-
-        }
-
-        /**
-         * Called when a view has been clicked.
-         *
-         * @param v The view that was clicked.
-         */
-        @Override
-        public void onClick(View v) {
-
+        public void setGenero(Generos genero){
+            this.genero= genero;
+            textViewNomeGenero.setText(genero.getNome());
         }
     }
 }

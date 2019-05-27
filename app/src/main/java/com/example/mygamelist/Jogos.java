@@ -10,6 +10,11 @@ public class Jogos {
     private String Atividade;
     private String DataLancamento;
     private int favorito;
+    private String nomeGenero;
+
+    public String getNomeGenero() {
+        return nomeGenero;
+    }
 
     public long getId() {
         return Id;
@@ -83,6 +88,9 @@ public class Jogos {
                 cursor.getColumnIndex(BdTableJogos.CAMPO_FAVORITO)
         );
 
+        /*String nomeGenero = cursor.getString(
+                cursor.getColumnIndex(BdTableJogos.ALIAS_NOME_GENERO));*/
+
 
         Jogos jogo = new Jogos();
 
@@ -91,6 +99,7 @@ public class Jogos {
         jogo.setAtividade(atividade);
         jogo.setDataLancamento(data_lancamento);
         jogo.setFavorito(favorito);
+        //jogo.nomeGenero = nomeGenero;
 
         return jogo;
     }

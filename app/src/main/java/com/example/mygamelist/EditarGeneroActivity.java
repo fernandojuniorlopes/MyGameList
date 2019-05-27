@@ -2,9 +2,6 @@ package com.example.mygamelist;
 
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -23,7 +20,7 @@ public class EditarGeneroActivity extends AppCompatActivity {
     }
 
     public void ConfirmarGenero(View view) {
-        EditText editTextNomeGenero = findViewById(R.id.textViewGenero);
+        EditText editTextNomeGenero = findViewById(R.id.textViewGeneroItem);
         String NomeGenero = editTextNomeGenero.getText().toString();
 
         if (NomeGenero.trim().length() == 0) {

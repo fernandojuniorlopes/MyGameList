@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textViewNome"
+        android:id="@+id/textViewNomeItem"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -15,13 +15,13 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintEnd_toStartOf="@+id/textViewFavorito"
+        app:layout_constraintEnd_toStartOf="@+id/textViewFavoritoItem"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Tetris" />
 
     <TextView
-        android:id="@+id/textViewFavorito"
+        android:id="@+id/textViewFavoritoItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -33,18 +33,18 @@
         tools:text="1" />
 
     <TextView
-        android:id="@+id/textViewDataLancamento"
+        android:id="@+id/textViewDataLancamentoItem"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        app:layout_constraintEnd_toEndOf="@+id/textViewNome"
-        app:layout_constraintStart_toStartOf="@+id/textViewNome"
-        app:layout_constraintTop_toBottomOf="@+id/textViewNome"
+        app:layout_constraintEnd_toEndOf="@+id/textViewNomeItem"
+        app:layout_constraintStart_toStartOf="@+id/textViewNomeItem"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNomeItem"
         tools:text="01/01/2000" />
 
     <TextView
-        android:id="@+id/textViewAtividade"
+        android:id="@+id/textViewAtividadeItem"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -54,6 +54,21 @@
         android:layout_marginRight="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewDataLancamento"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDataLancamentoItem"
         tools:text="@string/completado" />
+
+    <TextView
+        android:id="@+id/textViewGeneroItem"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.562"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAtividadeItem"
+        tools:text="Genero de jogo" />
 </androidx.constraintlayout.widget.ConstraintLayout>

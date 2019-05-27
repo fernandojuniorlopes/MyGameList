@@ -12,15 +12,16 @@ public class BdTableJogos implements BaseColumns {
 
     public static final String ALIAS_NOME_GENERO = "nome_gen";
     public static final String NOME_TABELA = "jogos";
-    public static final String CAMPO_NOME = "nome";
+    public static final String CAMPO_NOME = "nomeJogos";
     public static final String CAMPO_ATIVIDADE = "atividade";
     public static final String CAMPO_DATA_LANCAMENTO = "datalancamento";
     public static final String CAMPO_FAVORITO = "favorito";
     public static final String CAMPO_GENERO = "genero";
     public static final String CAMPO_NOME_GENERO = BdTableGeneros.NOME_TABELA + "." + BdTableGeneros.NOME_GENERO + " AS " + ALIAS_NOME_GENERO;
 
-    public static final String [] TODAS_COLUNAS = new String[]{ NOME_TABELA + "." + _ID, CAMPO_NOME, CAMPO_ATIVIDADE, CAMPO_DATA_LANCAMENTO, CAMPO_FAVORITO, CAMPO_NOME_GENERO};
+    //public static final String [] TODAS_COLUNAS = new String[]{ NOME_TABELA + "." + _ID, CAMPO_NOME, CAMPO_ATIVIDADE, CAMPO_DATA_LANCAMENTO, CAMPO_FAVORITO, CAMPO_NOME_GENERO};
 
+    public static final String [] TODAS_COLUNAS = new String[]{ NOME_TABELA + "." + _ID, CAMPO_NOME, CAMPO_ATIVIDADE, CAMPO_DATA_LANCAMENTO, CAMPO_FAVORITO};
     public BdTableJogos(SQLiteDatabase db) {
         this.db = db;
     }
@@ -38,7 +39,7 @@ public class BdTableJogos implements BaseColumns {
     }
     public Cursor query(String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy) {
 
-        String colunasSelect = TextUtils.join(",", columns);
+        /*String colunasSelect = TextUtils.join(",", columns);
 
         String sql = "SELECT " + colunasSelect + " FROM " + NOME_TABELA +
                 " JOIN " + BdTableJogosGeneros.NOME_TABELA + " ON " + BdTableJogos.NOME_TABELA + "." + BdTableJogos._ID +
@@ -52,7 +53,9 @@ public class BdTableJogos implements BaseColumns {
 
         Log.d("Tabela Jogos", "query: " + sql);
 
-        return db.rawQuery(sql, selectionArgs);
+        return db.rawQuery(sql, selectionArgs);*/
+        return db.query(NOME_TABELA, columns, selection, selectionArgs, groupBy, having, orderBy);
+
     }
     public long insert(ContentValues values) {
         return db.insert(NOME_TABELA, null, values);
