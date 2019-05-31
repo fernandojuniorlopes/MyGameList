@@ -26,6 +26,7 @@ public class JogosActivity extends AppCompatActivity implements LoaderManager.Lo
 
     private RecyclerView recyclerViewJogos;
     private AdaptadorJogos adaptadorJogos;
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,10 +58,22 @@ public class JogosActivity extends AppCompatActivity implements LoaderManager.Lo
         super.onResume();
     }
 
+    public void atualizaOpcoesMenu(){
+        Jogos jogo = adaptadorJogos.getJogoSelecionado();
+
+        boolean mostrarAlterarEliminar = (jogo != null);
+
+        menu.findItem(R.id.EditarJogo).setVisible(mostrarAlterarEliminar);
+        menu.findItem(R.id.EliminarJogo).setVisible(mostrarAlterarEliminar);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_jogo, menu);
+
+        this.menu = menu;
+
         return true;
     }
 
@@ -154,6 +167,7 @@ public class JogosActivity extends AppCompatActivity implements LoaderManager.Lo
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
         adaptadorJogos.setCursor(data);
+        Toast.makeText(this, "numero de jogos " + data.getCount(), Toast.LENGTH_SHORT).show();
     }
 
     /**

@@ -1,10 +1,6 @@
 package com.example.mygamelist;
 
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -12,7 +8,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class NovoJogoActivity extends AppCompatActivity {
 
@@ -29,8 +26,6 @@ public class NovoJogoActivity extends AppCompatActivity {
 
         EditText editTextnomejogo = findViewById(R.id.textViewnomejogo);
 
-        Spinner spinnerGenero = findViewById(R.id.spinnerGenero);
-        Spinner spinnerPlataforma = findViewById(R.id.spinnerPlataforma);
         Spinner spinnerJogado = findViewById(R.id.spinnerJogado);
         Spinner spinnerDia = findViewById(R.id.spinnerDia);
         Spinner spinnerMes = findViewById(R.id.spinnerMes);
@@ -38,8 +33,6 @@ public class NovoJogoActivity extends AppCompatActivity {
 
         CheckBox checkBoxFavoritos = findViewById(R.id.checkBoxFavoritos);
 
-        TextView errorGenero = (TextView)spinnerGenero.getSelectedView();
-        TextView errorPlataforma = (TextView)spinnerPlataforma.getSelectedView();
         TextView errorJogado = (TextView)spinnerJogado.getSelectedView();
         TextView errorDia = (TextView)spinnerDia.getSelectedView();
         TextView errorMes = (TextView)spinnerMes.getSelectedView();
@@ -47,18 +40,18 @@ public class NovoJogoActivity extends AppCompatActivity {
 
         String NomeJogo = editTextnomejogo.getText().toString();
 
-        int Plataforma = spinnerPlataforma.getSelectedItemPosition();
-        int Genero = spinnerGenero.getSelectedItemPosition();
         int Jogado = spinnerJogado.getSelectedItemPosition();
         int Dia = spinnerDia.getSelectedItemPosition();
         int Mes = spinnerMes.getSelectedItemPosition();
         int Ano = spinnerAno.getSelectedItemPosition();
-
         boolean flag = true;
-        boolean favoritos = false;
+        int erro = 0;
+        int favoritos=0;
+        String atividade;
+        String data;
 
         if(checkBoxFavoritos.isChecked()){
-            favoritos = true;
+            favoritos = 1;
         }
 
         if (NomeJogo.trim().length() == 0) {
@@ -67,19 +60,6 @@ public class NovoJogoActivity extends AppCompatActivity {
             flag = false;
         }else
             editTextnomejogo.setError(null);
-
-
-        if (Genero == 0) {
-            tratarErros(errorGenero,(getString(R.string.genero_obrigatorio)));
-            flag = false;
-        }else
-            errorGenero.setError(null);
-
-        if (Plataforma == 0) {
-            tratarErros(errorPlataforma, (getString(R.string.plataforma_obrigatorio)));
-            flag = false;
-        }else
-            errorPlataforma.setError(null);
 
         if (Jogado == 0) {
             tratarErros(errorJogado, (getString(R.string.jogados_obrigatorio)));
@@ -115,14 +95,8 @@ public class NovoJogoActivity extends AppCompatActivity {
                 case 10:
                 case 12:
                     if (Dia > 31) {
-                        ErroData(errorDia, (getString(R.string.dias_obrigatorio)));
-                        ErroData(errorMes,(getString(R.string.mes_obrigatorio)));
-                        ErroData(errorAno,(getString(R.string.ano_obrigatorio)));
+                        erro = 1;
                         flag = false;
-                    } else {
-                        errorDia.setError(null);
-                        errorMes.setError(null);
-                        errorAno.setError(null);
                     }
                     break;
                 case 4:
@@ -130,52 +104,56 @@ public class NovoJogoActivity extends AppCompatActivity {
                 case 9:
                 case 11:
                     if (Dia > 30) {
-                        ErroData(errorDia, (getString(R.string.dias_obrigatorio)));
-                        ErroData(errorMes,(getString(R.string.mes_obrigatorio)));
-                        ErroData(errorAno,(getString(R.string.ano_obrigatorio)));
+                        erro = 1;
                         flag = false;
-                    } else {
-                        errorDia.setError(null);
-                        errorMes.setError(null);
-                        errorAno.setError(null);
                     }
                     break;
                 case 2:
                     if (Ano % 4 == 0) {
                         if (Dia > 29) {
-                            ErroData(errorDia, (getString(R.string.dias_obrigatorio)));
-                            ErroData(errorMes,(getString(R.string.mes_obrigatorio)));
-                            ErroData(errorAno,(getString(R.string.ano_obrigatorio)));
+                            erro = 1;
                             flag = false;
-                        } else {
-                            errorDia.setError(null);
-                            errorMes.setError(null);
-                            errorAno.setError(null);
                         }
                     } else {
                         if (Dia > 28) {
-                            ErroData(errorDia, (getString(R.string.dias_obrigatorio)));
-                            ErroData(errorMes,(getString(R.string.mes_obrigatorio)));
-                            ErroData(errorAno,(getString(R.string.ano_obrigatorio)));
+                            erro = 1;
                             flag = false;
-                        } else {
-                            errorDia.setError(null);
-                            errorMes.setError(null);
-                            errorAno.setError(null);
                         }
                         break;
                     }
             }
 
         }else{
+            erro=1;
+        }
+
+        if(erro==1){
             ErroData(errorDia, (getString(R.string.dias_obrigatorio)));
             ErroData(errorMes,(getString(R.string.mes_obrigatorio)));
             ErroData(errorAno,(getString(R.string.ano_obrigatorio)));
         }
+
         if(flag){
             finish();
             Toast.makeText(this, getString(R.string.dados_sucesso), Toast.LENGTH_LONG).show();
         }
+
+        if(Jogado == 1){
+            atividade = "Não jogado";
+        }else if(Jogado == 2){
+            atividade = "A jogar";
+        }else{
+            atividade = "Completado";
+        }
+
+        data = Dia + "/" + Mes + "/" + Ano;
+
+        Jogos jogo = new Jogos();
+
+        jogo.setNome(NomeJogo);
+        jogo.setAtividade(atividade);
+        jogo.setFavorito(favoritos);
+        jogo.setDataLancamento(data);
     }
 
     public void CancelarJogo(View view){

@@ -22,6 +22,7 @@
             android:label="@string/title_activity_novo_genero"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:parentActivityName=".MainActivity"
             android:name=".GenerosActivity"
             android:label="@string/title_activity_generos"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -50,10 +51,12 @@
             android:label="@string/Novojogo"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:parentActivityName=".MainActivity"
             android:name=".PlataformasActivity"
             android:label="@string/title_activity_plataformas"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:parentActivityName=".MainActivity"
             android:name=".JogosActivity"
             android:label="@string/title_activity_jogos"
             android:theme="@style/AppTheme.NoActionBar" />

@@ -9,7 +9,6 @@
     tools:context=".NovoJogoActivity"
     tools:ignore="PrivateResource"
     tools:showIn="@layout/activity_novo_jogo">
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textViewNomeJogo"
         android:layout_width="0dp"
@@ -161,5 +160,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewRelease" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

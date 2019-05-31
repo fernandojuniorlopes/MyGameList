@@ -4,8 +4,6 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
-import android.text.TextUtils;
-import android.util.Log;
 
 public class BdTableJogos implements BaseColumns {
     private SQLiteDatabase db;
@@ -33,7 +31,7 @@ public class BdTableJogos implements BaseColumns {
                         CAMPO_NOME + " TEXT NOT NULL," +
                         CAMPO_ATIVIDADE + " TEXT NOT NULL," +
                         CAMPO_DATA_LANCAMENTO + " TEXT NOT NULL," +
-                        CAMPO_FAVORITO + " TEXT" +
+                        CAMPO_FAVORITO + " INTEGER" +
                         ")"
         );
     }

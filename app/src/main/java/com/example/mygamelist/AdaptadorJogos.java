@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
@@ -96,6 +97,14 @@ public class AdaptadorJogos extends RecyclerView.Adapter<AdaptadorJogos.ViewHold
         return cursor.getCount();
     }
 
+    public Jogos getJogoSelecionado(){
+        if (viewHolderJogoSelecionado == null) return null;
+
+        return viewHolderJogoSelecionado.jogo;
+    }
+
+    private static ViewHolderJogos viewHolderJogoSelecionado = null;
+
     public class ViewHolderJogos extends RecyclerView.ViewHolder implements  View.OnClickListener{
         private TextView textViewTitulo;
         private TextView textViewAtividade;
@@ -125,6 +134,8 @@ public class AdaptadorJogos extends RecyclerView.Adapter<AdaptadorJogos.ViewHold
             textViewFavorito.setText(jogo.getDataLancamento());
             textViewGenero.setText(jogo.getNomeGenero());
 
+            itemView.setOnClickListener(this);
+
         }
 
         /**
@@ -134,7 +145,23 @@ public class AdaptadorJogos extends RecyclerView.Adapter<AdaptadorJogos.ViewHold
          */
         @Override
         public void onClick(View v) {
+            Toast.makeText(context, jogo.getNome(), Toast.LENGTH_SHORT).show();
 
+            if (viewHolderJogoSelecionado != null) {
+                viewHolderJogoSelecionado.desSeleciona();
+            }
+
+            viewHolderJogoSelecionado = this;
+
+            seleciona();
+        }
+
+        private void desSeleciona() {
+            itemView.setBackgroundResource(android.R.color.white);
+        }
+
+        private void seleciona() {
+            itemView.setBackgroundResource(R.color.colorRed);
         }
     }
 }

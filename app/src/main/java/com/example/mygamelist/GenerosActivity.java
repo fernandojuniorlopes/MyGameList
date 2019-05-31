@@ -146,6 +146,7 @@ public class GenerosActivity extends AppCompatActivity implements LoaderManager.
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
         adaptadorGeneros.setCursor(data);
+        Toast.makeText(this, "numero de generos " + data.getCount(), Toast.LENGTH_SHORT).show();
     }
 
     /**
