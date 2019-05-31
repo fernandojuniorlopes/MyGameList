@@ -87,7 +87,7 @@ public class JogosActivity extends AppCompatActivity implements LoaderManager.Lo
         //noinspection SimplifiableIfStatement
 
         if (id == R.id.NovoJogo) {
-            Intent intent = new Intent(JogosActivity.this, NovoJogoActivity.class);
+            Intent intent = new Intent(this, NovoJogoActivity.class);
             startActivity(intent);
             Toast.makeText(this, getString(R.string.itemadicionarnovojogo), Toast.LENGTH_LONG).show();
             return true;
