@@ -4,8 +4,18 @@ import android.content.ContentValues;
 import android.database.Cursor;
 
 public class JogosGeneros {
-    public long id_genero;
-    public long id_jogo;
+
+    private long Id;
+    private long id_genero;
+    private long id_jogo;
+
+    public long getId() {
+        return Id;
+    }
+
+    public void setId(long id) {
+        Id = id;
+    }
 
     public long getId_genero() {
         return id_genero;
@@ -33,6 +43,10 @@ public class JogosGeneros {
     }
 
     public static JogosGeneros fromCursor(Cursor cursor) {
+        long id = cursor.getLong(
+                cursor.getColumnIndex(BdTableJogosGeneros._ID)
+        );
+
         long id_jogo = cursor.getLong(
                 cursor.getColumnIndex(BdTableJogosGeneros.ID_JOGO)
         );
@@ -43,6 +57,7 @@ public class JogosGeneros {
 
         JogosGeneros jogoGenero = new JogosGeneros();
 
+        jogoGenero.setId(id);
         jogoGenero.setId_jogo(id_jogo);
         jogoGenero.setId_genero(id_genero);
 

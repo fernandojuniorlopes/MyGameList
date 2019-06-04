@@ -6,10 +6,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
+
 public class NovoGeneroActivity extends AppCompatActivity {
+
+    private EditText textViewnomeGenero;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +24,10 @@ public class NovoGeneroActivity extends AppCompatActivity {
         setContentView(R.layout.activity_novo_genero);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        textViewnomeGenero = (EditText) findViewById(R.id.textViewGeneroItem);
+
     }
     public void ConfirmarGenero(View view) {
         EditText editTextNomeGenero = findViewById(R.id.textViewGeneroItem);
@@ -31,6 +42,25 @@ public class NovoGeneroActivity extends AppCompatActivity {
         if (NomeGenero.trim().length() != 0) {
             finish();
             Toast.makeText(this, getString(R.string.dados_sucesso), Toast.LENGTH_LONG).show();
+        }
+
+        Generos genero = new Generos();
+
+        genero.setNome(NomeGenero);
+
+        try {
+            getContentResolver().insert(MyGamesListContentProvider.ENDERECO_GENEROS, genero.getContentValues());
+
+            Toast.makeText(this, "Jogo guardado com sucesso", Toast.LENGTH_SHORT).show();
+            finish();
+        } catch (Exception e) {
+            Snackbar.make(
+                    editTextNomeGenero,
+                    "Erro a guardar Jogo",
+                    Snackbar.LENGTH_LONG)
+                    .show();
+
+            e.printStackTrace();
         }
     }
 

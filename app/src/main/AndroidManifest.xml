@@ -39,17 +39,32 @@
             android:label="@string/title_activity_editar_plataforma"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:parentActivityName=".JogosActivity"
             android:name=".EliminarJogoActivity"
             android:label="@string/title_activity_eliminar_jogo"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mygamelist.JogosActivity" />
+        </activity>
         <activity
             android:name=".EditarJogoActivity"
+            android:parentActivityName=".JogosActivity"
             android:label="@string/title_activity_editar_jogo"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mygamelist.JogosActivity" />
+        </activity>
         <activity
+            android:parentActivityName=".JogosActivity"
             android:name=".NovoJogoActivity"
             android:label="@string/Novojogo"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mygamelist.JogosActivity" />
+        </activity>
         <activity
             android:parentActivityName=".MainActivity"
             android:name=".PlataformasActivity"

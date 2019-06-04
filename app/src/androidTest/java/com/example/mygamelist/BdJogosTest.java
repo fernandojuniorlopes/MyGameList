@@ -222,13 +222,13 @@ public class BdJogosTest {
         cursorJogoGenero = getJogoGenero(tabelaJogosGeneros);
         assertEquals(2, cursorJogoGenero.getCount());
 
-        JogosGeneros jogosGenero = getJogoGeneroComID(cursorJogoGenero, idTetris, idEstrategia);
+        JogosGeneros jogosGenero = getJogoGeneroComID(cursorJogoGenero, idTetrisEstrategia);
         jogosGenero.setId_genero(idFPS);
         jogosGenero.setId_jogo(idFifa);
         tabelaJogosGeneros.update(jogosGenero.getContentValues(), BdTableJogosGeneros.ID_JOGO + "=? AND " + BdTableJogosGeneros.ID_GENERO + "=?", new String[] {String.valueOf(idTetris), String.valueOf(idEstrategia)});
 
         cursorJogoGenero = getJogoGenero(tabelaJogosGeneros);
-        jogosGenero = getJogoGeneroComID(cursorJogoGenero, idFifa, idFPS);
+        jogosGenero = getJogoGeneroComID(cursorJogoGenero, idTetrisEstrategia);
         assertEquals(jogosGenero.getId_jogo(), idFifa);
         assertEquals(jogosGenero.getId_genero(), idFPS);
 
@@ -252,13 +252,13 @@ public class BdJogosTest {
         assertEquals(2, cursorJogosPlataformas.getCount());
 
         //UPDATE Tabela JogosPlataformas
-        JogosPlataformas jogosPlataformas = getJogoPlataformaComID(cursorJogosPlataformas,idTetris, idPS4);
+        JogosPlataformas jogosPlataformas = getJogoPlataformaComID(cursorJogosPlataformas,idTetrisPS4);
         jogosPlataformas.setId_jogo(idFifa);
         jogosPlataformas.setId_plataforma(idPS3);
         tabelaJogosPlataformas.update(jogosPlataformas.getContentValues(), BdTableJogosPlataformas.ID_JOGO + "=? AND " + BdTableJogosPlataformas.ID_PLATAFORMA + "=?", new String[] {String.valueOf(idTetris), String.valueOf(idPS4)});
 
         cursorJogosPlataformas = getJogoPlataforma(tabelaJogosPlataformas);
-        jogosPlataformas = getJogoPlataformaComID(cursorJogosPlataformas, idFifa, idPS3);
+        jogosPlataformas = getJogoPlataformaComID(cursorJogosPlataformas, idTetrisPS4);
         assertEquals(jogosPlataformas.getId_jogo(), idFifa);
         assertEquals(jogosPlataformas.getId_plataforma(), idPS3);
 
@@ -356,12 +356,12 @@ public class BdJogosTest {
     private Cursor getJogoGenero(BdTableJogosGeneros tabelaJogoGenero) {
         return tabelaJogoGenero.query(BdTableJogosGeneros.TODAS_COLUNAS, null, null, null, null, null);
     }
-    private JogosGeneros getJogoGeneroComID(Cursor cursor, long id_jogo, long id_genero){
+    private JogosGeneros getJogoGeneroComID(Cursor cursor, long id){
         JogosGeneros jogosGeneros = null;
 
         while(cursor.moveToNext()){
             jogosGeneros = JogosGeneros.fromCursor(cursor);
-            if((jogosGeneros.getId_jogo() == id_jogo)&&(jogosGeneros.getId_genero() == id_genero)){
+            if(jogosGeneros.getId() == id){
                 break;
             }
         }
@@ -382,12 +382,12 @@ public class BdJogosTest {
     private Cursor getJogoPlataforma(BdTableJogosPlataformas tabelaJogosPlataformas) {
         return tabelaJogosPlataformas.query(BdTableJogosPlataformas.TODAS_COLUNAS, null, null, null, null, null);
     }
-    private JogosPlataformas getJogoPlataformaComID(Cursor cursor, long id_jogo, long id_plataforma){
+    private JogosPlataformas getJogoPlataformaComID(Cursor cursor, long id){
         JogosPlataformas jogosPlataformas = null;
 
         while(cursor.moveToNext()){
             jogosPlataformas = jogosPlataformas.fromCursor(cursor);
-            if((jogosPlataformas.getId_jogo() == id_jogo)&&(jogosPlataformas.getId_plataforma() == id_plataforma)){
+            if(jogosPlataformas.getId() == id){
                 break;
             }
         }

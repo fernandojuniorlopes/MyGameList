@@ -11,7 +11,7 @@ public class BdTableJogosGeneros implements BaseColumns {
     public static final String NOME_TABELA = "jogosgeneros";
     public static final String ID_GENERO = "id_genero";
     public static final String ID_JOGO = "id_jogo";
-    public static final String [] TODAS_COLUNAS = new String[]{ID_JOGO, ID_GENERO};
+    public static final String [] TODAS_COLUNAS = new String[]{_ID, ID_JOGO, ID_GENERO};
 
     public BdTableJogosGeneros(SQLiteDatabase db) {
         this.db = db;
@@ -19,11 +19,11 @@ public class BdTableJogosGeneros implements BaseColumns {
 
     public void cria() {
        db.execSQL( "CREATE TABLE " + NOME_TABELA + "(" +
+               _ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                ID_GENERO + " INTEGER NOT NULL," +
                ID_JOGO + " INTEGER NOT NULL," +
-               "FOREIGN KEY (" + ID_GENERO + ") REFERENCES " + BdTableGeneros.NOME_TABELA + "(" + BdTableGeneros._ID + ")," +
-               "FOREIGN KEY (" + ID_JOGO + ") REFERENCES " + BdTableJogos.NOME_TABELA + "(" + BdTableJogos._ID + ")," +
-               "PRIMARY KEY (" + ID_GENERO + "," + ID_JOGO + ")" +
+               " FOREIGN KEY (" + ID_GENERO + ") REFERENCES " + BdTableGeneros.NOME_TABELA + "(" + BdTableGeneros._ID + ")," +
+               " FOREIGN KEY (" + ID_JOGO + ") REFERENCES " + BdTableJogos.NOME_TABELA + "(" + BdTableJogos._ID + ")" +
                ")"
         );
     }

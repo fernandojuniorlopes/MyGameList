@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CursorAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,12 +21,14 @@ import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import static com.example.mygamelist.R.id.recyclerViewJogos;
+
 public class JogosActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static  final int ID_CURSOR_LOADER_JOGOS =0;
 
     private RecyclerView recyclerViewJogos;
-    private AdaptadorJogos adaptadorJogos;
+    private AdaptadorJogos adaptadorJogos = new AdaptadorJogos(this);
     private Menu menu;
 
     @Override
@@ -35,12 +38,11 @@ public class JogosActivity extends AppCompatActivity implements LoaderManager.Lo
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        getSupportLoaderManager().initLoader(ID_CURSOR_LOADER_JOGOS, null, this);
-
-        recyclerViewJogos = findViewById(R.id.recyclerViewJogos);
-        adaptadorJogos = new AdaptadorJogos(this);
+        recyclerViewJogos = (RecyclerView) findViewById(R.id.recyclerViewJogos);
         recyclerViewJogos.setAdapter(adaptadorJogos);
         recyclerViewJogos.setLayoutManager(new LinearLayoutManager(this));
+
+        getSupportLoaderManager().initLoader(ID_CURSOR_LOADER_JOGOS, null, this);
     }
 
     /**
@@ -117,7 +119,7 @@ public class JogosActivity extends AppCompatActivity implements LoaderManager.Lo
 
     @NonNull
     @Override
-    public Loader onCreateLoader(int id, @Nullable Bundle args) {
+    public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
         CursorLoader cursorLoader = new CursorLoader(this, MyGamesListContentProvider.ENDERECO_JOGOS, BdTableJogos.TODAS_COLUNAS, null, null, BdTableJogos.CAMPO_NOME);
 
         return cursorLoader;

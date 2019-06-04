@@ -182,13 +182,13 @@ public class MyGamesListContentProvider extends ContentProvider {
                 return new BdTableJogosGeneros(bd).query(projection, selection, selectionArgs, null, null, sortOrder);
 
             case URI_JOGO_GENERO_ESPECIFICO:
-                return  new BdTableJogosGeneros(bd).query(projection, BdTableJogos._ID + "=?", new String[] { id }, null, null, null);
+                return  new BdTableJogosGeneros(bd).query(projection, BdTableJogosGeneros._ID + "=?", new String[] { id }, null, null, null);
 
             case URI_JOGOS_PLATAFORMAS:
                 return new BdTableJogosPlataformas(bd).query(projection, selection, selectionArgs, null, null, sortOrder);
 
             case URI_JOGO_PLATAFORMA_ESPECIFICO:
-                return  new BdTableJogosPlataformas(bd).query(projection, BdTablePlataformas._ID + "=?", new String[] { id }, null, null, null);
+                return  new BdTableJogosPlataformas(bd).query(projection, BdTableJogosPlataformas._ID + "=?", new String[] { id }, null, null, null);
 
             default:
                 throw new UnsupportedOperationException("URI inválida (QUERY): " + uri.toString());
@@ -327,9 +327,9 @@ public class MyGamesListContentProvider extends ContentProvider {
             case URI_JOGO_ESPECIFICO:
                 return new BdTableJogos(bd).delete(BdTableJogos._ID + "=?", new String[]{id});
             case URI_PLATAFORMA_ESPECIFICA:
-                return new BdTableJogosPlataformas(bd).delete(BdTableJogosPlataformas.ID_JOGO + "=? AND " + BdTableJogosPlataformas.ID_PLATAFORMA + "=?", new String[]{id});
+                return new BdTableJogosPlataformas(bd).delete(BdTableJogosPlataformas._ID + "=?", new String[]{id});
             case URI_JOGO_GENERO_ESPECIFICO:
-                return new BdTableJogosGeneros(bd).delete(BdTableJogosGeneros.ID_JOGO + "=? AND " + BdTableJogosGeneros.ID_GENERO + "=?", new String[]{id});
+                return new BdTableJogosGeneros(bd).delete(BdTableJogosGeneros._ID + "=?", new String[]{id});
             default:
                 throw new UnsupportedOperationException("URI inválida (DELETE): " + uri.toString());
         }
@@ -365,9 +365,9 @@ public class MyGamesListContentProvider extends ContentProvider {
             case URI_JOGO_ESPECIFICO:
                 return new BdTableJogos(bd).update(values, BdTableJogos._ID + "=?", new String[]{id});
             case URI_PLATAFORMA_ESPECIFICA:
-                return new BdTableJogosPlataformas(bd).update(values, BdTableJogosPlataformas.ID_JOGO + "=? AND " + BdTableJogosPlataformas.ID_PLATAFORMA + "=?", new String[]{id});
+                return new BdTableJogosPlataformas(bd).update(values, BdTableJogosPlataformas._ID + "=?", new String[]{id});
             case URI_JOGO_GENERO_ESPECIFICO:
-                return new BdTableJogosGeneros(bd).update(values, BdTableJogosGeneros.ID_JOGO + "=? AND " + BdTableJogosGeneros.ID_GENERO + "=?", new String[]{id});
+                return new BdTableJogosGeneros(bd).update(values, BdTableJogosGeneros._ID + "=?", new String[]{id});
 
             default:
                 throw new UnsupportedOperationException("URI inválida (UPDATE): " + uri.toString());

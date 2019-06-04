@@ -17,17 +17,16 @@ public class AdaptadorJogos extends RecyclerView.Adapter<AdaptadorJogos.ViewHold
     private Cursor cursor;
     private Context context;
 
+    public AdaptadorJogos(Context context)
+    {
+        this.context = context;
+    }
+
     public void setCursor(Cursor cursor) {
-        this.cursor = cursor;
         if (this.cursor != cursor) {
             this.cursor = cursor;
             notifyDataSetChanged();
         }
-    }
-
-    public AdaptadorJogos(Context context)
-    {
-        this.context = context;
     }
 
     /**
@@ -111,6 +110,7 @@ public class AdaptadorJogos extends RecyclerView.Adapter<AdaptadorJogos.ViewHold
         private TextView textViewDataLancamento;
         private TextView textViewFavorito;
         private TextView textViewGenero;
+        private TextView textViewPlataforma;
 
         private Jogos jogo;
 
@@ -121,8 +121,11 @@ public class AdaptadorJogos extends RecyclerView.Adapter<AdaptadorJogos.ViewHold
             textViewAtividade = (TextView)itemView.findViewById(R.id.textViewAtividadeItem);
             textViewDataLancamento = (TextView)itemView.findViewById(R.id.textViewDataLancamentoItem);
             textViewFavorito = (TextView)itemView.findViewById(R.id.textViewFavoritoItem);
-            textViewGenero = itemView.findViewById(R.id.textViewGeneroItem);
+            //textViewGenero = itemView.findViewById(R.id.textViewGeneroItem);
+            // textViewPlataforma = itemView.findViewById(R.id.textViewPlataformaItem);
 
+
+            itemView.setOnClickListener(this);
         }
 
         public  void setJogo(Jogos jogo){
@@ -131,10 +134,10 @@ public class AdaptadorJogos extends RecyclerView.Adapter<AdaptadorJogos.ViewHold
             textViewTitulo.setText(jogo.getNome());
             textViewAtividade.setText(jogo.getAtividade());
             textViewDataLancamento.setText(jogo.getDataLancamento());
-            textViewFavorito.setText(jogo.getDataLancamento());
-            textViewGenero.setText(jogo.getNomeGenero());
+            textViewFavorito.setText(String.valueOf(jogo.getFavorito()));
+            //textViewGenero.setText(jogo.getNomeGenero());
+            //textViewPla.setText(jogo.getNomeGenero());
 
-            itemView.setOnClickListener(this);
 
         }
 
@@ -152,6 +155,8 @@ public class AdaptadorJogos extends RecyclerView.Adapter<AdaptadorJogos.ViewHold
             }
 
             viewHolderJogoSelecionado = this;
+
+            ((JogosActivity) context).atualizaOpcoesMenu();
 
             seleciona();
         }

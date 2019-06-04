@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,7 +17,6 @@ public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.View
     private Context context;
 
     public void setCursor(Cursor cursor) {
-        this.cursor = cursor;
         if (this.cursor != cursor) {
             this.cursor = cursor;
             notifyDataSetChanged();
@@ -90,30 +90,65 @@ public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.View
      */
     @Override
     public int getItemCount() {
-
         if (cursor == null) return 0;
 
         return cursor.getCount();
     }
+
+    public Generos getGeneroSelecionado(){
+        if ( viewHolderGeneroSelecionado == null) return null;
+
+        return viewHolderGeneroSelecionado.genero;
+    }
+
+    private static AdaptadorGeneros.ViewHolderGeneros viewHolderGeneroSelecionado = null;
 
     /**
      * Returns the total number of items in the data set held by the adapter.
      *
      * @return The total number of items in this adapter.
      */
-    public class ViewHolderGeneros extends RecyclerView.ViewHolder {
+    public class ViewHolderGeneros extends RecyclerView.ViewHolder implements  View.OnClickListener {
         private Generos genero;
         private TextView textViewNomeGenero;
 
         public ViewHolderGeneros(@NonNull View itemView) {
             super(itemView);
-            textViewNomeGenero  = itemView.findViewById(R.id.textViewNomeItem);
+            textViewNomeGenero  = itemView.findViewById(R.id.textViewGeneroItem);
 
+            itemView.setOnClickListener(this);
         }
 
         public void setGenero(Generos genero){
             this.genero= genero;
             textViewNomeGenero.setText(genero.getNome());
+        }
+
+        /**
+         * Called when a view has been clicked.
+         *
+         * @param v The view that was clicked.
+         */
+        @Override
+        public void onClick(View v) {
+            Toast.makeText(context, genero.getNome(), Toast.LENGTH_SHORT).show();
+
+            if (viewHolderGeneroSelecionado != null) {
+                viewHolderGeneroSelecionado.desSeleciona();
+            }
+
+            viewHolderGeneroSelecionado = this;
+
+            ((GenerosActivity) context).atualizaOpcoesMenu();
+
+            seleciona();
+        }
+        private void desSeleciona() {
+            itemView.setBackgroundResource(android.R.color.white);
+        }
+
+        private void seleciona() {
+            itemView.setBackgroundResource(R.color.colorRed);
         }
     }
 }

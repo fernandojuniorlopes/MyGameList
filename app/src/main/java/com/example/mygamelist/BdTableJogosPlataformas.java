@@ -11,7 +11,7 @@ public class BdTableJogosPlataformas implements BaseColumns {
     public static final String NOME_TABELA = "jogosplataformas";
     public static final String ID_PLATAFORMA = "id_plataformas";
     public static final String ID_JOGO = "id_jogo";
-    public static final String [] TODAS_COLUNAS = new String[]{ID_JOGO, ID_PLATAFORMA};
+    public static final String [] TODAS_COLUNAS = new String[]{_ID, ID_JOGO, ID_PLATAFORMA};
 
     public BdTableJogosPlataformas(SQLiteDatabase db) {
         this.db = db;
@@ -19,11 +19,11 @@ public class BdTableJogosPlataformas implements BaseColumns {
 
     public void cria() {
         db.execSQL( "CREATE TABLE " + NOME_TABELA + "(" +
+                _ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 ID_PLATAFORMA + " INTEGER NOT NULL," +
                 ID_JOGO + " INTEGER NOT NULL," +
                 "FOREIGN KEY (" + ID_PLATAFORMA + ") REFERENCES " + BdTableGeneros.NOME_TABELA + "(" + BdTableGeneros._ID + ")," +
-                "FOREIGN KEY (" + ID_JOGO + ") REFERENCES " + BdTableJogos.NOME_TABELA + "(" + BdTableJogos._ID + ")," +
-                "PRIMARY KEY (" + ID_PLATAFORMA + "," + ID_JOGO + ")" +
+                "FOREIGN KEY (" + ID_JOGO + ") REFERENCES " + BdTableJogos.NOME_TABELA + "(" + BdTableJogos._ID + ")" +
                 ")"
         );
     }

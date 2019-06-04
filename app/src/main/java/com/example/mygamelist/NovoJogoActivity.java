@@ -1,6 +1,7 @@
 package com.example.mygamelist;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
+import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,9 +23,23 @@ import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
 
+import com.google.android.material.snackbar.Snackbar;
+
+import static java.lang.Integer.valueOf;
+
 public class NovoJogoActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static  final int ID_CURSOR_LOADER_GENEROS =0;
+    private static  final int ID_CURSOR_LOADER_PLATAFORMAS =1;
+
+    private EditText textViewnomejogo;
+    private Spinner spinnerGenero;
+    private Spinner spinnerPlataforma;
+    private Spinner spinnerJogado;
+    private Spinner spinnerDia;
+    private Spinner spinnerMes;
+    private Spinner spinnerAno;
+    private CheckBox checkBoxFavoritos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +50,41 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        getSupportLoaderManager().initLoader(ID_CURSOR_LOADER_GENEROS, null, this);
+        textViewnomejogo = (EditText) findViewById(R.id.textViewnomejogo);
+        spinnerGenero = (Spinner) findViewById(R.id.spinnerGenero);
+        spinnerPlataforma = (Spinner)  findViewById(R.id.spinnerPlataforma);
+        spinnerJogado = (Spinner) findViewById(R.id.spinnerJogado);
+        spinnerDia = (Spinner) findViewById(R.id.spinnerDia);
+        spinnerMes = (Spinner) findViewById(R.id.spinnerMes);
+        spinnerAno = (Spinner) findViewById(R.id.spinnerAno);
+        checkBoxFavoritos = (CheckBox) findViewById(R.id.checkBoxFavoritos);
 
+        getSupportLoaderManager().initLoader(ID_CURSOR_LOADER_GENEROS, null, this);
+        getSupportLoaderManager().initLoader(ID_CURSOR_LOADER_PLATAFORMAS, null, this);
+
+    }
+
+    private void mostraGenerosSpinner(Cursor cursorGeneros){
+        SimpleCursorAdapter adaptadorGeneros = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1,
+                cursorGeneros,
+                new String[]{BdTableGeneros.NOME_GENERO},
+                new int[]{android.R.id.text1});
+
+        spinnerGenero.setAdapter(adaptadorGeneros);
+    }
+    private void mostraPlataformasSpinner(Cursor cursorPlataformas){
+        SimpleCursorAdapter adaptadorPlataformas = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1,
+                cursorPlataformas,
+                new String[]{BdTablePlataformas.NOME_PLATAFORMA},
+                new int[]{android.R.id.text1});
+
+        spinnerPlataforma.setAdapter(adaptadorPlataformas);
     }
 
     @Override
     protected void onResume() {
         getSupportLoaderManager().restartLoader(ID_CURSOR_LOADER_GENEROS, null, this);
+        getSupportLoaderManager().restartLoader(ID_CURSOR_LOADER_PLATAFORMAS, null, this);
         super.onResume();
     }
 
@@ -55,26 +99,12 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
 
         if (id == R.id.Settings) {
             return true;
-        } else if (id == R.id.EditarJogo) {
-            return true;
-        } else if (id == R.id.EliminarJogo) {
-            return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
     public void ConfirmarJogo(View view){
-
-        EditText editTextnomejogo = findViewById(R.id.textViewnomejogo);
-
-        Spinner spinnerJogado = findViewById(R.id.spinnerJogado);
-        Spinner spinnerDia = findViewById(R.id.spinnerDia);
-        Spinner spinnerMes = findViewById(R.id.spinnerMes);
-        Spinner spinnerAno = findViewById(R.id.spinnerAno);
-        Spinner spinnerGenero = findViewById(R.id.spinnerGenero);
-        Spinner spinnerPlataforma = findViewById(R.id.spinnerPlataforma);
-
-        CheckBox checkBoxFavoritos = findViewById(R.id.checkBoxFavoritos);
 
         TextView errorJogado = (TextView)spinnerJogado.getSelectedView();
         TextView errorDia = (TextView)spinnerDia.getSelectedView();
@@ -83,14 +113,17 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
         TextView errorGenero = (TextView)spinnerGenero.getSelectedView();
         TextView errorPlataforma = (TextView)spinnerPlataforma.getSelectedView();
 
-        String NomeJogo = editTextnomejogo.getText().toString();
+        String NomeJogo = textViewnomejogo.getText().toString();
 
         int Jogado = spinnerJogado.getSelectedItemPosition();
         int Dia = spinnerDia.getSelectedItemPosition();
         int Mes = spinnerMes.getSelectedItemPosition();
-        int Ano = spinnerAno.getSelectedItemPosition();
+        String anoStr = spinnerAno.getSelectedItem().toString();
         int Genero = spinnerGenero.getSelectedItemPosition();
         int Plataforma = spinnerPlataforma.getSelectedItemPosition();
+
+        int Ano = valueOf(anoStr);
+
 
         boolean flag = true;
         int erro = 0;
@@ -103,11 +136,11 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
         }
 
         if (NomeJogo.trim().length() == 0) {
-            editTextnomejogo.setError(getString(R.string.nome_obrigatorio));
-            editTextnomejogo.requestFocus();
+            textViewnomejogo.setError(getString(R.string.nome_obrigatorio));
+            textViewnomejogo.requestFocus();
             flag = false;
         }else
-            editTextnomejogo.setError(null);
+            textViewnomejogo.setError(null);
 
         if (Jogado == 0) {
             tratarErros(errorJogado, (getString(R.string.jogados_obrigatorio)));
@@ -133,17 +166,17 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
         }else
             errorAno.setError(null);
 
-        if (Genero == 0) {
+        /*if (Genero == 0) {
             tratarErros(errorGenero, getString(R.string.genero_obrigatorio));
             flag = false;
         }else
-            errorGenero.setError(null);
+            errorGenero.setError(null);*/
 
-        if (Plataforma == 0) {
+        /*if (Plataforma == 0) {
             tratarErros(errorPlataforma, getString(R.string.plataforma_obrigatorio));
             flag = false;
         }else
-            errorPlataforma.setError(null);
+            errorPlataforma.setError(null);*/
 
         if((Mes != 0)&&(Dia!=0)&&(Ano!=0)) {
             switch (Mes) {
@@ -196,6 +229,8 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
         if(flag){
             finish();
             Toast.makeText(this, getString(R.string.dados_sucesso), Toast.LENGTH_LONG).show();
+        }else{
+            return;
         }
 
         if(Jogado == 1){
@@ -208,12 +243,38 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
 
         data = Dia + "/" + Mes + "/" + Ano;
 
+        long idGenero = spinnerGenero.getSelectedItemId();
+        long idPlataforma = spinnerPlataforma.getSelectedItemId();
+
         Jogos jogo = new Jogos();
 
         jogo.setNome(NomeJogo);
         jogo.setAtividade(atividade);
         jogo.setFavorito(favoritos);
         jogo.setDataLancamento(data);
+
+        try {
+            getContentResolver().insert(MyGamesListContentProvider.ENDERECO_JOGOS, jogo.getContentValues());
+
+            Toast.makeText(this, "Jogo guardado com sucesso", Toast.LENGTH_SHORT).show();
+            finish();
+        } catch (Exception e) {
+            Snackbar.make(
+                    textViewnomejogo,
+                    "Erro a guardar Jogo",
+                    Snackbar.LENGTH_LONG)
+                    .show();
+
+            e.printStackTrace();
+        }
+
+        /*Intent intent = new Intent(this, JogosActivity.class);
+            intent.putExtra("Nomejogo", jogo.getNome());
+            intent.putExtra("atividade", jogo.getAtividade());
+            intent.putExtra("favorito", jogo.getFavorito());
+            intent.putExtra("datalancamento", jogo.getDataLancamento());
+
+            startActivity(intent);*/
     }
 
     public void CancelarJogo(View view){
@@ -242,9 +303,17 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
-        CursorLoader cursorLoader = new CursorLoader(this, MyGamesListContentProvider.ENDERECO_GENEROS, BdTableGeneros.TODAS_COLUNAS, null, null, BdTableGeneros.NOME_GENERO);
+        switch(id) {
+            case ID_CURSOR_LOADER_GENEROS:
+                CursorLoader cursorLoader = new CursorLoader(this, MyGamesListContentProvider.ENDERECO_GENEROS, BdTableGeneros.TODAS_COLUNAS, null, null, BdTableGeneros.NOME_GENERO);
+                return cursorLoader;
+            case ID_CURSOR_LOADER_PLATAFORMAS:
+                CursorLoader cursorLoader2 = new CursorLoader(this, MyGamesListContentProvider.ENDERECO_PLATAFORMAS, BdTablePlataformas.TODAS_COLUNAS, null, null, BdTablePlataformas.NOME_PLATAFORMA);
+                return cursorLoader2;
 
-        return cursorLoader;
+            default:
+                return null;
+        }
     }
 
     /**
@@ -290,7 +359,11 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
      */
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
-
+        if(loader.getId()==ID_CURSOR_LOADER_GENEROS){
+            mostraGenerosSpinner(data);
+        }else{
+            mostraPlataformasSpinner(data);
+        }
     }
 
     /**
@@ -305,5 +378,10 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
     @Override
     public void onLoaderReset(@NonNull Loader<Cursor> loader) {
 
+        if(loader.getId()==ID_CURSOR_LOADER_GENEROS){
+            mostraGenerosSpinner(null);
+        }else{
+            mostraPlataformasSpinner(null);
+        }
     }
 }

@@ -25,7 +25,8 @@ public class GenerosActivity extends AppCompatActivity implements LoaderManager.
     private static  final int ID_CURSOR_LOADER_GENEROS =0;
 
     private RecyclerView recyclerViewGeneros;
-    private AdaptadorGeneros adaptadorGeneros;
+    private AdaptadorGeneros adaptadorGeneros = new AdaptadorGeneros(this);
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +35,14 @@ public class GenerosActivity extends AppCompatActivity implements LoaderManager.
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        getSupportLoaderManager().initLoader(ID_CURSOR_LOADER_GENEROS, null, this);
+
 
         recyclerViewGeneros = findViewById(R.id.recyclerViewGeneros);
         adaptadorGeneros = new AdaptadorGeneros(this);
         recyclerViewGeneros.setAdapter(adaptadorGeneros);
         recyclerViewGeneros.setLayoutManager(new LinearLayoutManager(this));
 
+        getSupportLoaderManager().initLoader(ID_CURSOR_LOADER_GENEROS, null, this);
     }
 
     @Override
@@ -49,10 +51,21 @@ public class GenerosActivity extends AppCompatActivity implements LoaderManager.
         super.onResume();
     }
 
+    public void atualizaOpcoesMenu(){
+        Generos genero = adaptadorGeneros.getGeneroSelecionado();
+
+        boolean mostrarAlterarEliminar = (genero != null);
+
+        menu.findItem(R.id.EditarGeneros).setVisible(mostrarAlterarEliminar);
+        menu.findItem(R.id.EliminarGeneros).setVisible(mostrarAlterarEliminar);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.meno_genero, menu);
+        getMenuInflater().inflate(R.menu.menu_genero, menu);
+        this.menu = menu;
+
         return true;
     }
 

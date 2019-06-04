@@ -7,8 +7,8 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".NovoJogoActivity"
-    tools:ignore="PrivateResource"
     tools:showIn="@layout/activity_novo_jogo">
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textViewNomeJogo"
         android:layout_width="0dp"
@@ -42,13 +42,13 @@
         android:layout_marginRight="@dimen/margin_button"
         android:onClick="ConfirmarJogo"
         android:text="@string/buttonguardar"
-        app:layout_constraintBaseline_toBaselineOf="@+id/buttonEliminarCancelar"
-        app:layout_constraintEnd_toStartOf="@+id/buttonEliminarCancelar"
+        app:layout_constraintBaseline_toBaselineOf="@+id/buttonCancelar"
+        app:layout_constraintEnd_toStartOf="@+id/buttonCancelar"
         app:layout_constraintHorizontal_bias="0.818"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/buttonEliminarCancelar"
+        android:id="@+id/buttonCancelar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -68,7 +68,6 @@
         android:layout_marginTop="@dimen/margin_height"
         android:layout_marginEnd="@dimen/margin_height"
         android:layout_marginRight="@dimen/standard_margin"
-        android:entries="@array/generos"
         android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -83,7 +82,6 @@
         android:layout_marginTop="@dimen/margin_height"
         android:layout_marginEnd="@dimen/margin_height"
         android:layout_marginRight="@dimen/standard_margin"
-        android:entries="@array/plataformas"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerGenero" />

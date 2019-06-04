@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
+import android.text.TextUtils;
+import android.util.Log;
 
 public class BdTableJogos implements BaseColumns {
     private SQLiteDatabase db;
@@ -14,8 +16,8 @@ public class BdTableJogos implements BaseColumns {
     public static final String CAMPO_ATIVIDADE = "atividade";
     public static final String CAMPO_DATA_LANCAMENTO = "datalancamento";
     public static final String CAMPO_FAVORITO = "favorito";
-    public static final String CAMPO_GENERO = "genero";
-    public static final String CAMPO_NOME_GENERO = BdTableGeneros.NOME_TABELA + "." + BdTableGeneros.NOME_GENERO + " AS " + ALIAS_NOME_GENERO;
+    //public static final String CAMPO_GENERO = "genero";
+    //public static final String CAMPO_NOME_GENERO = BdTableGeneros.NOME_TABELA + "." + BdTableGeneros.NOME_GENERO + " AS " + ALIAS_NOME_GENERO;
 
     //public static final String [] TODAS_COLUNAS = new String[]{ NOME_TABELA + "." + _ID, CAMPO_NOME, CAMPO_ATIVIDADE, CAMPO_DATA_LANCAMENTO, CAMPO_FAVORITO, CAMPO_NOME_GENERO};
 
@@ -43,7 +45,8 @@ public class BdTableJogos implements BaseColumns {
                 " JOIN " + BdTableJogosGeneros.NOME_TABELA + " ON " + BdTableJogos.NOME_TABELA + "." + BdTableJogos._ID +
                 "=" + BdTableJogosGeneros.NOME_TABELA + "." + BdTableJogosGeneros.ID_JOGO +
                 " JOIN " + BdTableGeneros.NOME_TABELA + " ON " + BdTableGeneros.NOME_TABELA + "."
-                + BdTableGeneros._ID + "=" + BdTableJogosGeneros.NOME_TABELA + "." + BdTableJogosGeneros.ID_GENERO;
+                + BdTableGeneros._ID + "=" + BdTableJogosGeneros.NOME_TABELA + "." + BdTableJogosGeneros.ID_GENERO +
+                " WHERE " + BdTableJogos.NOME_TABELA + "." + BdTableJogos._ID + " =" + BdTableJogosGeneros.NOME_TABELA + "." + BdTableJogosGeneros.ID_JOGO;
 
         if (selection != null) {
             sql += " AND " + selection;

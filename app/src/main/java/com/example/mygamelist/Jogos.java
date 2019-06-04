@@ -88,8 +88,8 @@ public class Jogos {
                 cursor.getColumnIndex(BdTableJogos.CAMPO_FAVORITO)
         );
 
-        /*String nomeGenero = cursor.getString(
-                cursor.getColumnIndex(BdTableJogos.ALIAS_NOME_GENERO));*/
+        //String nomeGenero = cursor.getString(
+          //      cursor.getColumnIndex(BdTableJogos.ALIAS_NOME_GENERO));
 
 
         Jogos jogo = new Jogos();

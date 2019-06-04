@@ -4,8 +4,18 @@ import android.content.ContentValues;
 import android.database.Cursor;
 
 public class JogosPlataformas {
-    public long id_plataforma;
-    public long id_jogo;
+
+    private long Id;
+    private long id_plataforma;
+    private long id_jogo;
+
+    public long getId() {
+        return Id;
+    }
+
+    public void setId(long id) {
+        Id = id;
+    }
 
     public long getId_plataforma() {
         return id_plataforma;
@@ -33,6 +43,11 @@ public class JogosPlataformas {
     }
 
     public static JogosPlataformas fromCursor(Cursor cursor) {
+
+        long id = cursor.getLong(
+                cursor.getColumnIndex(BdTableJogosPlataformas._ID)
+        );
+
         long id_jogo = cursor.getLong(
                 cursor.getColumnIndex(BdTableJogosPlataformas.ID_JOGO)
         );
@@ -43,6 +58,7 @@ public class JogosPlataformas {
 
         JogosPlataformas jogoPlataforma = new JogosPlataformas();
 
+        jogoPlataforma.setId(id);
         jogoPlataforma.setId_jogo(id_jogo);
         jogoPlataforma.setId_plataforma(id_plataforma);
 

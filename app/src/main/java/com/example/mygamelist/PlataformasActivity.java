@@ -25,7 +25,8 @@ public class PlataformasActivity extends AppCompatActivity implements LoaderMana
     private static  final int ID_CURSOR_LOADER_PLATAFORMAS =0;
 
     private RecyclerView recyclerViewPlataformas;
-    private AdaptadorPlataformas adaptadorPlataformas;
+    private AdaptadorPlataformas adaptadorPlataformas = new AdaptadorPlataformas(this);
+    private Menu menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +35,12 @@ public class PlataformasActivity extends AppCompatActivity implements LoaderMana
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        getSupportLoaderManager().initLoader(ID_CURSOR_LOADER_PLATAFORMAS, null, this);
-
         recyclerViewPlataformas = findViewById(R.id.recyclerViewPlataformas);
         adaptadorPlataformas = new AdaptadorPlataformas(this);
         recyclerViewPlataformas.setAdapter(adaptadorPlataformas);
         recyclerViewPlataformas.setLayoutManager(new LinearLayoutManager(this));
 
+        getSupportLoaderManager().initLoader(ID_CURSOR_LOADER_PLATAFORMAS, null, this);
     }
 
     @Override
@@ -49,10 +49,21 @@ public class PlataformasActivity extends AppCompatActivity implements LoaderMana
         super.onResume();
     }
 
+    public void atualizaOpcoesMenu(){
+        Plataformas plataforma = adaptadorPlataformas.getPlataformaSelecionada();
+
+        boolean mostrarAlterarEliminar = (plataforma != null);
+
+        menu.findItem(R.id.EditarPlataforma).setVisible(mostrarAlterarEliminar);
+        menu.findItem(R.id.EliminarPlataforma).setVisible(mostrarAlterarEliminar);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_plataforma, menu);
+        this.menu = menu;
+
         return true;
     }
 

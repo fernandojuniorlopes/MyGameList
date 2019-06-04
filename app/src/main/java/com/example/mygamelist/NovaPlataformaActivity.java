@@ -14,12 +14,19 @@ import android.widget.Toast;
 
 public class NovaPlataformaActivity extends AppCompatActivity {
 
+    private EditText textViewnomePlataforma;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nova_plataforma);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        textViewnomePlataforma = (EditText) findViewById(R.id.textViewPlataforma);
+
 
     }
     public void ConfirmarPlataforma(View view) {
@@ -35,6 +42,25 @@ public class NovaPlataformaActivity extends AppCompatActivity {
         if (NomePlataforma.trim().length() != 0) {
             finish();
             Toast.makeText(this, getString(R.string.dados_sucesso), Toast.LENGTH_LONG).show();
+        }
+
+        Plataformas plataforma = new Plataformas();
+
+        plataforma.setNome(NomePlataforma);
+
+        try {
+            getContentResolver().insert(MyGamesListContentProvider.ENDERECO_PLATAFORMAS, plataforma.getContentValues());
+
+            Toast.makeText(this, "Jogo guardado com sucesso", Toast.LENGTH_SHORT).show();
+            finish();
+        } catch (Exception e) {
+            Snackbar.make(
+                    editTextnomeplataforma,
+                    "Erro a guardar Jogo",
+                    Snackbar.LENGTH_LONG)
+                    .show();
+
+            e.printStackTrace();
         }
     }
 

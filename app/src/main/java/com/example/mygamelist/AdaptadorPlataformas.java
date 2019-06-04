@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,7 +17,6 @@ public class AdaptadorPlataformas extends RecyclerView.Adapter<AdaptadorPlatafor
     private Context context;
 
     public void setCursor(Cursor cursor) {
-        this.cursor = cursor;
         if (this.cursor != cursor) {
             this.cursor = cursor;
             notifyDataSetChanged();
@@ -96,12 +96,20 @@ public class AdaptadorPlataformas extends RecyclerView.Adapter<AdaptadorPlatafor
         return cursor.getCount();
     }
 
+    public Plataformas getPlataformaSelecionada(){
+        if ( viewHolderPlataformaSelecionada == null) return null;
+
+        return viewHolderPlataformaSelecionada.plataforma;
+    }
+
+    private static AdaptadorPlataformas.ViewHolderPlataformas viewHolderPlataformaSelecionada = null;
+
     /**
      * Returns the total number of items in the data set held by the adapter.
      *
      * @return The total number of items in this adapter.
      */
-    public class ViewHolderPlataformas extends RecyclerView.ViewHolder {
+    public class ViewHolderPlataformas extends RecyclerView.ViewHolder implements  View.OnClickListener {
         private Plataformas plataforma;
         private TextView textViewNomePlataforma;
 
@@ -109,11 +117,35 @@ public class AdaptadorPlataformas extends RecyclerView.Adapter<AdaptadorPlatafor
             super(itemView);
             textViewNomePlataforma  = itemView.findViewById(R.id.textViewPlataformaItem);
 
+            itemView.setOnClickListener(this);
         }
 
         public void setPlataforma(Plataformas plataforma){
             this.plataforma= plataforma;
             textViewNomePlataforma.setText(plataforma.getNome());
         }
+
+        @Override
+        public void onClick(View v) {
+            Toast.makeText(context, plataforma.getNome(), Toast.LENGTH_SHORT).show();
+
+            if (viewHolderPlataformaSelecionada != null) {
+                viewHolderPlataformaSelecionada.desSeleciona();
+            }
+
+            viewHolderPlataformaSelecionada = this;
+
+            ((PlataformasActivity) context).atualizaOpcoesMenu();
+
+            seleciona();
+        }
+        private void desSeleciona() {
+            itemView.setBackgroundResource(android.R.color.white);
+        }
+
+        private void seleciona() {
+            itemView.setBackgroundResource(R.color.colorRed);
+        }
+
     }
 }
