@@ -3,7 +3,7 @@ package com.example.mygamelist;
 import android.content.ContentValues;
 import android.database.Cursor;
 
-public class JogosGeneros {
+public class JogoGenero {
 
     private long Id;
     private long id_genero;
@@ -42,7 +42,7 @@ public class JogosGeneros {
         return valores;
     }
 
-    public static JogosGeneros fromCursor(Cursor cursor) {
+    public static JogoGenero fromCursor(Cursor cursor) {
         long id = cursor.getLong(
                 cursor.getColumnIndex(BdTableJogosGeneros._ID)
         );
@@ -55,7 +55,7 @@ public class JogosGeneros {
                 cursor.getColumnIndex(BdTableJogosGeneros.ID_GENERO)
         );
 
-        JogosGeneros jogoGenero = new JogosGeneros();
+        JogoGenero jogoGenero = new JogoGenero();
 
         jogoGenero.setId(id);
         jogoGenero.setId_jogo(id_jogo);

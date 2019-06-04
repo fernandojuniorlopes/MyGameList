@@ -18,6 +18,7 @@ public class EliminarGeneroActivity extends AppCompatActivity {
         setContentView(R.layout.activity_eliminar_genero);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public void Eliminar(View view){

@@ -3,6 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.mygamelist.JogosActivity">
     <item
+        android:id="@+id/DetalhesJogo"
+        android:icon="@drawable/ic_delete_black_24dp"
+        android:orderInCategory="100"
+        android:title="Detalhes Jogo"
+        android:visible="false"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/NovoJogo"
         android:icon="@drawable/ic_add_box_black_24dp"
         android:orderInCategory="100"
@@ -14,11 +21,13 @@
         android:icon="@drawable/ic_edit_black_24dp"
         android:orderInCategory="100"
         android:title="@string/itemeditarjogo"
+        android:visible="false"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/EliminarJogo"
         android:icon="@drawable/ic_delete_black_24dp"
         android:orderInCategory="100"
         android:title="@string/itemeliminarjogo"
+        android:visible="false"
         app:showAsAction="never" />
 </menu>

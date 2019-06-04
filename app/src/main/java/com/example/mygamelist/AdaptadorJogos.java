@@ -80,7 +80,7 @@ public class AdaptadorJogos extends RecyclerView.Adapter<AdaptadorJogos.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolderJogos holder, int position) {
         cursor.moveToPosition(position);
-        Jogos jogo = Jogos.fromCursor(cursor);
+        Jogo jogo = Jogo.fromCursor(cursor);
         holder.setJogo(jogo);
     }
 
@@ -96,7 +96,7 @@ public class AdaptadorJogos extends RecyclerView.Adapter<AdaptadorJogos.ViewHold
         return cursor.getCount();
     }
 
-    public Jogos getJogoSelecionado(){
+    public Jogo getJogoSelecionado(){
         if (viewHolderJogoSelecionado == null) return null;
 
         return viewHolderJogoSelecionado.jogo;
@@ -112,7 +112,7 @@ public class AdaptadorJogos extends RecyclerView.Adapter<AdaptadorJogos.ViewHold
         private TextView textViewGenero;
         private TextView textViewPlataforma;
 
-        private Jogos jogo;
+        private Jogo jogo;
 
         public ViewHolderJogos (@NonNull View itemView) {
             super(itemView);
@@ -128,7 +128,7 @@ public class AdaptadorJogos extends RecyclerView.Adapter<AdaptadorJogos.ViewHold
             itemView.setOnClickListener(this);
         }
 
-        public  void setJogo(Jogos jogo){
+        public  void setJogo(Jogo jogo){
             this.jogo = jogo;
 
             textViewTitulo.setText(jogo.getNome());

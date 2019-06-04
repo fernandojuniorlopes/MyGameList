@@ -46,13 +46,13 @@ public class BdJogosTest {
         SQLiteDatabase db = openHelper.getWritableDatabase();
 
 
-       //CREATE Tabela Generos
+       //CREATE Tabela Genero
         BdTableGeneros tabelaGeneros = new BdTableGeneros(db);
 
         Cursor cursorGenero = getGenero(tabelaGeneros);
         assertEquals(0,cursorGenero.getCount());
 
-        //INSERT nos Generos
+        //INSERT nos Genero
         String nomeGenero = "Estratégia";
         long idEstrategia = criaGenero(tabelaGeneros,nomeGenero);
 
@@ -60,7 +60,7 @@ public class BdJogosTest {
         assertEquals(1, cursorGenero.getCount());
 
         assertTrue(cursorGenero.moveToNext());
-        Generos genero = Generos.fromCursor(cursorGenero);
+        Genero genero = Genero.fromCursor(cursorGenero);
         assertEquals(idEstrategia, genero.getId());
         assertEquals(nomeGenero,genero.getNome());
 
@@ -72,7 +72,7 @@ public class BdJogosTest {
         genero = getGeneroComID(cursorGenero, idFPS);
         assertEquals(nomeGenero, genero.getNome());
 
-        //UPDATE nos Generos
+        //UPDATE nos Genero
         nomeGenero= "Strategy";
         genero.setNome(nomeGenero);
         tabelaGeneros.update(genero.getContentValues(), BdTableGeneros._ID + "=?", new String[] {String.valueOf(idEstrategia)});
@@ -85,27 +85,27 @@ public class BdJogosTest {
         cursorGenero = getGenero(tabelaGeneros);
         assertEquals(3, cursorGenero.getCount());
 
-        //DELETE nos Generos
+        //DELETE nos Genero
         genero = getGeneroComID(cursorGenero, idRPG);
         assertEquals(nomeGenero, genero.getNome());
         tabelaGeneros.delete(BdTableGeneros._ID + "=?", new String[]{String.valueOf(idRPG)});
         cursorGenero=getGenero(tabelaGeneros);
         assertEquals(2, cursorGenero.getCount());
 
-        //CREATE Tabela Plataformas
+        //CREATE Tabela Plataforma
         BdTablePlataformas tabelaplataforma = new BdTablePlataformas(db);
 
         Cursor cursorPlataforma = getPlataforma(tabelaplataforma);
         assertEquals(0,cursorPlataforma.getCount());
 
-        //INSERT Tabela Plataformas
+        //INSERT Tabela Plataforma
         String nomePlataforma = "PS4";
         long idPS4 = criaPlataforma(tabelaplataforma, nomePlataforma);
         cursorPlataforma = getPlataforma(tabelaplataforma);
         assertEquals(1, cursorPlataforma.getCount());
 
         assertTrue(cursorPlataforma.moveToNext());
-        Plataformas plataforma = Plataformas.fromCursor(cursorPlataforma);
+        Plataforma plataforma = Plataforma.fromCursor(cursorPlataforma);
         assertEquals(plataforma.getId(), idPS4);
         assertEquals(plataforma.getNome(), nomePlataforma);
 
@@ -129,7 +129,7 @@ public class BdJogosTest {
         plataforma = getPlataformacomID(cursorPlataforma, idXbox1);
         assertEquals(nomePlataforma, plataforma.getNome());
 
-        //UPDATE Tabela Plataformas
+        //UPDATE Tabela Plataforma
         nomePlataforma= "Playstation 4";
         plataforma.setNome(nomePlataforma);
         tabelaplataforma.update(plataforma.getContentValues(), BdTablePlataformas._ID + "=?", new String[] {String.valueOf(idPS4)});
@@ -137,18 +137,18 @@ public class BdJogosTest {
         plataforma = getPlataformacomID(cursorPlataforma, idPS4);
         assertEquals(plataforma.getNome(), nomePlataforma);
 
-        //DELETE Tabela Plataformas
+        //DELETE Tabela Plataforma
         tabelaplataforma.delete(BdTablePlataformas._ID + "=?", new String[] {String.valueOf(idXbox1)});
         cursorPlataforma = getPlataforma(tabelaplataforma);
         assertEquals(2,cursorPlataforma.getCount());
 
-        //CREATE Tabela Jogos
+        //CREATE Tabela Jogo
         BdTableJogos tabelaJogo = new BdTableJogos(db);
 
         Cursor cursorJogo = getJogo(tabelaJogo);
         assertEquals(0, cursorJogo.getCount());
 
-        //INSERT Tabela Jogos
+        //INSERT Tabela Jogo
         String nomeJogo = "Tetris";
         String atividade = "Completado";
         String datalancamento = "01-01-2001";
@@ -160,7 +160,7 @@ public class BdJogosTest {
 
         cursorJogo.moveToNext();
         cursorJogo = getJogo(tabelaJogo);
-        Jogos jogo = getJogosComID(cursorJogo, idTetris);
+        Jogo jogo = getJogosComID(cursorJogo, idTetris);
         verificarDadosJogo(nomeJogo,atividade,datalancamento, favorito, idTetris, jogo);
 
         nomeJogo = "Fifa";
@@ -184,7 +184,7 @@ public class BdJogosTest {
         jogo = getJogosComID(cursorJogo, idPES);
         verificarDadosJogo(nomeJogo,atividade,datalancamento, favorito, idPES, jogo);
 
-        //UPDATE Tabela Jogos
+        //UPDATE Tabela Jogo
         cursorJogo = getJogo(tabelaJogo);
         jogo = getJogosComID(cursorJogo, idTetris);
         nomeJogo = "Tetris2";
@@ -202,18 +202,18 @@ public class BdJogosTest {
         jogo = getJogosComID(cursorJogo, idTetris);
         verificarDadosJogo(nomeJogo, atividade, datalancamento, favorito, idTetris, jogo);
 
-        //DELETE Tabela Jogos
+        //DELETE Tabela Jogo
         cursorJogo = getJogo(tabelaJogo);
         tabelaJogo.delete(BdTableJogos._ID + "=?", new String[] {String.valueOf(idPES)});
         assertEquals(2, cursorJogo.getCount());
 
-        //CREATE Tabela JogosGeneros
+        //CREATE Tabela JogoGenero
         BdTableJogosGeneros tabelaJogosGeneros = new BdTableJogosGeneros(db);
 
         Cursor cursorJogoGenero = getJogoGenero(tabelaJogosGeneros);
         assertEquals(0, cursorJogoGenero.getCount());
 
-        //INSERT Tabela JogosGeneros
+        //INSERT Tabela JogoGenero
         long idTetrisEstrategia = criaJogoGenero(tabelaJogosGeneros, idTetris, idEstrategia);
         cursorJogoGenero = getJogoGenero(tabelaJogosGeneros);
         assertEquals(1, cursorJogoGenero.getCount());
@@ -222,7 +222,7 @@ public class BdJogosTest {
         cursorJogoGenero = getJogoGenero(tabelaJogosGeneros);
         assertEquals(2, cursorJogoGenero.getCount());
 
-        JogosGeneros jogosGenero = getJogoGeneroComID(cursorJogoGenero, idTetrisEstrategia);
+        JogoGenero jogosGenero = getJogoGeneroComID(cursorJogoGenero, idTetrisEstrategia);
         jogosGenero.setId_genero(idFPS);
         jogosGenero.setId_jogo(idFifa);
         tabelaJogosGeneros.update(jogosGenero.getContentValues(), BdTableJogosGeneros.ID_JOGO + "=? AND " + BdTableJogosGeneros.ID_GENERO + "=?", new String[] {String.valueOf(idTetris), String.valueOf(idEstrategia)});
@@ -236,13 +236,13 @@ public class BdJogosTest {
         cursorJogoGenero = getJogoGenero(tabelaJogosGeneros);
         assertEquals(1, cursorJogoGenero.getCount());
 
-        //CREATE Tabela JogosPlataformas
+        //CREATE Tabela JogoPlataforma
         BdTableJogosPlataformas tabelaJogosPlataformas = new BdTableJogosPlataformas(db);
 
         Cursor cursorJogosPlataformas = getJogoPlataforma(tabelaJogosPlataformas);
         assertEquals(0, cursorJogosPlataformas.getCount());
 
-        //INSERT Tabela JogosPlataformas
+        //INSERT Tabela JogoPlataforma
         long idTetrisPS4 = criaJogoPlataformas(tabelaJogosPlataformas, idTetris, idPS4);
         cursorJogosPlataformas = getJogoPlataforma(tabelaJogosPlataformas);
         assertEquals(1, cursorJogosPlataformas.getCount());
@@ -251,8 +251,8 @@ public class BdJogosTest {
         cursorJogosPlataformas = getJogoPlataforma(tabelaJogosPlataformas);
         assertEquals(2, cursorJogosPlataformas.getCount());
 
-        //UPDATE Tabela JogosPlataformas
-        JogosPlataformas jogosPlataformas = getJogoPlataformaComID(cursorJogosPlataformas,idTetrisPS4);
+        //UPDATE Tabela JogoPlataforma
+        JogoPlataforma jogosPlataformas = getJogoPlataformaComID(cursorJogosPlataformas,idTetrisPS4);
         jogosPlataformas.setId_jogo(idFifa);
         jogosPlataformas.setId_plataforma(idPS3);
         tabelaJogosPlataformas.update(jogosPlataformas.getContentValues(), BdTableJogosPlataformas.ID_JOGO + "=? AND " + BdTableJogosPlataformas.ID_PLATAFORMA + "=?", new String[] {String.valueOf(idTetris), String.valueOf(idPS4)});
@@ -262,7 +262,7 @@ public class BdJogosTest {
         assertEquals(jogosPlataformas.getId_jogo(), idFifa);
         assertEquals(jogosPlataformas.getId_plataforma(), idPS3);
 
-        //DELETE Tabela JogosPlataformas
+        //DELETE Tabela JogoPlataforma
         tabelaJogosPlataformas.delete(BdTableJogosPlataformas.ID_JOGO + "=? AND " + BdTableJogosPlataformas.ID_PLATAFORMA + "=?", new String[] {String.valueOf(idFifa), String.valueOf(idPS3)});
         cursorJogosPlataformas = getJogoPlataforma(tabelaJogosPlataformas);
         assertEquals(1, cursorJogosPlataformas.getCount());
@@ -271,11 +271,11 @@ public class BdJogosTest {
     private Cursor getGenero(BdTableGeneros tabelaGeneros) {
         return tabelaGeneros.query(BdTableGeneros.TODAS_COLUNAS, null, null, null, null, null);
     }
-    private Generos getGeneroComID(Cursor cursor, long id){
-        Generos genero = null;
+    private Genero getGeneroComID(Cursor cursor, long id){
+        Genero genero = null;
 
         while(cursor.moveToNext()){
-            genero = Generos.fromCursor(cursor);
+            genero = Genero.fromCursor(cursor);
             if(genero.getId() == id){
                 break;
             }
@@ -284,7 +284,7 @@ public class BdJogosTest {
         return genero;
     }
     private long criaGenero(BdTableGeneros tabelaGeneros, String nomeGenero) {
-        Generos genero = new Generos();
+        Genero genero = new Genero();
         genero.setNome(nomeGenero);
 
         long id = tabelaGeneros.insert(genero.getContentValues());
@@ -296,11 +296,11 @@ public class BdJogosTest {
     private Cursor getPlataforma(BdTablePlataformas tabelaPlataformas) {
         return tabelaPlataformas.query(BdTablePlataformas.TODAS_COLUNAS, null, null, null, null, null);
     }
-    private Plataformas getPlataformacomID(Cursor cursor, long id){
-        Plataformas plataforma = null;
+    private Plataforma getPlataformacomID(Cursor cursor, long id){
+        Plataforma plataforma = null;
 
         while(cursor.moveToNext()){
-            plataforma = Plataformas.fromCursor(cursor);
+            plataforma = Plataforma.fromCursor(cursor);
             if(plataforma.getId() == id){
                 break;
             }
@@ -309,7 +309,7 @@ public class BdJogosTest {
         return plataforma;
     }
     private long criaPlataforma(BdTablePlataformas tablePlataformas, String nomePlataforma) {
-        Plataformas plataforma = new Plataformas();
+        Plataforma plataforma = new Plataforma();
         plataforma.setNome(nomePlataforma);
 
         long id = tablePlataformas.insert(plataforma.getContentValues());
@@ -321,11 +321,11 @@ public class BdJogosTest {
     private Cursor getJogo(BdTableJogos tabelaJogos) {
         return tabelaJogos.query(BdTableJogos.TODAS_COLUNAS, null, null, null, null, null);
     }
-    private Jogos getJogosComID(Cursor cursor, long id){
-        Jogos jogo = null;
+    private Jogo getJogosComID(Cursor cursor, long id){
+        Jogo jogo = null;
 
         while(cursor.moveToNext()){
-            jogo = Jogos.fromCursor(cursor);
+            jogo = Jogo.fromCursor(cursor);
             if(jogo.getId() == id){
                 break;
             }
@@ -334,7 +334,7 @@ public class BdJogosTest {
         return jogo;
     }
     private long criaJogo(BdTableJogos tableJogos, String nomeJogo, String atividade, String dataLancamento, int favorito) {
-        Jogos jogo = new Jogos();
+        Jogo jogo = new Jogo();
         jogo.setNome(nomeJogo);
         jogo.setAtividade(atividade);
         jogo.setDataLancamento(dataLancamento);
@@ -345,7 +345,7 @@ public class BdJogosTest {
 
         return id;
     }
-    private void verificarDadosJogo(String nomeJogo, String atividade, String datalancamento, int favorito, long idJogo, Jogos jogo) {
+    private void verificarDadosJogo(String nomeJogo, String atividade, String datalancamento, int favorito, long idJogo, Jogo jogo) {
         assertEquals(jogo.getId(), idJogo);
         assertEquals(jogo.getNome(), nomeJogo);
         assertEquals(jogo.getAtividade(), atividade);
@@ -356,11 +356,11 @@ public class BdJogosTest {
     private Cursor getJogoGenero(BdTableJogosGeneros tabelaJogoGenero) {
         return tabelaJogoGenero.query(BdTableJogosGeneros.TODAS_COLUNAS, null, null, null, null, null);
     }
-    private JogosGeneros getJogoGeneroComID(Cursor cursor, long id){
-        JogosGeneros jogosGeneros = null;
+    private JogoGenero getJogoGeneroComID(Cursor cursor, long id){
+        JogoGenero jogosGeneros = null;
 
         while(cursor.moveToNext()){
-            jogosGeneros = JogosGeneros.fromCursor(cursor);
+            jogosGeneros = JogoGenero.fromCursor(cursor);
             if(jogosGeneros.getId() == id){
                 break;
             }
@@ -369,7 +369,7 @@ public class BdJogosTest {
         return jogosGeneros;
     }
     private long criaJogoGenero(BdTableJogosGeneros tableJogosGeneros,long id_jogo, long id_genero) {
-        JogosGeneros jogosGeneros = new JogosGeneros();
+        JogoGenero jogosGeneros = new JogoGenero();
         jogosGeneros.setId_jogo(id_jogo);
         jogosGeneros.setId_genero(id_genero);
 
@@ -382,8 +382,8 @@ public class BdJogosTest {
     private Cursor getJogoPlataforma(BdTableJogosPlataformas tabelaJogosPlataformas) {
         return tabelaJogosPlataformas.query(BdTableJogosPlataformas.TODAS_COLUNAS, null, null, null, null, null);
     }
-    private JogosPlataformas getJogoPlataformaComID(Cursor cursor, long id){
-        JogosPlataformas jogosPlataformas = null;
+    private JogoPlataforma getJogoPlataformaComID(Cursor cursor, long id){
+        JogoPlataforma jogosPlataformas = null;
 
         while(cursor.moveToNext()){
             jogosPlataformas = jogosPlataformas.fromCursor(cursor);
@@ -395,7 +395,7 @@ public class BdJogosTest {
         return jogosPlataformas;
     }
     private long criaJogoPlataformas(BdTableJogosPlataformas tableJogosPlataformas,long id_jogo, long id_plataformas) {
-        JogosPlataformas jogosPlataformas = new JogosPlataformas();
+        JogoPlataforma jogosPlataformas = new JogoPlataforma();
         jogosPlataformas.setId_jogo(id_jogo);
         jogosPlataformas.setId_plataforma(id_plataformas);
 

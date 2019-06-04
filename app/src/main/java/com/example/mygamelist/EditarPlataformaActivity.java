@@ -20,8 +20,7 @@ public class EditarPlataformaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_editar_plataforma);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public void ConfirmarPlataforma(View view) {

@@ -18,6 +18,7 @@ public class EliminarJogoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_eliminar_jogo);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
     public void Eliminar(View view){
 

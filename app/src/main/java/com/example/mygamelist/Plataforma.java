@@ -3,7 +3,8 @@ package com.example.mygamelist;
 import android.content.ContentValues;
 import android.database.Cursor;
 
-public class Generos {
+public class Plataforma {
+
     public long Id;
     public String Nome;
 
@@ -26,25 +27,25 @@ public class Generos {
     public ContentValues getContentValues() {
         ContentValues valores = new ContentValues();
 
-        valores.put(BdTableGeneros.NOME_GENERO, Nome);
+        valores.put(BdTablePlataformas.NOME_PLATAFORMA, Nome);
 
         return valores;
     }
 
-    public static Generos fromCursor(Cursor cursor) {
+    public static Plataforma fromCursor(Cursor cursor) {
         long id = cursor.getLong(
-                cursor.getColumnIndex(BdTableGeneros._ID)
+                cursor.getColumnIndex(BdTablePlataformas._ID)
         );
 
         String nome = cursor.getString(
-                cursor.getColumnIndex(BdTableGeneros.NOME_GENERO)
+                cursor.getColumnIndex(BdTablePlataformas.NOME_PLATAFORMA)
         );
 
-        Generos genero = new Generos();
+        Plataforma plataforma = new Plataforma();
 
-        genero.setId(id);
-        genero.setNome(nome);
+        plataforma.setId(id);
+        plataforma.setNome(nome);
 
-        return genero;
+        return plataforma;
     }
 }

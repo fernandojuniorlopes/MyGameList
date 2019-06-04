@@ -18,8 +18,7 @@ public class EliminarPlataformaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_eliminar_plataforma);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
     public void Eliminar(View view){
 

@@ -10,7 +10,7 @@ public class BdTablePlataformas implements BaseColumns {
     private SQLiteDatabase db;
     public static final String NOME_TABELA = "plataformas";
     public static final String NOME_PLATAFORMA = "nome";
-    public static final String [] TODAS_COLUNAS = new String[]{_ID, NOME_PLATAFORMA};
+    public static final String [] TODAS_COLUNAS = new String[]{NOME_TABELA + "." +_ID, NOME_PLATAFORMA};
 
 
     public BdTablePlataformas(SQLiteDatabase db) {

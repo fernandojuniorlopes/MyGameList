@@ -95,8 +95,7 @@
     <string name="title_activity_eliminar_jogo">Delete Game</string>
     <string name="title_activity_editar_jogo">Edit Game</string>
     <string name="atividade">Activity</string>
-    <string-array name="plataformas">
-    </string-array>
+    <string-array name="plataformas"></string-array>
     <string-array name="jogados">
         <item>Atividade do jogo</item>
         <item>Não jogado</item>
@@ -119,4 +118,5 @@
     <string name="botao_ok">OK</string>
     <string name="botao_cancelar">Cancel</string>
     <string name="add_favoritos">Add to favorites</string>
+    <string name="title_activity_detalhes_jogo">DetalhesJogoActivity</string>
 </resources>

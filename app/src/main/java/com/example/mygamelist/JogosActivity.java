@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CursorAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,8 +20,6 @@ import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import static com.example.mygamelist.R.id.recyclerViewJogos;
-
 public class JogosActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static  final int ID_CURSOR_LOADER_JOGOS =0;
@@ -30,6 +27,7 @@ public class JogosActivity extends AppCompatActivity implements LoaderManager.Lo
     private RecyclerView recyclerViewJogos;
     private AdaptadorJogos adaptadorJogos = new AdaptadorJogos(this);
     private Menu menu;
+    public static final String ID_JOGO = "ID_JOGO";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +35,7 @@ public class JogosActivity extends AppCompatActivity implements LoaderManager.Lo
         setContentView(R.layout.activity_jogos);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         recyclerViewJogos = (RecyclerView) findViewById(R.id.recyclerViewJogos);
         recyclerViewJogos.setAdapter(adaptadorJogos);
@@ -61,12 +60,11 @@ public class JogosActivity extends AppCompatActivity implements LoaderManager.Lo
     }
 
     public void atualizaOpcoesMenu(){
-        Jogos jogo = adaptadorJogos.getJogoSelecionado();
+        Jogo jogo = adaptadorJogos.getJogoSelecionado();
 
         boolean mostrarAlterarEliminar = (jogo != null);
 
-        menu.findItem(R.id.EditarJogo).setVisible(mostrarAlterarEliminar);
-        menu.findItem(R.id.EliminarJogo).setVisible(mostrarAlterarEliminar);
+        menu.findItem(R.id.DetalhesJogo).setVisible(mostrarAlterarEliminar);
     }
 
     @Override
@@ -102,6 +100,13 @@ public class JogosActivity extends AppCompatActivity implements LoaderManager.Lo
             Intent intent = new Intent(JogosActivity.this, EliminarJogoActivity.class);
             startActivity(intent);
             Toast.makeText(this, getString(R.string.itemeliminarjogo), Toast.LENGTH_LONG).show();
+            return true;
+        }
+        else if (id == R.id.DetalhesJogo) {
+            Intent intent = new Intent(JogosActivity.this, DetalhesJogoActivity.class);
+            startActivity(intent);
+            intent.putExtra(ID_JOGO, adaptadorJogos.getJogoSelecionado().getId());
+            Toast.makeText(this, "Detalhes do Jogo", Toast.LENGTH_LONG).show();
             return true;
         }
         return super.onOptionsItemSelected(item);

@@ -79,7 +79,7 @@ public class AdaptadorPlataformas extends RecyclerView.Adapter<AdaptadorPlatafor
     @Override
     public void onBindViewHolder(@NonNull ViewHolderPlataformas holder, int position) {
         cursor.moveToPosition(position);
-        Plataformas plataforma = Plataformas.fromCursor(cursor);
+        Plataforma plataforma = Plataforma.fromCursor(cursor);
         holder.setPlataforma(plataforma);
     }
 
@@ -96,7 +96,7 @@ public class AdaptadorPlataformas extends RecyclerView.Adapter<AdaptadorPlatafor
         return cursor.getCount();
     }
 
-    public Plataformas getPlataformaSelecionada(){
+    public Plataforma getPlataformaSelecionada(){
         if ( viewHolderPlataformaSelecionada == null) return null;
 
         return viewHolderPlataformaSelecionada.plataforma;
@@ -110,7 +110,7 @@ public class AdaptadorPlataformas extends RecyclerView.Adapter<AdaptadorPlatafor
      * @return The total number of items in this adapter.
      */
     public class ViewHolderPlataformas extends RecyclerView.ViewHolder implements  View.OnClickListener {
-        private Plataformas plataforma;
+        private Plataforma plataforma;
         private TextView textViewNomePlataforma;
 
         public ViewHolderPlataformas(@NonNull View itemView) {
@@ -120,7 +120,7 @@ public class AdaptadorPlataformas extends RecyclerView.Adapter<AdaptadorPlatafor
             itemView.setOnClickListener(this);
         }
 
-        public void setPlataforma(Plataformas plataforma){
+        public void setPlataforma(Plataforma plataforma){
             this.plataforma= plataforma;
             textViewNomePlataforma.setText(plataforma.getNome());
         }

@@ -23,6 +23,7 @@ public class EditarJogoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_editar_jogo);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
 

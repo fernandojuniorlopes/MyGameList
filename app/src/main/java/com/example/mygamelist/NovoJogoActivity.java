@@ -1,7 +1,6 @@
 package com.example.mygamelist;
 
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -47,7 +46,6 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
         setContentView(R.layout.activity_novo_jogo);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         textViewnomejogo = (EditText) findViewById(R.id.textViewnomejogo);
@@ -170,9 +168,9 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
             tratarErros(errorGenero, getString(R.string.genero_obrigatorio));
             flag = false;
         }else
-            errorGenero.setError(null);*/
+            errorGenero.setError(null);
 
-        /*if (Plataforma == 0) {
+        if (Plataforma == 0) {
             tratarErros(errorPlataforma, getString(R.string.plataforma_obrigatorio));
             flag = false;
         }else
@@ -246,7 +244,7 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
         long idGenero = spinnerGenero.getSelectedItemId();
         long idPlataforma = spinnerPlataforma.getSelectedItemId();
 
-        Jogos jogo = new Jogos();
+        Jogo jogo = new Jogo();
 
         jogo.setNome(NomeJogo);
         jogo.setAtividade(atividade);
@@ -257,7 +255,6 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
             getContentResolver().insert(MyGamesListContentProvider.ENDERECO_JOGOS, jogo.getContentValues());
 
             Toast.makeText(this, "Jogo guardado com sucesso", Toast.LENGTH_SHORT).show();
-            finish();
         } catch (Exception e) {
             Snackbar.make(
                     textViewnomejogo,
@@ -265,6 +262,34 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
                     Snackbar.LENGTH_LONG)
                     .show();
 
+            e.printStackTrace();
+        }
+
+        JogoGenero jogoGenero = new JogoGenero();
+
+        jogoGenero.setId_genero(idGenero);
+        jogoGenero.setId_jogo(jogo.getId());
+
+        JogoPlataforma jogoPlataforma = new JogoPlataforma();
+
+        jogoPlataforma.setId_plataforma(jogo.getId());
+        jogoPlataforma.setId_jogo(jogo.getId());
+
+        try {
+            getContentResolver().insert(MyGamesListContentProvider.ENDERECO_JOGOS_GENEROS, jogoGenero.getContentValues());
+
+            Toast.makeText(this, "Jogo/Genero guardado com sucesso", Toast.LENGTH_SHORT).show();
+            finish();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            getContentResolver().insert(MyGamesListContentProvider.ENDERECO_JOGOS_PLATAFORMAS, jogoPlataforma.getContentValues());
+
+            Toast.makeText(this, "Jogo/Genero guardado com sucesso", Toast.LENGTH_SHORT).show();
+            finish();
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

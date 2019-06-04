@@ -34,8 +34,7 @@ public class GenerosActivity extends AppCompatActivity implements LoaderManager.
         setContentView(R.layout.activity_generos);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         recyclerViewGeneros = findViewById(R.id.recyclerViewGeneros);
         adaptadorGeneros = new AdaptadorGeneros(this);
@@ -52,7 +51,7 @@ public class GenerosActivity extends AppCompatActivity implements LoaderManager.
     }
 
     public void atualizaOpcoesMenu(){
-        Generos genero = adaptadorGeneros.getGeneroSelecionado();
+        Genero genero = adaptadorGeneros.getGeneroSelecionado();
 
         boolean mostrarAlterarEliminar = (genero != null);
 

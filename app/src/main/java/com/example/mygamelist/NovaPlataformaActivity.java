@@ -2,7 +2,6 @@ package com.example.mygamelist;
 
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,7 +21,6 @@ public class NovaPlataformaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_nova_plataforma);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         textViewnomePlataforma = (EditText) findViewById(R.id.textViewPlataforma);
@@ -44,7 +42,7 @@ public class NovaPlataformaActivity extends AppCompatActivity {
             Toast.makeText(this, getString(R.string.dados_sucesso), Toast.LENGTH_LONG).show();
         }
 
-        Plataformas plataforma = new Plataformas();
+        Plataforma plataforma = new Plataforma();
 
         plataforma.setNome(NomePlataforma);
 

@@ -17,6 +17,7 @@ public class EditarGeneroActivity extends AppCompatActivity {
         setContentView(R.layout.activity_editar_genero);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public void ConfirmarGenero(View view) {

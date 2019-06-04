@@ -6,10 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -44,7 +41,7 @@ public class NovoGeneroActivity extends AppCompatActivity {
             Toast.makeText(this, getString(R.string.dados_sucesso), Toast.LENGTH_LONG).show();
         }
 
-        Generos genero = new Generos();
+        Genero genero = new Genero();
 
         genero.setNome(NomeGenero);
 

@@ -79,7 +79,7 @@ public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolderGeneros holder, int position) {
         cursor.moveToPosition(position);
-        Generos genero = Generos.fromCursor(cursor);
+        Genero genero = Genero.fromCursor(cursor);
         holder.setGenero(genero);
     }
 
@@ -95,7 +95,7 @@ public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.View
         return cursor.getCount();
     }
 
-    public Generos getGeneroSelecionado(){
+    public Genero getGeneroSelecionado(){
         if ( viewHolderGeneroSelecionado == null) return null;
 
         return viewHolderGeneroSelecionado.genero;
@@ -109,7 +109,7 @@ public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.View
      * @return The total number of items in this adapter.
      */
     public class ViewHolderGeneros extends RecyclerView.ViewHolder implements  View.OnClickListener {
-        private Generos genero;
+        private Genero genero;
         private TextView textViewNomeGenero;
 
         public ViewHolderGeneros(@NonNull View itemView) {
@@ -119,7 +119,7 @@ public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.View
             itemView.setOnClickListener(this);
         }
 
-        public void setGenero(Generos genero){
+        public void setGenero(Genero genero){
             this.genero= genero;
             textViewNomeGenero.setText(genero.getNome());
         }

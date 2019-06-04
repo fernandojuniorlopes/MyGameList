@@ -10,7 +10,7 @@ public class BdTableGeneros implements BaseColumns {
     private SQLiteDatabase db;
     public static final String NOME_TABELA = "generos";
     public static final String NOME_GENERO = "nome";
-    public static final String [] TODAS_COLUNAS = new String[]{_ID, NOME_GENERO};
+    public static final String [] TODAS_COLUNAS = new String[]{NOME_TABELA + "." +_ID, NOME_GENERO};
 
     public BdTableGeneros(SQLiteDatabase db) {
         this.db = db;

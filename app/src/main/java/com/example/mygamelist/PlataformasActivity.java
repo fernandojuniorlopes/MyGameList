@@ -34,6 +34,7 @@ public class PlataformasActivity extends AppCompatActivity implements LoaderMana
         setContentView(R.layout.activity_plataformas);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         recyclerViewPlataformas = findViewById(R.id.recyclerViewPlataformas);
         adaptadorPlataformas = new AdaptadorPlataformas(this);
@@ -50,7 +51,7 @@ public class PlataformasActivity extends AppCompatActivity implements LoaderMana
     }
 
     public void atualizaOpcoesMenu(){
-        Plataformas plataforma = adaptadorPlataformas.getPlataformaSelecionada();
+        Plataforma plataforma = adaptadorPlataformas.getPlataformaSelecionada();
 
         boolean mostrarAlterarEliminar = (plataforma != null);
 

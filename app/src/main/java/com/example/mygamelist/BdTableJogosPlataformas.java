@@ -11,7 +11,7 @@ public class BdTableJogosPlataformas implements BaseColumns {
     public static final String NOME_TABELA = "jogosplataformas";
     public static final String ID_PLATAFORMA = "id_plataformas";
     public static final String ID_JOGO = "id_jogo";
-    public static final String [] TODAS_COLUNAS = new String[]{_ID, ID_JOGO, ID_PLATAFORMA};
+    public static final String [] TODAS_COLUNAS = new String[]{NOME_TABELA + "." +_ID, ID_JOGO, ID_PLATAFORMA};
 
     public BdTableJogosPlataformas(SQLiteDatabase db) {
         this.db = db;
