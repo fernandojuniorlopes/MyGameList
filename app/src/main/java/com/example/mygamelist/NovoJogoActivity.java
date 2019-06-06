@@ -37,7 +37,6 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
 
     private static  final int ID_CURSOR_LOADER_GENEROS =0;
     private static  final int ID_CURSOR_LOADER_PLATAFORMAS =1;
-    JogoGenero jogoGenero;
     long id = 0;
 
     private EditText textViewnomejogo;
@@ -83,25 +82,6 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
         getSupportLoaderManager().initLoader(ID_CURSOR_LOADER_PLATAFORMAS, null, this);
 
     }
-
-
-
-    /*private void mostraGenerosSpinner(Cursor cursorGeneros){
-        SimpleCursorAdapter adaptadorGeneros = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1,
-                cursorGeneros,
-                new String[]{BdTableGeneros.NOME_GENERO},
-                new int[]{android.R.id.text1});
-
-        spinnerGenero.setAdapter(adaptadorGeneros);
-    }
-    private void mostraPlataformasSpinner(Cursor cursorPlataformas){
-        SimpleCursorAdapter adaptadorPlataformas = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1,
-                cursorPlataformas,
-                new String[]{BdTablePlataformas.NOME_PLATAFORMA},
-                new int[]{android.R.id.text1});
-
-        spinnerPlataforma.setAdapter(adaptadorPlataformas);
-    }*/
 
     @Override
     protected void onResume() {
@@ -268,44 +248,50 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
         jogo.setFavorito(favoritos);
         jogo.setDataLancamento(data);
         long id = -1;
-        try {
-            Uri uri = getContentResolver().insert(MyGamesListContentProvider.ENDERECO_JOGOS, jogo.getContentValues());
-            id = Long.valueOf(uri.getLastPathSegment());
-            Toast.makeText(this, "Jogo guardado com sucesso", Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
-            Snackbar.make(
-                    textViewnomejogo,
-                    "Erro a guardar Jogo",
-                    Snackbar.LENGTH_LONG)
-                    .show();
 
-            e.printStackTrace();
+        if(flag) {
+            try {
+                Uri uri = getContentResolver().insert(MyGamesListContentProvider.ENDERECO_JOGOS, jogo.getContentValues());
+                id = Long.valueOf(uri.getLastPathSegment());
+                Toast.makeText(this, "Jogo guardado com sucesso", Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                Snackbar.make(
+                        textViewnomejogo,
+                        "Erro a guardar Jogo",
+                        Snackbar.LENGTH_LONG)
+                        .show();
+
+                e.printStackTrace();
+            }
         }
 
-        ArrayList <Long> lista = adaptadorGeneros.lista();
+        ArrayList<Long> lista = adaptadorGeneros.lista();
         long idgeneros;
 
-        for(int i=0;i<lista.size();i++) {
-            JogoGenero jogoGeneros = new JogoGenero();
-            idgeneros = lista.get(i);
-            jogoGeneros.setId_jogo(id);
-            jogoGeneros.setId_genero(idgeneros);
+        if (lista.size() != 0) {
+            for (int i = 0; i < lista.size(); i++) {
+                JogoGenero jogoGeneros = new JogoGenero();
+                idgeneros = lista.get(i);
+                jogoGeneros.setId_jogo(id);
+                jogoGeneros.setId_genero(idgeneros);
 
-            getContentResolver().insert(MyGamesListContentProvider.ENDERECO_JOGOS_GENEROS, jogoGeneros.getContentValues());
-
+                getContentResolver().insert(MyGamesListContentProvider.ENDERECO_JOGOS_GENEROS, jogoGeneros.getContentValues());
+            }
         }
 
-        ArrayList <Long> lista2 = adaptadorGeneros.lista();
+        ArrayList<Long> lista2 = adaptadorGeneros.lista();
         long idPlataformas;
 
-        for(int i=0;i<lista.size();i++) {
-            JogoPlataforma jogoPlataformas = new JogoPlataforma();
-            idPlataformas = lista2.get(i);
-            jogoPlataformas.setId_jogo(id);
-            jogoPlataformas.setId_plataforma(idPlataformas);
-            getContentResolver().insert(MyGamesListContentProvider.ENDERECO_JOGOS_PLATAFORMAS, jogoPlataformas.getContentValues());
+        if (lista2.size() != 0) {
+            for (int i = 0; i < lista.size(); i++) {
+                JogoPlataforma jogoPlataformas = new JogoPlataforma();
+                idPlataformas = lista2.get(i);
+                jogoPlataformas.setId_jogo(id);
+                jogoPlataformas.setId_plataforma(idPlataformas);
+                getContentResolver().insert(MyGamesListContentProvider.ENDERECO_JOGOS_PLATAFORMAS, jogoPlataformas.getContentValues());
+            }
+            finish();
         }
-        finish();
     }
 
     public void CancelarJogo(View view){

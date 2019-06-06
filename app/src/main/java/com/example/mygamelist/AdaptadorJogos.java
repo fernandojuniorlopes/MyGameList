@@ -157,7 +157,7 @@ public class AdaptadorJogos extends RecyclerView.Adapter<AdaptadorJogos.ViewHold
         }
 
         private void seleciona() {
-            itemView.setBackgroundResource(R.color.colorRed);
+            itemView.setBackgroundResource(R.color.corMarcar);
         }
     }
 }

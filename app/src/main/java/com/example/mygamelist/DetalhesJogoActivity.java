@@ -42,10 +42,7 @@ public class DetalhesJogoActivity extends AppCompatActivity {
     private TextView textViewData;
     private TextView textViewAtividade;
 
-    public static final String NOME_TABELA = "BdTableJogosGeneros";
-
     long idJogo;
-    JogoGenero jogoGenero;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,8 +93,7 @@ public class DetalhesJogoActivity extends AppCompatActivity {
                 NomeGeneros += jogosGeneros.getNomeGenero();
             }
         }
-        BdMyGameListOpenHelper openHelper2 = new BdMyGameListOpenHelper(this);
-        SQLiteDatabase db2 = openHelper2.getReadableDatabase();
+
         BdTableJogosPlataformas tabelaJogosPlataforma = new BdTableJogosPlataformas(db);
 
         Cursor cursor3 = tabelaJogosPlataforma.query(BdTableJogosPlataformas.TODAS_COLUNAS, null,null,null,null,null);
@@ -121,8 +117,6 @@ public class DetalhesJogoActivity extends AppCompatActivity {
         textViewAtividade.setText(jogo.getAtividade());
         textViewData.setText(jogo.getDataLancamento());
         textViewPlataformas.setText(NomePlataformas);
-
-
     }
 }
 

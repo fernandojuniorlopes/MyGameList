@@ -138,7 +138,6 @@ public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.View
             Toast.makeText(context, genero.getNome(), Toast.LENGTH_SHORT).show();
 
             if (viewHolderGeneroSelecionado != null) {
-                //viewHolderGeneroSelecionado.desSeleciona();
             }
             viewHolderGeneroSelecionado = this;
             seleciona();
@@ -150,7 +149,7 @@ public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.View
         }
 
         private void seleciona() {
-            itemView.setBackgroundResource(R.color.colorRed);
+            itemView.setBackgroundResource(R.color.corMarcar);
         }
     }
 

@@ -146,7 +146,7 @@ public class AdaptadorPlataformas extends RecyclerView.Adapter<AdaptadorPlatafor
         }
 
         private void seleciona() {
-            itemView.setBackgroundResource(R.color.colorRed);
+            itemView.setBackgroundResource(R.color.corMarcar);
         }
 
     }
