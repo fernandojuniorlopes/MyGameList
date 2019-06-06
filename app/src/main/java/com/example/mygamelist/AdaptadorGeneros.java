@@ -1,6 +1,7 @@
 package com.example.mygamelist;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +13,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.ViewHolderGeneros> {
     private Cursor cursor;
     private Context context;
+    ArrayList<Long> listaIds = new ArrayList<>();
 
     public void setCursor(Cursor cursor) {
         if (this.cursor != cursor) {
@@ -97,7 +102,6 @@ public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.View
 
     public Genero getGeneroSelecionado(){
         if ( viewHolderGeneroSelecionado == null) return null;
-
         return viewHolderGeneroSelecionado.genero;
     }
 
@@ -134,13 +138,13 @@ public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.View
             Toast.makeText(context, genero.getNome(), Toast.LENGTH_SHORT).show();
 
             if (viewHolderGeneroSelecionado != null) {
-                viewHolderGeneroSelecionado.desSeleciona();
+                //viewHolderGeneroSelecionado.desSeleciona();
             }
-
             viewHolderGeneroSelecionado = this;
-
             seleciona();
+            listaIds.add(viewHolderGeneroSelecionado.genero.getId());
         }
+
         private void desSeleciona() {
             itemView.setBackgroundResource(android.R.color.white);
         }
@@ -148,5 +152,9 @@ public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.View
         private void seleciona() {
             itemView.setBackgroundResource(R.color.colorRed);
         }
+    }
+
+    public ArrayList<Long> lista(){
+        return listaIds;
     }
 }

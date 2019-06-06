@@ -27,6 +27,8 @@ import androidx.loader.content.Loader;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.ArrayList;
+
 import static java.lang.Integer.valueOf;
 
 
@@ -34,9 +36,11 @@ public class DetalhesJogoActivity extends AppCompatActivity {
 
     private Jogo jogo = null;
     private Uri enderecoJogo;
-    private Uri enderecoJogoGen;
-    private EditText textViewnomejogo;
-    private EditText textViewnomeGenero;
+    private TextView textViewnomejogo;
+    private TextView textViewnomeGenero;
+    private TextView textViewPlataformas;
+    private TextView textViewData;
+    private TextView textViewAtividade;
 
     public static final String NOME_TABELA = "BdTableJogosGeneros";
 
@@ -52,43 +56,72 @@ public class DetalhesJogoActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        textViewnomejogo = (EditText) findViewById(R.id.textViewnomejogo);
-        textViewnomeGenero = (EditText) findViewById(R.id.textViewnomeGenero);
+        textViewnomejogo = findViewById(R.id.textViewNomeJogo);
+        textViewnomeGenero = findViewById(R.id.textViewGeneros);
+        textViewPlataformas = findViewById(R.id.textViewPlataformas);
+        textViewData = findViewById(R.id.textViewData);
+        textViewAtividade = findViewById(R.id.textViewAtividade);
 
         Intent intent = getIntent();
 
         idJogo = intent.getLongExtra(JogosActivity.ID_JOGO, -1);
 
         if (idJogo == -1) {
-            Toast.makeText(this, "Erro: não foi possível ler o livro", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Erro: não foi possível ler o Jogo", Toast.LENGTH_LONG).show();
             finish();
             return;
         }
 
         enderecoJogo = Uri.withAppendedPath(MyGamesListContentProvider.ENDERECO_JOGOS, String.valueOf(idJogo));
-        enderecoJogoGen = Uri.withAppendedPath(MyGamesListContentProvider.ENDERECO_JOGOS_GENEROS, String.valueOf(idJogo));
         Cursor cursor = getContentResolver().query(enderecoJogo, BdTableJogos.TODAS_COLUNAS, null, null, null);
-        Cursor cursor2 = getContentResolver().query(enderecoJogoGen, BdTableJogosGeneros.TODAS_COLUNAS, null, null, null);
 
         if (!cursor.moveToNext()) {
-            Toast.makeText(this, "Erro: não foi possível ler o livro", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Erro: não foi possível ler o Jogo", Toast.LENGTH_LONG).show();
             finish();
             return;
         }
-        String NomeGeneros = "Adeus";
-
+        String NomeGeneros = "";
         JogoGenero jogosGeneros = null;
 
-        while(cursor2.moveToNext()){
+        BdMyGameListOpenHelper openHelper = new BdMyGameListOpenHelper(this);
+        SQLiteDatabase db = openHelper.getReadableDatabase();
+        BdTableJogosGeneros tabelaJogosGen = new BdTableJogosGeneros(db);
+
+        Cursor cursor2 = tabelaJogosGen.query(BdTableJogosGeneros.TODAS_COLUNAS, null,null,null,null,null);
+
+        while(cursor2.moveToNext()) {
             jogosGeneros = JogoGenero.fromCursor(cursor2);
-            if(jogosGeneros.getId_jogo() == idJogo){
-                NomeGeneros = jogosGeneros.getNomeGenero();
+            if (jogosGeneros.getId_jogo() == idJogo) {
+                NomeGeneros += "-";
+                NomeGeneros += jogosGeneros.getNomeGenero();
             }
         }
+        BdMyGameListOpenHelper openHelper2 = new BdMyGameListOpenHelper(this);
+        SQLiteDatabase db2 = openHelper2.getReadableDatabase();
+        BdTableJogosPlataformas tabelaJogosPlataforma = new BdTableJogosPlataformas(db);
+
+        Cursor cursor3 = tabelaJogosPlataforma.query(BdTableJogosPlataformas.TODAS_COLUNAS, null,null,null,null,null);
+
+        String NomePlataformas = "";
+        JogoPlataforma jogoPlataforma = null;
+
+        while(cursor3.moveToNext()) {
+            jogoPlataforma = JogoPlataforma.fromCursor(cursor3);
+            if (jogoPlataforma.getId_jogo() == idJogo) {
+                NomePlataformas += "-";
+                NomePlataformas += jogoPlataforma.getNomePlataforma();
+            }
+        }
+
         textViewnomeGenero.setText(NomeGeneros);
         jogo = Jogo.fromCursor(cursor);
 
         textViewnomejogo.setText(jogo.getNome());
+        textViewnomeGenero.setText(NomeGeneros);
+        textViewAtividade.setText(jogo.getAtividade());
+        textViewData.setText(jogo.getDataLancamento());
+        textViewPlataformas.setText(NomePlataformas);
+
 
     }
 }

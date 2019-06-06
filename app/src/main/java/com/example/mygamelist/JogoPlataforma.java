@@ -8,6 +8,11 @@ public class JogoPlataforma {
     private long Id;
     private long id_plataforma;
     private long id_jogo;
+    private String nomePlataforma; // Campo "externo"
+
+    public String getNomePlataforma() {
+        return nomePlataforma;
+    }
 
     public long getId() {
         return Id;
@@ -55,12 +60,16 @@ public class JogoPlataforma {
         long id_plataforma = cursor.getLong(
                 cursor.getColumnIndex(BdTableJogosPlataformas.ID_PLATAFORMA)
         );
+        String nomePlataforma = cursor.getString(
+                cursor.getColumnIndex(BdTableJogosPlataformas.ALIAS_NOME_PLATAFORMA)
+        );
 
         JogoPlataforma jogoPlataforma = new JogoPlataforma();
 
         jogoPlataforma.setId(id);
         jogoPlataforma.setId_jogo(id_jogo);
         jogoPlataforma.setId_plataforma(id_plataforma);
+        jogoPlataforma.nomePlataforma= nomePlataforma;
 
         return jogoPlataforma;
     }

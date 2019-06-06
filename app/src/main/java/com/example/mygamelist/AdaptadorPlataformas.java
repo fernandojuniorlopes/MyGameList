@@ -12,9 +12,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 public class AdaptadorPlataformas extends RecyclerView.Adapter<AdaptadorPlataformas.ViewHolderPlataformas> {
     private Cursor cursor;
     private Context context;
+    ArrayList<Long> listaIds = new ArrayList<>();
 
     public void setCursor(Cursor cursor) {
         if (this.cursor != cursor) {
@@ -130,10 +133,11 @@ public class AdaptadorPlataformas extends RecyclerView.Adapter<AdaptadorPlatafor
             Toast.makeText(context, plataforma.getNome(), Toast.LENGTH_SHORT).show();
 
             if (viewHolderPlataformaSelecionada != null) {
-                viewHolderPlataformaSelecionada.desSeleciona();
+                //viewHolderPlataformaSelecionada.desSeleciona();
             }
 
             viewHolderPlataformaSelecionada = this;
+            listaIds.add(viewHolderPlataformaSelecionada.plataforma.getId());
 
             seleciona();
         }
@@ -145,5 +149,8 @@ public class AdaptadorPlataformas extends RecyclerView.Adapter<AdaptadorPlatafor
             itemView.setBackgroundResource(R.color.colorRed);
         }
 
+    }
+    public ArrayList<Long> lista(){
+        return listaIds;
     }
 }

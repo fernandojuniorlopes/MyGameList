@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
+import android.text.TextUtils;
+import android.util.Log;
 
 public class BdTableJogosPlataformas implements BaseColumns {
 
@@ -11,7 +13,9 @@ public class BdTableJogosPlataformas implements BaseColumns {
     public static final String NOME_TABELA = "jogosplataformas";
     public static final String ID_PLATAFORMA = "id_plataformas";
     public static final String ID_JOGO = "id_jogo";
-    public static final String [] TODAS_COLUNAS = new String[]{NOME_TABELA + "." +_ID, ID_JOGO, ID_PLATAFORMA};
+    public static final String ALIAS_NOME_PLATAFORMA = "nomeGenero";
+    public static final String CAMPO_NOME_PLATAFORMA = BdTablePlataformas.NOME_TABELA + "." + BdTablePlataformas.NOME_PLATAFORMA + " AS " + ALIAS_NOME_PLATAFORMA; // tabela de Generos (só de leitura)
+    public static final String [] TODAS_COLUNAS = new String[]{NOME_TABELA + "." +_ID, ID_JOGO, ID_PLATAFORMA, CAMPO_NOME_PLATAFORMA};
 
     public BdTableJogosPlataformas(SQLiteDatabase db) {
         this.db = db;
@@ -28,7 +32,17 @@ public class BdTableJogosPlataformas implements BaseColumns {
         );
     }
     public Cursor query(String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy) {
-        return db.query(NOME_TABELA, columns, selection, selectionArgs, groupBy, having, orderBy);
+        String colunasSelect = TextUtils.join(",", columns);
+
+        String sql = "SELECT " + colunasSelect + " FROM " +
+                NOME_TABELA + " INNER JOIN " + BdTablePlataformas.NOME_TABELA + " WHERE " + NOME_TABELA + "." + ID_PLATAFORMA + "=" + BdTablePlataformas.NOME_TABELA + "." + BdTablePlataformas._ID;
+
+        if (selection != null) {
+            sql += " AND " + selection;
+        }
+        Log.d("Tabela JogosGeneros", "query: " + sql);
+
+        return db.rawQuery(sql, selectionArgs);
     }
 
     public long insert(ContentValues values) {
