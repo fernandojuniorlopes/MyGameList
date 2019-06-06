@@ -104,8 +104,8 @@ public class JogosActivity extends AppCompatActivity implements LoaderManager.Lo
         }
         else if (id == R.id.DetalhesJogo) {
             Intent intent = new Intent(JogosActivity.this, DetalhesJogoActivity.class);
-            startActivity(intent);
             intent.putExtra(ID_JOGO, adaptadorJogos.getJogoSelecionado().getId());
+            startActivity(intent);
             Toast.makeText(this, "Detalhes do Jogo", Toast.LENGTH_LONG).show();
             return true;
         }

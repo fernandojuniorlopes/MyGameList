@@ -135,8 +135,6 @@ public class AdaptadorPlataformas extends RecyclerView.Adapter<AdaptadorPlatafor
 
             viewHolderPlataformaSelecionada = this;
 
-            ((PlataformasActivity) context).atualizaOpcoesMenu();
-
             seleciona();
         }
         private void desSeleciona() {

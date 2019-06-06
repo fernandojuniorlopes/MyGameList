@@ -182,13 +182,13 @@ public class MyGamesListContentProvider extends ContentProvider {
                 return new BdTableJogosGeneros(bd).query(projection, selection, selectionArgs, null, null, sortOrder);
 
             case URI_JOGO_GENERO_ESPECIFICO:
-                return  new BdTableJogosGeneros(bd).query(projection, BdTableJogosGeneros._ID + "=?", new String[] { id }, null, null, null);
+                return  new BdTableJogosGeneros(bd).query(projection, BdTableJogosGeneros.NOME_TABELA + "." + BdTableJogosGeneros._ID + "=?", new String[] { id }, null, null, null);
 
             case URI_JOGOS_PLATAFORMAS:
                 return new BdTableJogosPlataformas(bd).query(projection, selection, selectionArgs, null, null, sortOrder);
 
             case URI_JOGO_PLATAFORMA_ESPECIFICO:
-                return  new BdTableJogosPlataformas(bd).query(projection, BdTableJogosPlataformas._ID + "=?", new String[] { id }, null, null, null);
+                return  new BdTableJogosPlataformas(bd).query(projection, BdTableJogosPlataformas.NOME_TABELA + "." + BdTableJogosPlataformas._ID + "=?", new String[] { id }, null, null, null);
 
             default:
                 throw new UnsupportedOperationException("URI inválida (QUERY): " + uri.toString());

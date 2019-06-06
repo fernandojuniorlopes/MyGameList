@@ -101,7 +101,7 @@ public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.View
         return viewHolderGeneroSelecionado.genero;
     }
 
-    private static AdaptadorGeneros.ViewHolderGeneros viewHolderGeneroSelecionado = null;
+    private static ViewHolderGeneros viewHolderGeneroSelecionado = null;
 
     /**
      * Returns the total number of items in the data set held by the adapter.
@@ -138,8 +138,6 @@ public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.View
             }
 
             viewHolderGeneroSelecionado = this;
-
-            ((GenerosActivity) context).atualizaOpcoesMenu();
 
             seleciona();
         }

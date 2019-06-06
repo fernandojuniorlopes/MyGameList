@@ -109,8 +109,6 @@ public class AdaptadorJogos extends RecyclerView.Adapter<AdaptadorJogos.ViewHold
         private TextView textViewAtividade;
         private TextView textViewDataLancamento;
         private TextView textViewFavorito;
-        private TextView textViewGenero;
-        private TextView textViewPlataforma;
 
         private Jogo jogo;
 
@@ -121,9 +119,6 @@ public class AdaptadorJogos extends RecyclerView.Adapter<AdaptadorJogos.ViewHold
             textViewAtividade = (TextView)itemView.findViewById(R.id.textViewAtividadeItem);
             textViewDataLancamento = (TextView)itemView.findViewById(R.id.textViewDataLancamentoItem);
             textViewFavorito = (TextView)itemView.findViewById(R.id.textViewFavoritoItem);
-            //textViewGenero = itemView.findViewById(R.id.textViewGeneroItem);
-            // textViewPlataforma = itemView.findViewById(R.id.textViewPlataformaItem);
-
 
             itemView.setOnClickListener(this);
         }
@@ -135,10 +130,6 @@ public class AdaptadorJogos extends RecyclerView.Adapter<AdaptadorJogos.ViewHold
             textViewAtividade.setText(jogo.getAtividade());
             textViewDataLancamento.setText(jogo.getDataLancamento());
             textViewFavorito.setText(String.valueOf(jogo.getFavorito()));
-            //textViewGenero.setText(jogo.getNomeGenero());
-            //textViewPla.setText(jogo.getNomeGenero());
-
-
         }
 
         /**

@@ -8,6 +8,11 @@ public class JogoGenero {
     private long Id;
     private long id_genero;
     private long id_jogo;
+    private String nomeGenero; // Campo "externo"
+
+    public String getNomeGenero() {
+        return nomeGenero;
+    }
 
     public long getId() {
         return Id;
@@ -55,11 +60,17 @@ public class JogoGenero {
                 cursor.getColumnIndex(BdTableJogosGeneros.ID_GENERO)
         );
 
+        String nomeGenero = cursor.getString(
+                cursor.getColumnIndex(BdTableJogosGeneros.ALIAS_NOME_GENERO)
+        );
+
+
         JogoGenero jogoGenero = new JogoGenero();
 
         jogoGenero.setId(id);
         jogoGenero.setId_jogo(id_jogo);
         jogoGenero.setId_genero(id_genero);
+        jogoGenero.nomeGenero = nomeGenero;
 
         return jogoGenero;
     }

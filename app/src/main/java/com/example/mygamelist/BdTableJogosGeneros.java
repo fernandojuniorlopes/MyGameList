@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
+import android.text.TextUtils;
+import android.util.Log;
 
 public class BdTableJogosGeneros implements BaseColumns {
 
@@ -11,7 +13,9 @@ public class BdTableJogosGeneros implements BaseColumns {
     public static final String NOME_TABELA = "jogosgeneros";
     public static final String ID_GENERO = "id_genero";
     public static final String ID_JOGO = "id_jogo";
-    public static final String [] TODAS_COLUNAS = new String[]{NOME_TABELA + "." +_ID, ID_JOGO, ID_GENERO};
+    public static final String ALIAS_NOME_GENERO = "nomeGenero";
+    public static final String CAMPO_NOME_GENERO = BdTableGeneros.NOME_TABELA + "." + BdTableGeneros.NOME_GENERO + " AS " + ALIAS_NOME_GENERO; // tabela de Generos (só de leitura)
+    public static final String [] TODAS_COLUNAS = new String[]{NOME_TABELA + "." +_ID, ID_JOGO, ID_GENERO, CAMPO_NOME_GENERO};
 
     public BdTableJogosGeneros(SQLiteDatabase db) {
         this.db = db;
@@ -28,7 +32,19 @@ public class BdTableJogosGeneros implements BaseColumns {
         );
     }
     public Cursor query(String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy) {
-        return db.query(NOME_TABELA, columns, selection, selectionArgs, groupBy, having, orderBy);
+        String colunasSelect = TextUtils.join(",", columns);
+
+        String sql = "SELECT " + colunasSelect + " FROM " +
+                NOME_TABELA + " INNER JOIN " + BdTableGeneros.NOME_TABELA + " WHERE " + NOME_TABELA + "." + ID_GENERO + "=" + BdTableGeneros.NOME_TABELA + "." + BdTableGeneros._ID
+                ;
+
+        if (selection != null) {
+            sql += " AND " + selection;
+        }
+
+        Log.d("Tabela JogosGeneros", "query: " + sql);
+
+        return db.rawQuery(sql, selectionArgs);
     }
 
     public long insert(ContentValues values) {

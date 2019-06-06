@@ -2,6 +2,7 @@ package com.example.mygamelist;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +22,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -32,13 +35,16 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
     private static  final int ID_CURSOR_LOADER_PLATAFORMAS =1;
 
     private EditText textViewnomejogo;
-    private Spinner spinnerGenero;
-    private Spinner spinnerPlataforma;
     private Spinner spinnerJogado;
     private Spinner spinnerDia;
     private Spinner spinnerMes;
     private Spinner spinnerAno;
     private CheckBox checkBoxFavoritos;
+
+    private RecyclerView recyclerViewGeneros;
+    private AdaptadorGeneros adaptadorGeneros = new AdaptadorGeneros(this);
+    private RecyclerView recyclerViewPlataformas;
+    private AdaptadorPlataformas adaptadorPlataformas = new AdaptadorPlataformas(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,20 +55,30 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         textViewnomejogo = (EditText) findViewById(R.id.textViewnomejogo);
-        spinnerGenero = (Spinner) findViewById(R.id.spinnerGenero);
-        spinnerPlataforma = (Spinner)  findViewById(R.id.spinnerPlataforma);
         spinnerJogado = (Spinner) findViewById(R.id.spinnerJogado);
         spinnerDia = (Spinner) findViewById(R.id.spinnerDia);
         spinnerMes = (Spinner) findViewById(R.id.spinnerMes);
         spinnerAno = (Spinner) findViewById(R.id.spinnerAno);
         checkBoxFavoritos = (CheckBox) findViewById(R.id.checkBoxFavoritos);
 
+        LinearLayoutManager layoutManager
+                = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager layoutManager2
+                = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerViewGeneros = (RecyclerView) findViewById(R.id.recyclerViewGeneros);
+        recyclerViewGeneros.setLayoutManager(layoutManager);
+        recyclerViewGeneros.setAdapter(adaptadorGeneros);
+
+        recyclerViewPlataformas = (RecyclerView) findViewById(R.id.recyclerViewPlataformas);
+        recyclerViewPlataformas.setLayoutManager(layoutManager2);
+        recyclerViewPlataformas.setAdapter(adaptadorPlataformas);
+
         getSupportLoaderManager().initLoader(ID_CURSOR_LOADER_GENEROS, null, this);
         getSupportLoaderManager().initLoader(ID_CURSOR_LOADER_PLATAFORMAS, null, this);
 
     }
 
-    private void mostraGenerosSpinner(Cursor cursorGeneros){
+    /*private void mostraGenerosSpinner(Cursor cursorGeneros){
         SimpleCursorAdapter adaptadorGeneros = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1,
                 cursorGeneros,
                 new String[]{BdTableGeneros.NOME_GENERO},
@@ -77,7 +93,7 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
                 new int[]{android.R.id.text1});
 
         spinnerPlataforma.setAdapter(adaptadorPlataformas);
-    }
+    }*/
 
     @Override
     protected void onResume() {
@@ -108,8 +124,6 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
         TextView errorDia = (TextView)spinnerDia.getSelectedView();
         TextView errorMes = (TextView)spinnerMes.getSelectedView();
         TextView errorAno = (TextView)spinnerAno.getSelectedView();
-        TextView errorGenero = (TextView)spinnerGenero.getSelectedView();
-        TextView errorPlataforma = (TextView)spinnerPlataforma.getSelectedView();
 
         String NomeJogo = textViewnomejogo.getText().toString();
 
@@ -117,8 +131,6 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
         int Dia = spinnerDia.getSelectedItemPosition();
         int Mes = spinnerMes.getSelectedItemPosition();
         String anoStr = spinnerAno.getSelectedItem().toString();
-        int Genero = spinnerGenero.getSelectedItemPosition();
-        int Plataforma = spinnerPlataforma.getSelectedItemPosition();
 
         int Ano = valueOf(anoStr);
 
@@ -241,19 +253,16 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
 
         data = Dia + "/" + Mes + "/" + Ano;
 
-        long idGenero = spinnerGenero.getSelectedItemId();
-        long idPlataforma = spinnerPlataforma.getSelectedItemId();
-
         Jogo jogo = new Jogo();
 
         jogo.setNome(NomeJogo);
         jogo.setAtividade(atividade);
         jogo.setFavorito(favoritos);
         jogo.setDataLancamento(data);
-
+        long id=-1;
         try {
-            getContentResolver().insert(MyGamesListContentProvider.ENDERECO_JOGOS, jogo.getContentValues());
-
+            Uri uri = getContentResolver().insert(MyGamesListContentProvider.ENDERECO_JOGOS, jogo.getContentValues());
+            id = Long.valueOf(uri.getLastPathSegment());
             Toast.makeText(this, "Jogo guardado com sucesso", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Snackbar.make(
@@ -266,20 +275,22 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
         }
 
         JogoGenero jogoGenero = new JogoGenero();
+        long idgenero = adaptadorGeneros.getGeneroSelecionado().getId();
 
-        jogoGenero.setId_genero(idGenero);
-        jogoGenero.setId_jogo(jogo.getId());
+        jogoGenero.setId_jogo(id);
+        jogoGenero.setId_genero(idgenero);
+
 
         JogoPlataforma jogoPlataforma = new JogoPlataforma();
+        long idPlataforma = adaptadorPlataformas.getPlataformaSelecionada().getId();
 
-        jogoPlataforma.setId_plataforma(jogo.getId());
-        jogoPlataforma.setId_jogo(jogo.getId());
+        jogoPlataforma.setId_plataforma(idPlataforma);
+        jogoPlataforma.setId_jogo(id);
 
         try {
             getContentResolver().insert(MyGamesListContentProvider.ENDERECO_JOGOS_GENEROS, jogoGenero.getContentValues());
 
             Toast.makeText(this, "Jogo/Genero guardado com sucesso", Toast.LENGTH_SHORT).show();
-            finish();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -292,14 +303,6 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        /*Intent intent = new Intent(this, JogosActivity.class);
-            intent.putExtra("Nomejogo", jogo.getNome());
-            intent.putExtra("atividade", jogo.getAtividade());
-            intent.putExtra("favorito", jogo.getFavorito());
-            intent.putExtra("datalancamento", jogo.getDataLancamento());
-
-            startActivity(intent);*/
     }
 
     public void CancelarJogo(View view){
@@ -328,17 +331,17 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
-        switch(id) {
+        switch (id){
             case ID_CURSOR_LOADER_GENEROS:
                 CursorLoader cursorLoader = new CursorLoader(this, MyGamesListContentProvider.ENDERECO_GENEROS, BdTableGeneros.TODAS_COLUNAS, null, null, BdTableGeneros.NOME_GENERO);
                 return cursorLoader;
             case ID_CURSOR_LOADER_PLATAFORMAS:
                 CursorLoader cursorLoader2 = new CursorLoader(this, MyGamesListContentProvider.ENDERECO_PLATAFORMAS, BdTablePlataformas.TODAS_COLUNAS, null, null, BdTablePlataformas.NOME_PLATAFORMA);
                 return cursorLoader2;
-
             default:
                 return null;
         }
+
     }
 
     /**
@@ -384,10 +387,11 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
      */
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
+
         if(loader.getId()==ID_CURSOR_LOADER_GENEROS){
-            mostraGenerosSpinner(data);
+            adaptadorGeneros.setCursor(data);
         }else{
-            mostraPlataformasSpinner(data);
+            adaptadorPlataformas.setCursor(data);
         }
     }
 
@@ -402,11 +406,10 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
      */
     @Override
     public void onLoaderReset(@NonNull Loader<Cursor> loader) {
-
         if(loader.getId()==ID_CURSOR_LOADER_GENEROS){
-            mostraGenerosSpinner(null);
+            adaptadorGeneros.setCursor(null);
         }else{
-            mostraPlataformasSpinner(null);
+            adaptadorPlataformas.setCursor(null);
         }
     }
 }

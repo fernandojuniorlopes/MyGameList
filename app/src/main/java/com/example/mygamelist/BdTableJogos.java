@@ -10,7 +10,6 @@ import android.util.Log;
 public class BdTableJogos implements BaseColumns {
     private SQLiteDatabase db;
 
-    public static final String ALIAS_NOME_GENERO = "nome_gen";
     public static final String NOME_TABELA = "jogos";
     public static final String CAMPO_NOME = "nomeJogos";
     public static final String CAMPO_ATIVIDADE = "atividade";
