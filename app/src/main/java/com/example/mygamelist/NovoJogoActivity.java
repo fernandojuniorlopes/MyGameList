@@ -279,7 +279,7 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
             }
         }
 
-        ArrayList<Long> lista2 = adaptadorGeneros.lista();
+        ArrayList<Long> lista2 = adaptadorPlataformas.lista();
         long idPlataformas;
 
         if (lista2.size() != 0) {
@@ -288,10 +288,11 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
                 idPlataformas = lista2.get(i);
                 jogoPlataformas.setId_jogo(id);
                 jogoPlataformas.setId_plataforma(idPlataformas);
+
                 getContentResolver().insert(MyGamesListContentProvider.ENDERECO_JOGOS_PLATAFORMAS, jogoPlataformas.getContentValues());
             }
-            finish();
         }
+        finish();
     }
 
     public void CancelarJogo(View view){

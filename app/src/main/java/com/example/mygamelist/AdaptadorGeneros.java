@@ -20,6 +20,7 @@ public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.View
     private Cursor cursor;
     private Context context;
     ArrayList<Long> listaIds = new ArrayList<>();
+    int x;
 
     public void setCursor(Cursor cursor) {
         if (this.cursor != cursor) {
@@ -141,8 +142,19 @@ public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.View
             }
             viewHolderGeneroSelecionado = this;
             seleciona();
-            listaIds.add(viewHolderGeneroSelecionado.genero.getId());
-        }
+            x = 0;
+
+            for(int i=0;i<listaIds.size();i++) {
+                if (viewHolderGeneroSelecionado.genero.getId() == listaIds.get(i)) {
+                    x = 1;
+                }
+            }
+            if(x==0) {
+                listaIds.add(viewHolderGeneroSelecionado.genero.getId());
+            }
+
+
+            }
 
         private void desSeleciona() {
             itemView.setBackgroundResource(android.R.color.white);

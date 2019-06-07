@@ -18,6 +18,7 @@ public class AdaptadorPlataformas extends RecyclerView.Adapter<AdaptadorPlatafor
     private Cursor cursor;
     private Context context;
     ArrayList<Long> listaIds = new ArrayList<>();
+    int x;
 
     public void setCursor(Cursor cursor) {
         if (this.cursor != cursor) {
@@ -137,9 +138,20 @@ public class AdaptadorPlataformas extends RecyclerView.Adapter<AdaptadorPlatafor
             }
 
             viewHolderPlataformaSelecionada = this;
-            listaIds.add(viewHolderPlataformaSelecionada.plataforma.getId());
 
             seleciona();
+            x = 0;
+
+            for(int i=0;i<listaIds.size();i++) {
+                if (viewHolderPlataformaSelecionada.plataforma.getId() == listaIds.get(i)) {
+                    x = 1;
+                }
+            }
+
+            if(x==0) {
+                listaIds.add(viewHolderPlataformaSelecionada.plataforma.getId());
+                }
+
         }
         private void desSeleciona() {
             itemView.setBackgroundResource(android.R.color.white);
