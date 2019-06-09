@@ -138,21 +138,25 @@ public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.View
         public void onClick(View v) {
             Toast.makeText(context, genero.getNome(), Toast.LENGTH_SHORT).show();
 
-            if (viewHolderGeneroSelecionado != null) {
-            }
             viewHolderGeneroSelecionado = this;
             seleciona();
-            x = 0;
 
-            for(int i=0;i<listaIds.size();i++) {
-                if (viewHolderGeneroSelecionado.genero.getId() == listaIds.get(i)) {
-                    x = 1;
+            x=0;
+            if(listaIds.size()==0) {
+                listaIds.add(viewHolderGeneroSelecionado.genero.getId());
+
+            }else{
+                for (int i = 0; i < listaIds.size(); i++) {
+                    if (viewHolderGeneroSelecionado.genero.getId() == listaIds.get(i)) {
+                        x = 1;
+                        listaIds.remove(viewHolderGeneroSelecionado.genero.getId());
+                        desSeleciona();
+                    }
+                }
+                if (x == 0) {
+                    listaIds.add(viewHolderGeneroSelecionado.genero.getId());
                 }
             }
-            if(x==0) {
-                listaIds.add(viewHolderGeneroSelecionado.genero.getId());
-            }
-
 
             }
 

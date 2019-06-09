@@ -126,6 +126,7 @@ public class AdaptadorPlataformas extends RecyclerView.Adapter<AdaptadorPlatafor
 
         public void setPlataforma(Plataforma plataforma){
             this.plataforma= plataforma;
+
             textViewNomePlataforma.setText(plataforma.getNome());
         }
 
@@ -133,26 +134,28 @@ public class AdaptadorPlataformas extends RecyclerView.Adapter<AdaptadorPlatafor
         public void onClick(View v) {
             Toast.makeText(context, plataforma.getNome(), Toast.LENGTH_SHORT).show();
 
-            if (viewHolderPlataformaSelecionada != null) {
-                //viewHolderPlataformaSelecionada.desSeleciona();
-            }
 
             viewHolderPlataformaSelecionada = this;
-
             seleciona();
-            x = 0;
+            x=0;
+            if(listaIds.size()==0) {
+                listaIds.add(viewHolderPlataformaSelecionada.plataforma.getId());
 
-            for(int i=0;i<listaIds.size();i++) {
-                if (viewHolderPlataformaSelecionada.plataforma.getId() == listaIds.get(i)) {
-                    x = 1;
+            }else{
+                for (int i = 0; i < listaIds.size(); i++) {
+                    if (viewHolderPlataformaSelecionada.plataforma.getId() == listaIds.get(i)) {
+                        x = 1;
+                        listaIds.remove(viewHolderPlataformaSelecionada.plataforma.getId());
+                        desSeleciona();
+                    }
+                }
+                if (x == 0) {
+                    listaIds.add(viewHolderPlataformaSelecionada.plataforma.getId());
                 }
             }
 
-            if(x==0) {
-                listaIds.add(viewHolderPlataformaSelecionada.plataforma.getId());
-                }
-
         }
+
         private void desSeleciona() {
             itemView.setBackgroundResource(android.R.color.white);
         }
@@ -160,6 +163,7 @@ public class AdaptadorPlataformas extends RecyclerView.Adapter<AdaptadorPlatafor
         private void seleciona() {
             itemView.setBackgroundResource(R.color.corMarcar);
         }
+
 
     }
     public ArrayList<Long> lista(){

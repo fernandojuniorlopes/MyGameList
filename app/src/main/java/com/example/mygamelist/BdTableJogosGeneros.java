@@ -42,7 +42,7 @@ public class BdTableJogosGeneros implements BaseColumns {
             sql += " AND " + selection;
         }
 
-        Log.d("Tabela JogosGeneros", "query: " + sql);
+        Log.d("Tabela jogosgeneros", "query: " + sql);
 
         return db.rawQuery(sql, selectionArgs);
     }

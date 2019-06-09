@@ -118,10 +118,13 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
         int Jogado = spinnerJogado.getSelectedItemPosition();
         int Dia = spinnerDia.getSelectedItemPosition();
         int Mes = spinnerMes.getSelectedItemPosition();
-        String anoStr = spinnerAno.getSelectedItem().toString();
+        int Ano = spinnerAno.getSelectedItemPosition();
+        String anoStr;
 
-        int Ano = valueOf(anoStr);
-
+        if(Ano != 0) {
+            anoStr = spinnerAno.getSelectedItem().toString();
+             Ano = valueOf(anoStr);
+        }
 
         boolean flag = true;
         int erro = 0;
@@ -265,7 +268,8 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
             }
         }
 
-        ArrayList<Long> lista = adaptadorGeneros.lista();
+        ArrayList<Long> lista;
+        lista = adaptadorGeneros.lista();
         long idgeneros;
 
         if (lista.size() != 0) {
@@ -283,7 +287,7 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
         long idPlataformas;
 
         if (lista2.size() != 0) {
-            for (int i = 0; i < lista.size(); i++) {
+            for (int i = 0; i < lista2.size(); i++) {
                 JogoPlataforma jogoPlataformas = new JogoPlataforma();
                 idPlataformas = lista2.get(i);
                 jogoPlataformas.setId_jogo(id);

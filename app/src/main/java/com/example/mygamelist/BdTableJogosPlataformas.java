@@ -40,7 +40,7 @@ public class BdTableJogosPlataformas implements BaseColumns {
         if (selection != null) {
             sql += " AND " + selection;
         }
-        Log.d("Tabela JogosGeneros", "query: " + sql);
+        Log.d("Tabela JogosPlataformas", "query: " + sql);
 
         return db.rawQuery(sql, selectionArgs);
     }

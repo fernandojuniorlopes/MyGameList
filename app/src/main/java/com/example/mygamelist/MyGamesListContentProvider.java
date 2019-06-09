@@ -164,19 +164,19 @@ public class MyGamesListContentProvider extends ContentProvider {
                 return new BdTableGeneros(bd).query(projection, selection, selectionArgs, null, null, sortOrder);
 
             case URI_GENERO_ESPECIFICO:
-                return new BdTableGeneros(bd).query(projection, BdTableGeneros._ID + "=?", new String[] { id }, null, null, null);
+                return new BdTableGeneros(bd).query(projection, BdTableGeneros.NOME_TABELA + "." + BdTableGeneros._ID + "=?", new String[] { id }, null, null, null);
 
             case URI_JOGOS:
                 return new BdTableJogos(bd).query(projection, selection, selectionArgs, null, null, sortOrder);
 
             case URI_JOGO_ESPECIFICO:
-                return  new BdTableJogos(bd).query(projection, BdTableJogos._ID + "=?", new String[] { id }, null, null, null);
+                return  new BdTableJogos(bd).query(projection, BdTableJogos.NOME_TABELA + "." + BdTableJogos._ID + "=?", new String[] { id }, null, null, null);
 
             case URI_PLATAFORMAS:
                     return new BdTablePlataformas(bd).query(projection, selection, selectionArgs, null, null, sortOrder);
 
             case URI_PLATAFORMA_ESPECIFICA:
-                return  new BdTablePlataformas(bd).query(projection, BdTablePlataformas._ID + "=?", new String[] { id }, null, null, null);
+                return  new BdTablePlataformas(bd).query(projection, BdTablePlataformas.NOME_TABELA + "." + BdTablePlataformas._ID + "=?", new String[] { id }, null, null, null);
 
             case URI_JOGOS_GENEROS:
                 return new BdTableJogosGeneros(bd).query(projection, selection, selectionArgs, null, null, sortOrder);
