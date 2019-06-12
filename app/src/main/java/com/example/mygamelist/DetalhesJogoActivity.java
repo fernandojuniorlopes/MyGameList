@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
@@ -41,6 +42,7 @@ public class DetalhesJogoActivity extends AppCompatActivity {
     private TextView textViewPlataformas;
     private TextView textViewData;
     private TextView textViewAtividade;
+    private Menu menu;
 
     long idJogo;
 
@@ -50,8 +52,6 @@ public class DetalhesJogoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detalhes_jogo);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         textViewnomejogo = findViewById(R.id.textViewNomeJogo);
         textViewnomeGenero = findViewById(R.id.textViewGeneros);
@@ -117,6 +117,41 @@ public class DetalhesJogoActivity extends AppCompatActivity {
         textViewAtividade.setText(jogo.getAtividade());
         textViewData.setText(jogo.getDataLancamento());
         textViewPlataformas.setText(NomePlataformas);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_det_jogo, menu);
+
+        this.menu = menu;
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+
+        if (id == R.id.EditarJogo) {
+            Intent intent = new Intent(this, EditarJogoActivity.class);
+            startActivity(intent);
+            Toast.makeText(this, getString(R.string.EditarJogo), Toast.LENGTH_LONG).show();
+            return true;
+        }
+        else if (id == R.id.EliminarJogo) {
+            Intent intent = new Intent(DetalhesJogoActivity.this, EliminarJogoActivity.class);
+            //intent.putExtra(idJogo, );
+            startActivity(intent);
+            Toast.makeText(this, "Detalhes do Jogo", Toast.LENGTH_LONG).show();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
 

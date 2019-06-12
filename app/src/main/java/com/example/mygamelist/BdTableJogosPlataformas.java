@@ -35,7 +35,7 @@ public class BdTableJogosPlataformas implements BaseColumns {
         String colunasSelect = TextUtils.join(",", columns);
 
         String sql = "SELECT " + colunasSelect + " FROM " +
-                NOME_TABELA + " INNER JOIN " + BdTablePlataformas.NOME_TABELA + " WHERE " + NOME_TABELA + "." + ID_PLATAFORMA + "=" + BdTablePlataformas.NOME_TABELA + "." + BdTablePlataformas._ID;
+                NOME_TABELA + " INNER JOIN " + BdTablePlataformas.NOME_TABELA + " WHERE " + BdTableJogosPlataformas.NOME_TABELA + "." + BdTableJogosPlataformas.ID_PLATAFORMA + "=" + BdTablePlataformas.NOME_TABELA + "." + BdTablePlataformas._ID;
 
         if (selection != null) {
             sql += " AND " + selection;
