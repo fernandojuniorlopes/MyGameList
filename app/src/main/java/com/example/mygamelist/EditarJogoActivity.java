@@ -70,6 +70,9 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
     Cursor cursor2;
     Cursor cursor3;
 
+    public static final String LISTA_GENERO = "LISTA_GENERO";
+    public static final String LISTA_PLATAFORMA = "LISTA_PLATAFORMA";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,6 +134,8 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
         listaGeneros = (ArrayList<Long>)intent.getSerializableExtra(DetalhesJogoActivity.LISTA_GEN);
         listaPlataformas = (ArrayList<Long>)intent.getSerializableExtra(DetalhesJogoActivity.LISTA_PLAT);
 
+        Intent intent1 = new Intent(this, AdaptadorGenerosJogos.class);
+        intent1.putExtra(LISTA_GENERO, listaGeneros);
 
         if (idJogo == -1) {
             Toast.makeText(this, "Erro: não foi possível ler o Jogo", Toast.LENGTH_LONG).show();

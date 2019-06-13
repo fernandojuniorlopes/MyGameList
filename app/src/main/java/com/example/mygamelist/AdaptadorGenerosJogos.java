@@ -1,6 +1,7 @@
 package com.example.mygamelist;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,7 +56,6 @@ public class AdaptadorGenerosJogos extends RecyclerView.Adapter<AdaptadorGeneros
     @Override
     public ViewHolderGenerosJogos onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemGeneroJogo = LayoutInflater.from(context).inflate(R.layout.item_genero_jogo, parent, false);
-
         return new AdaptadorGenerosJogos.ViewHolderGenerosJogos(itemGeneroJogo);
     }
 
