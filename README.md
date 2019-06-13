@@ -6,13 +6,13 @@
 <body>
   <h1 id="mygamelist">MyGameList</h1>
 <p>Base de dados de jogos, plataformas e géneros. Esta base de dados irá conter informação detalhada de jogos onde eu poderei guardar a lista de jogos que joguei e se o completei ou não.</p>
-  <p>Terá 5 tabelas:
+	<p>Terá 5 tabelas:</p>
   <h4 id="jogos">Jogos: Informação detalhada sobre jogos.</h4>
-  Esta tabela conterá 4 atributos.
-  -ID_jogo;
-  -Nome_jogo;
-  -Image_jogo;
-  -Atividade_jogo;
+	<p>Esta tabela conterá 5 atributos.</p>
+  <p>-ID_jogo;<br>
+  -Nome_jogo;<br>
+  -Image_jogo;<br>
+  -Atividade_jogo;<br>
   -Data_Lancamento_jogo;</p>
   <h4 id="plataformas">Plataformas: Informação das plataformas.</h4>
   <p>Esta tabela conterá 2 atributos.
