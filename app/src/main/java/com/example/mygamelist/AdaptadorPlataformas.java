@@ -17,8 +17,6 @@ import java.util.ArrayList;
 public class AdaptadorPlataformas extends RecyclerView.Adapter<AdaptadorPlataformas.ViewHolderPlataformas> {
     private Cursor cursor;
     private Context context;
-    ArrayList<Long> listaIds = new ArrayList<>();
-    int x;
 
     public void setCursor(Cursor cursor) {
         if (this.cursor != cursor) {
@@ -119,7 +117,7 @@ public class AdaptadorPlataformas extends RecyclerView.Adapter<AdaptadorPlatafor
 
         public ViewHolderPlataformas(@NonNull View itemView) {
             super(itemView);
-            textViewNomePlataforma  = itemView.findViewById(R.id.textViewPlataformaItem);
+            textViewNomePlataforma  = itemView.findViewById(R.id.textViewGeneroItem);
 
             itemView.setOnClickListener(this);
         }
@@ -134,26 +132,14 @@ public class AdaptadorPlataformas extends RecyclerView.Adapter<AdaptadorPlatafor
             Toast.makeText(context, plataforma.getNome(), Toast.LENGTH_SHORT).show();
 
 
-            viewHolderPlataformaSelecionada = this;
-            seleciona();
-            x=0;
-            if(listaIds.size()==0) {
-                listaIds.add(viewHolderPlataformaSelecionada.plataforma.getId());
-
-            }else{
-                for (int i = 0; i < listaIds.size(); i++) {
-                    if (viewHolderPlataformaSelecionada.plataforma.getId() == listaIds.get(i)) {
-                        x = 1;
-                        listaIds.remove(viewHolderPlataformaSelecionada.plataforma.getId());
-                        desSeleciona();
-                    }
-                }
-                if (x == 0) {
-                    listaIds.add(viewHolderPlataformaSelecionada.plataforma.getId());
-                }
+            if (viewHolderPlataformaSelecionada != null) {
+                viewHolderPlataformaSelecionada.desSeleciona();
             }
-            ((PlataformasActivity) context).atualizaOpcoesMenu();
+            viewHolderPlataformaSelecionada = this;
+            ((GenerosActivity) context).atualizaOpcoesMenu();
+            seleciona();
         }
+
 
         private void desSeleciona() {
             itemView.setBackgroundResource(android.R.color.white);
@@ -164,8 +150,5 @@ public class AdaptadorPlataformas extends RecyclerView.Adapter<AdaptadorPlatafor
         }
 
 
-    }
-    public ArrayList<Long> lista(){
-        return listaIds;
     }
 }

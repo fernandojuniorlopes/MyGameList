@@ -63,9 +63,9 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
     Calendar calendar;
 
     private RecyclerView recyclerViewGeneros;
-    private AdaptadorGeneros adaptadorGeneros = new AdaptadorGeneros(this);
+    private AdaptadorGenerosJogos adaptadorGenerosJogos = new AdaptadorGenerosJogos(this);
     private RecyclerView recyclerViewPlataformas;
-    private AdaptadorPlataformas adaptadorPlataformas = new AdaptadorPlataformas(this);
+    private AdaptadorPlataformasJogos adaptadorPlataformasJogos = new AdaptadorPlataformasJogos(this);
 
     Cursor cursor2;
     Cursor cursor3;
@@ -116,11 +116,11 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
 
         recyclerViewGeneros = (RecyclerView) findViewById(R.id.recyclerViewGeneros);
         recyclerViewGeneros.setLayoutManager(layoutManager);
-        recyclerViewGeneros.setAdapter(adaptadorGeneros);
+        recyclerViewGeneros.setAdapter(adaptadorGenerosJogos);
 
         recyclerViewPlataformas = (RecyclerView) findViewById(R.id.recyclerViewPlataformas);
         recyclerViewPlataformas.setLayoutManager(layoutManager2);
-        recyclerViewPlataformas.setAdapter(adaptadorPlataformas);
+        recyclerViewPlataformas.setAdapter(adaptadorPlataformasJogos);
 
         getSupportLoaderManager().initLoader(ID_CURSOR_LOADER_GENEROS, null, this);
         getSupportLoaderManager().initLoader(ID_CURSOR_LOADER_PLATAFORMAS, null, this);
@@ -272,7 +272,7 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
         }
 
         ArrayList<Long> lista;
-        lista = adaptadorGeneros.lista();
+        lista = adaptadorGenerosJogos.lista();
         long idgeneros;
         for(int i=0; i<listaGeneros.size();i++){
            Long idvelho=listaGeneros.get(i);
@@ -282,16 +282,6 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
                    lista.remove(j);
                }
            }
-        }
-        if (lista.size() != 0) {
-            for (int i = 0; i < lista.size(); i++) {
-                JogoGenero jogoGeneros = new JogoGenero();
-                idgeneros = lista.get(i);
-                jogoGeneros.setId_jogo(idJogo);
-                jogoGeneros.setId_genero(idgeneros);
-
-                getContentResolver().insert(MyGamesListContentProvider.ENDERECO_JOGOS_GENEROS, jogoGeneros.getContentValues());
-            }
         }
 
         JogoGenero jogosGeneros = null;
@@ -308,8 +298,18 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
             }
         }
 
+        if (lista.size() != 0) {
+            for (int i = 0; i < lista.size(); i++) {
+                JogoGenero jogoGeneros = new JogoGenero();
+                idgeneros = lista.get(i);
+                jogoGeneros.setId_jogo(idJogo);
+                jogoGeneros.setId_genero(idgeneros);
 
-        ArrayList<Long> lista2 = adaptadorPlataformas.lista();
+                getContentResolver().insert(MyGamesListContentProvider.ENDERECO_JOGOS_GENEROS, jogoGeneros.getContentValues());
+            }
+        }
+
+        ArrayList<Long> lista2 = adaptadorPlataformasJogos.lista();
         long idPlataforma;
         for(int i=0; i<listaPlataformas.size();i++){
             Long idvelho=listaPlataformas.get(i);
@@ -317,6 +317,21 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
                 if(idvelho.compareTo(lista2.get(j))==0){
                     listaPlataformas.remove(idvelho);
                     lista2.remove(j);
+                }
+            }
+        }
+
+
+        JogoPlataforma jogosPlataformas = null;
+        while(cursor3.moveToNext()) {
+            jogosPlataformas = JogoPlataforma.fromCursor(cursor3);
+            if (jogosPlataformas.getId_jogo() == idJogo) {
+                for(int i=0;i<listaPlataformas.size();i++){
+                    if(jogosPlataformas.getId_plataforma() == listaPlataformas.get(i)){
+                        long idJogoPlataformaApagar = jogosPlataformas.getId();
+                        Uri endereçoJogoPlataformaApagar = Uri.withAppendedPath(MyGamesListContentProvider.ENDERECO_JOGOS_PLATAFORMAS, String.valueOf(idJogoPlataformaApagar));
+                        getContentResolver().delete(endereçoJogoPlataformaApagar, null,null);
+                    }
                 }
             }
         }
@@ -331,19 +346,7 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
                 getContentResolver().insert(MyGamesListContentProvider.ENDERECO_JOGOS_PLATAFORMAS, jogoPlataforma.getContentValues());
             }
         }
-        JogoPlataforma jogosPlataformas = null;
-        while(cursor2.moveToNext()) {
-            jogosPlataformas = JogoPlataforma.fromCursor(cursor3);
-            if (jogosPlataformas.getId_jogo() == idJogo) {
-                for(int i=0;i<listaPlataformas.size();i++){
-                    if(jogosPlataformas.getId_plataforma() == listaPlataformas.get(i)){
-                        long idJogoPlataformaApagar = jogosPlataformas.getId();
-                        Uri endereçoJogoPlataformaApagar = Uri.withAppendedPath(MyGamesListContentProvider.ENDERECO_JOGOS_PLATAFORMAS, String.valueOf(idJogoPlataformaApagar));
-                        getContentResolver().delete(endereçoJogoPlataformaApagar, null,null);
-                    }
-                }
-            }
-        }
+
 
         if(flag){
             finish();
@@ -433,9 +436,9 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
         if(loader.getId()==ID_CURSOR_LOADER_GENEROS){
-            adaptadorGeneros.setCursor(data);
+            adaptadorGenerosJogos.setCursor(data);
         }else{
-            adaptadorPlataformas.setCursor(data);
+            adaptadorPlataformasJogos.setCursor(data);
         }
     }
 
@@ -451,9 +454,9 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
     @Override
     public void onLoaderReset(@NonNull Loader<Cursor> loader) {
         if(loader.getId()==ID_CURSOR_LOADER_GENEROS){
-            adaptadorGeneros.setCursor(null);
+            adaptadorGenerosJogos.setCursor(null);
         }else{
-            adaptadorPlataformas.setCursor(null);
+            adaptadorPlataformasJogos.setCursor(null);
         }
     }
 }

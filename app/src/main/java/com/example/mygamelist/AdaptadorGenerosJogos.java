@@ -13,11 +13,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.ViewHolderGeneros> {
+public class AdaptadorGenerosJogos extends RecyclerView.Adapter<AdaptadorGenerosJogos.ViewHolderGenerosJogos>{
     private Cursor cursor;
     private Context context;
+    ArrayList<Long> listaIds = new ArrayList<>();
+    int x;
 
     public void setCursor(Cursor cursor) {
         if (this.cursor != cursor) {
@@ -26,11 +27,10 @@ public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.View
         }
     }
 
-    public AdaptadorGeneros(Context context)
+    public AdaptadorGenerosJogos(Context context)
     {
         this.context = context;
     }
-
     /**
      * Called when RecyclerView needs a new {@link ViewHolder} of the given type to represent
      * an item.
@@ -53,10 +53,10 @@ public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.View
      */
     @NonNull
     @Override
-    public ViewHolderGeneros onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemGenero = LayoutInflater.from(context).inflate(R.layout.item_genero, parent, false);
+    public ViewHolderGenerosJogos onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View itemGeneroJogo = LayoutInflater.from(context).inflate(R.layout.item_genero_jogo, parent, false);
 
-        return new ViewHolderGeneros(itemGenero);
+        return new AdaptadorGenerosJogos.ViewHolderGenerosJogos(itemGeneroJogo);
     }
 
     /**
@@ -80,7 +80,7 @@ public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.View
      * @param position The position of the item within the adapter's data set.
      */
     @Override
-    public void onBindViewHolder(@NonNull ViewHolderGeneros holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolderGenerosJogos holder, int position) {
         cursor.moveToPosition(position);
         Genero genero = Genero.fromCursor(cursor);
         holder.setGenero(genero);
@@ -98,23 +98,18 @@ public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.View
         return cursor.getCount();
     }
 
-    public Genero getGeneroSelecionado(){
-        if ( viewHolderGeneroSelecionado == null) return null;
-        return viewHolderGeneroSelecionado.genero;
+    public Genero getGeneroJogoSelecionado(){
+        if ( viewHolderGeneroJogoSelecionado == null) return null;
+        return viewHolderGeneroJogoSelecionado.genero;
     }
 
-    private static ViewHolderGeneros viewHolderGeneroSelecionado = null;
+    private static ViewHolderGenerosJogos viewHolderGeneroJogoSelecionado = null;
 
-    /**
-     * Returns the total number of items in the data set held by the adapter.
-     *
-     * @return The total number of items in this adapter.
-     */
-    public class ViewHolderGeneros extends RecyclerView.ViewHolder implements  View.OnClickListener {
+    public class ViewHolderGenerosJogos extends RecyclerView.ViewHolder implements  View.OnClickListener{
         private Genero genero;
         private TextView textViewNomeGenero;
 
-        public ViewHolderGeneros(@NonNull View itemView) {
+        public ViewHolderGenerosJogos(@NonNull View itemView) {
             super(itemView);
             textViewNomeGenero  = itemView.findViewById(R.id.textViewGeneroItem);
 
@@ -135,14 +130,29 @@ public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.View
         public void onClick(View v) {
             Toast.makeText(context, genero.getNome(), Toast.LENGTH_SHORT).show();
 
-            if (viewHolderGeneroSelecionado != null) {
-                viewHolderGeneroSelecionado.desSeleciona();
-            }
-            viewHolderGeneroSelecionado = this;
-            ((GenerosActivity) context).atualizaOpcoesMenu();
+            viewHolderGeneroJogoSelecionado = this;
             seleciona();
-        }
 
+            x=0;
+            if(listaIds.size()==0) {
+                listaIds.add(viewHolderGeneroJogoSelecionado.genero.getId());
+
+            }else{
+                for (int i = 0; i < listaIds.size(); i++) {
+                    if (viewHolderGeneroJogoSelecionado.genero.getId() == listaIds.get(i)) {
+                        x = 1;
+                        listaIds.remove(viewHolderGeneroJogoSelecionado.genero.getId());
+                        desSeleciona();
+                    }
+                }
+                if (x == 0) {
+                    listaIds.add(viewHolderGeneroJogoSelecionado.genero.getId());
+                }
+            }
+
+            //((GenerosActivity) context).atualizaOpcoesMenu();
+
+        }
         private void desSeleciona() {
             itemView.setBackgroundResource(android.R.color.white);
         }
@@ -151,5 +161,8 @@ public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.View
             itemView.setBackgroundResource(R.color.corMarcar);
         }
     }
-
+    public ArrayList<Long> lista(){
+        return listaIds;
+    }
 }
+

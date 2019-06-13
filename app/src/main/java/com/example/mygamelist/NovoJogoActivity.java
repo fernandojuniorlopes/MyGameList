@@ -56,9 +56,9 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
 
 
     private RecyclerView recyclerViewGeneros;
-    private AdaptadorGeneros adaptadorGeneros = new AdaptadorGeneros(this);
+    private AdaptadorGenerosJogos adaptadorGenerosJogos = new AdaptadorGenerosJogos(this);
     private RecyclerView recyclerViewPlataformas;
-    private AdaptadorPlataformas adaptadorPlataformas = new AdaptadorPlataformas(this);
+    private AdaptadorPlataformasJogos adaptadorPlataformasJogos = new AdaptadorPlataformasJogos(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,13 +103,14 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
                 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         LinearLayoutManager layoutManager2
                 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+
         recyclerViewGeneros = (RecyclerView) findViewById(R.id.recyclerViewGeneros);
         recyclerViewGeneros.setLayoutManager(layoutManager);
-        recyclerViewGeneros.setAdapter(adaptadorGeneros);
+        recyclerViewGeneros.setAdapter(adaptadorGenerosJogos);
 
         recyclerViewPlataformas = (RecyclerView) findViewById(R.id.recyclerViewPlataformas);
         recyclerViewPlataformas.setLayoutManager(layoutManager2);
-        recyclerViewPlataformas.setAdapter(adaptadorPlataformas);
+        recyclerViewPlataformas.setAdapter(adaptadorPlataformasJogos);
 
         getSupportLoaderManager().initLoader(ID_CURSOR_LOADER_GENEROS, null, this);
         getSupportLoaderManager().initLoader(ID_CURSOR_LOADER_PLATAFORMAS, null, this);
@@ -209,7 +210,7 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
         }
 
         ArrayList<Long> lista;
-        lista = adaptadorGeneros.lista();
+        lista = adaptadorGenerosJogos.lista();
         long idgeneros;
 
         if (lista.size() != 0) {
@@ -223,7 +224,7 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
             }
         }
 
-        ArrayList<Long> lista2 = adaptadorPlataformas.lista();
+        ArrayList<Long> lista2 = adaptadorPlataformasJogos.lista();
         long idPlataformas;
 
         if (lista2.size() != 0) {
@@ -325,9 +326,9 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
 
         if(loader.getId()==ID_CURSOR_LOADER_GENEROS){
-            adaptadorGeneros.setCursor(data);
+            adaptadorGenerosJogos.setCursor(data);
         }else{
-            adaptadorPlataformas.setCursor(data);
+            adaptadorPlataformasJogos.setCursor(data);
         }
     }
 
@@ -343,9 +344,9 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
     @Override
     public void onLoaderReset(@NonNull Loader<Cursor> loader) {
         if(loader.getId()==ID_CURSOR_LOADER_GENEROS){
-            adaptadorGeneros.setCursor(null);
+            adaptadorGenerosJogos.setCursor(null);
         }else{
-            adaptadorPlataformas.setCursor(null);
+            adaptadorPlataformasJogos.setCursor(null);
         }
     }
 }

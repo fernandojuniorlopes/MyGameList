@@ -96,7 +96,7 @@ public class DetalhesJogoActivity extends AppCompatActivity {
             if (jogoPlataforma.getId_jogo() == idJogo) {
                 NomePlataformas += "-";
                 NomePlataformas += jogoPlataforma.getNomePlataforma();
-                listaGeneros.add(jogoPlataforma.getId_plataforma());
+                listaPlataformas.add(jogoPlataforma.getId_plataforma());
             }
         }
 
@@ -108,6 +108,11 @@ public class DetalhesJogoActivity extends AppCompatActivity {
         textViewAtividade.setText(jogo.getAtividade());
         textViewData.setText(jogo.getDataLancamento());
         textViewPlataformas.setText(NomePlataformas);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -140,6 +145,7 @@ public class DetalhesJogoActivity extends AppCompatActivity {
         }
         else if (id == R.id.EliminarJogo) {
             Intent intent = new Intent(DetalhesJogoActivity.this, EliminarJogoActivity.class);
+            intent.putExtra(ID_JOGO, idJogo);
             startActivity(intent);
             Toast.makeText(this, "Detalhes do Jogo", Toast.LENGTH_LONG).show();
             return true;
