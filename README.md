@@ -28,4 +28,4 @@ Terá 5 tabelas:
     -Jogos_ID_jogo;
     -Generos_ID_genero;
     
-Representação do modelo ER:https://i.imgur.com/OtDKil7.png
+![](images/OtDKil7%20-%20Imgur.png)
