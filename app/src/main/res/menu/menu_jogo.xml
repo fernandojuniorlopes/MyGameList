@@ -4,7 +4,7 @@
     tools:context="com.example.mygamelist.JogosActivity">
     <item
         android:id="@+id/DetalhesJogo"
-        android:icon="@drawable/ic_videogame_asset_black_24dp"
+        android:icon="@drawable/ic_info_outline_black_24dp"
         android:orderInCategory="100"
         android:title="Detalhes Jogo"
         android:visible="false"
