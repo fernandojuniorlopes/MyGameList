@@ -27,6 +27,7 @@ public class PlataformasActivity extends AppCompatActivity implements LoaderMana
     private RecyclerView recyclerViewPlataformas;
     private AdaptadorPlataformas adaptadorPlataformas = new AdaptadorPlataformas(this);
     private Menu menu;
+    public static final String ID_PLATAFORMA= "ID_PLATAFORMA";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,13 +83,17 @@ public class PlataformasActivity extends AppCompatActivity implements LoaderMana
             startActivity(intent);
             Toast.makeText(this, getString(R.string.itemadicionarnovojogo), Toast.LENGTH_LONG).show();
             return true;
-        } else if (id == R.id.EditarPlataforma) {
+        }
+        else if (id == R.id.EditarPlataforma) {
             Intent intent = new Intent(PlataformasActivity.this, EditarPlataformaActivity.class);
+            intent.putExtra(ID_PLATAFORMA, adaptadorPlataformas.getPlataformaSelecionada().getId());
             startActivity(intent);
             Toast.makeText(this, getString(R.string.EditarJogo), Toast.LENGTH_LONG).show();
             return true;
-        } else if (id == R.id.EliminarPlataforma) {
+        }
+        else if (id == R.id.EliminarPlataforma) {
             Intent intent = new Intent(PlataformasActivity.this, EliminarPlataformaActivity.class);
+            intent.putExtra(ID_PLATAFORMA, adaptadorPlataformas.getPlataformaSelecionada().getId());
             startActivity(intent);
             Toast.makeText(this, getString(R.string.itemeliminarjogo), Toast.LENGTH_LONG).show();
             return true;

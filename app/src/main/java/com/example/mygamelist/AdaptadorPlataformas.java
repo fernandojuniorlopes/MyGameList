@@ -106,7 +106,7 @@ public class AdaptadorPlataformas extends RecyclerView.Adapter<AdaptadorPlatafor
         return viewHolderPlataformaSelecionada.plataforma;
     }
 
-    private static AdaptadorPlataformas.ViewHolderPlataformas viewHolderPlataformaSelecionada = null;
+    private static ViewHolderPlataformas viewHolderPlataformaSelecionada = null;
 
     /**
      * Returns the total number of items in the data set held by the adapter.
@@ -126,7 +126,6 @@ public class AdaptadorPlataformas extends RecyclerView.Adapter<AdaptadorPlatafor
 
         public void setPlataforma(Plataforma plataforma){
             this.plataforma= plataforma;
-
             textViewNomePlataforma.setText(plataforma.getNome());
         }
 
@@ -153,7 +152,7 @@ public class AdaptadorPlataformas extends RecyclerView.Adapter<AdaptadorPlatafor
                     listaIds.add(viewHolderPlataformaSelecionada.plataforma.getId());
                 }
             }
-
+            ((PlataformasActivity) context).atualizaOpcoesMenu();
         }
 
         private void desSeleciona() {

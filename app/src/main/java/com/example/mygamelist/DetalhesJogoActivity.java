@@ -1,6 +1,5 @@
 package com.example.mygamelist;
 
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -8,29 +7,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.CheckBox;
-import android.widget.CursorAdapter;
-import android.widget.EditText;
-import android.widget.SimpleCursorAdapter;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentManager;
-import androidx.loader.app.LoaderManager;
-import androidx.loader.content.CursorLoader;
-import androidx.loader.content.Loader;
-
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
-
-import static java.lang.Integer.valueOf;
 
 
 public class DetalhesJogoActivity extends AppCompatActivity {
@@ -43,8 +26,14 @@ public class DetalhesJogoActivity extends AppCompatActivity {
     private TextView textViewData;
     private TextView textViewAtividade;
     private Menu menu;
+    public static final String ID_JOGO = "ID_JOGO";
+    public static final String LISTA_GEN = "LISTA_GEN";
+    public static final String LISTA_PLAT = "LISTA_PLAT";
 
     long idJogo;
+    ArrayList<Long> listaGeneros = new ArrayList<>();
+    ArrayList<Long> listaPlataformas = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +80,7 @@ public class DetalhesJogoActivity extends AppCompatActivity {
             if (jogosGeneros.getId_jogo() == idJogo) {
                 NomeGeneros += "-";
                 NomeGeneros += jogosGeneros.getNomeGenero();
+                listaGeneros.add(jogosGeneros.getId_genero());
             }
         }
 
@@ -106,6 +96,7 @@ public class DetalhesJogoActivity extends AppCompatActivity {
             if (jogoPlataforma.getId_jogo() == idJogo) {
                 NomePlataformas += "-";
                 NomePlataformas += jogoPlataforma.getNomePlataforma();
+                listaGeneros.add(jogoPlataforma.getId_plataforma());
             }
         }
 
@@ -140,13 +131,15 @@ public class DetalhesJogoActivity extends AppCompatActivity {
 
         if (id == R.id.EditarJogo) {
             Intent intent = new Intent(this, EditarJogoActivity.class);
+            intent.putExtra(ID_JOGO, idJogo);
+            intent.putExtra(LISTA_GEN, listaGeneros);
+            intent.putExtra(LISTA_PLAT, listaPlataformas);
             startActivity(intent);
             Toast.makeText(this, getString(R.string.EditarJogo), Toast.LENGTH_LONG).show();
             return true;
         }
         else if (id == R.id.EliminarJogo) {
             Intent intent = new Intent(DetalhesJogoActivity.this, EliminarJogoActivity.class);
-            //intent.putExtra(idJogo, );
             startActivity(intent);
             Toast.makeText(this, "Detalhes do Jogo", Toast.LENGTH_LONG).show();
             return true;

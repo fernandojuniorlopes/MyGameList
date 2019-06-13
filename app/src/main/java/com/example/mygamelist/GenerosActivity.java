@@ -27,6 +27,7 @@ public class GenerosActivity extends AppCompatActivity implements LoaderManager.
     private RecyclerView recyclerViewGeneros;
     private AdaptadorGeneros adaptadorGeneros = new AdaptadorGeneros(this);
     private Menu menu;
+    public static final String ID_GENERO= "ID_GENERO";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,14 +84,16 @@ public class GenerosActivity extends AppCompatActivity implements LoaderManager.
             Toast.makeText(this, getString(R.string.itemadicionarnovojogo), Toast.LENGTH_LONG).show();
             return true;
         }
-        if (id == R.id.EditarGeneros) {
+        else if (id == R.id.EditarGeneros) {
             Intent intent = new Intent(GenerosActivity.this, EditarGeneroActivity.class);
+            intent.putExtra(ID_GENERO, adaptadorGeneros.getGeneroSelecionado().getId());
             startActivity(intent);
             Toast.makeText(this, getString(R.string.EditarJogo), Toast.LENGTH_LONG).show();
             return true;
         }
-        if (id == R.id.EliminarGeneros) {
+        else if (id == R.id.EliminarGeneros) {
             Intent intent = new Intent(GenerosActivity.this, EliminarGeneroActivity.class);
+            intent.putExtra(ID_GENERO, adaptadorGeneros.getGeneroSelecionado().getId());
             startActivity(intent);
             Toast.makeText(this, getString(R.string.itemeliminarjogo), Toast.LENGTH_LONG).show();
             return true;

@@ -74,39 +74,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recyclerViewPlataformas" />
 
-    <Spinner
-        android:id="@+id/spinnerDia"
-        android:layout_width="0dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:entries="@array/dia"
-        app:layout_constraintBaseline_toBaselineOf="@+id/spinnerMes"
-        app:layout_constraintStart_toEndOf="@+id/textViewRelease" />
-
-    <Spinner
-        android:id="@+id/spinnerMes"
-        android:layout_width="0dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:entries="@array/mes"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textViewRelease"
-        app:layout_constraintStart_toEndOf="@+id/spinnerDia" />
-
-    <Spinner
-        android:id="@+id/spinnerAno"
-        android:layout_width="0dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
-        android:entries="@array/ano"
-        app:layout_constraintBaseline_toBaselineOf="@+id/spinnerMes"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/spinnerMes" />
-
     <TextView
         android:id="@+id/textViewRelease"
         android:layout_width="0dp"
@@ -118,6 +85,28 @@
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerJogado" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textViewDataLancamento"
+        android:layout_width="184dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:autofillHints=""
+        android:inputType=""
+        app:layout_constraintBottom_toTopOf="@+id/checkBoxFavoritos"
+        app:layout_constraintStart_toEndOf="@+id/textViewRelease"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerJogado">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textViewdataLanc"
+            android:layout_width="172dp"
+            android:layout_height="42dp"
+            android:layout_weight="1"
+            android:hint="Date" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <CheckBox
         android:id="@+id/checkBoxFavoritos"
@@ -158,5 +147,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recyclerViewGeneros" />
+
+    <Button
+        android:id="@+id/buttonData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="8dp"
+        android:text="Data"
+        app:layout_constraintBottom_toTopOf="@+id/checkBoxFavoritos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textViewDataLancamento"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerJogado" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

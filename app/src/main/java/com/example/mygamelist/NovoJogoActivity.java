@@ -1,15 +1,17 @@
 package com.example.mygamelist;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CursorAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,9 +30,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Calendar;
 
-import static java.lang.Integer.parseInt;
 import static java.lang.Integer.valueOf;
 
 public class NovoJogoActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -39,12 +40,20 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
     private static  final int ID_CURSOR_LOADER_PLATAFORMAS =1;
     long id = 0;
 
+
     private EditText textViewnomejogo;
     private Spinner spinnerJogado;
-    private Spinner spinnerDia;
-    private Spinner spinnerMes;
-    private Spinner spinnerAno;
     private CheckBox checkBoxFavoritos;
+
+
+    private Button selectDate;
+    TextView date;
+    DatePickerDialog datePickerDialog;
+    int year;
+    int month;
+    int dayOfMonth;
+    Calendar calendar;
+
 
     private RecyclerView recyclerViewGeneros;
     private AdaptadorGeneros adaptadorGeneros = new AdaptadorGeneros(this);
@@ -59,11 +68,35 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        selectDate = findViewById(R.id.buttonData);
+        date = findViewById(R.id.textViewdataLanc);
+
+        selectDate.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Called when a view has been clicked.
+             *
+             * @param v The view that was clicked.
+             */
+            @Override
+            public void onClick(View v) {
+                calendar = Calendar.getInstance();
+                year = calendar.get(Calendar.YEAR);
+                month = calendar.get(Calendar.MONTH);
+                dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+                datePickerDialog = new DatePickerDialog(NovoJogoActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                date.setText(dayOfMonth + "/" + (month + 1) + "/" +year);
+
+                            }
+                        }, year, month, dayOfMonth);
+                datePickerDialog.show();
+            }
+        });
+
         textViewnomejogo = (EditText) findViewById(R.id.textViewnomejogo);
         spinnerJogado = (Spinner) findViewById(R.id.spinnerJogado);
-        spinnerDia = (Spinner) findViewById(R.id.spinnerDia);
-        spinnerMes = (Spinner) findViewById(R.id.spinnerMes);
-        spinnerAno = (Spinner) findViewById(R.id.spinnerAno);
         checkBoxFavoritos = (CheckBox) findViewById(R.id.checkBoxFavoritos);
 
         LinearLayoutManager layoutManager
@@ -109,28 +142,15 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
     public void ConfirmarJogo(View view) {
 
         TextView errorJogado = (TextView) spinnerJogado.getSelectedView();
-        TextView errorDia = (TextView) spinnerDia.getSelectedView();
-        TextView errorMes = (TextView) spinnerMes.getSelectedView();
-        TextView errorAno = (TextView) spinnerAno.getSelectedView();
 
         String NomeJogo = textViewnomejogo.getText().toString();
+        String data = date.getText().toString();
 
         int Jogado = spinnerJogado.getSelectedItemPosition();
-        int Dia = spinnerDia.getSelectedItemPosition();
-        int Mes = spinnerMes.getSelectedItemPosition();
-        int Ano = spinnerAno.getSelectedItemPosition();
-        String anoStr;
-
-        if(Ano != 0) {
-            anoStr = spinnerAno.getSelectedItem().toString();
-             Ano = valueOf(anoStr);
-        }
 
         boolean flag = true;
-        int erro = 0;
         int favoritos = 0;
         String atividade;
-        String data;
 
         if (checkBoxFavoritos.isChecked()) {
             favoritos = 1;
@@ -143,96 +163,18 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
         } else
             textViewnomejogo.setError(null);
 
+        if (data.trim().length() == 0) {
+            date.setError("Data é obrigatória");
+            date.requestFocus();
+            flag = false;
+        } else
+            date.setError(null);
+
         if (Jogado == 0) {
             tratarErros(errorJogado, (getString(R.string.jogados_obrigatorio)));
             flag = false;
         } else
             errorJogado.setError(null);
-
-        if (Dia == 0) {
-            ErroData(errorDia, (getString(R.string.dias_obrigatorio)));
-            flag = false;
-        } else
-            errorDia.setError(null);
-
-        if (Mes == 0) {
-            ErroData(errorMes, (getString(R.string.mes_obrigatorio)));
-            flag = false;
-        } else
-            errorMes.setError(null);
-
-        if (Ano == 0) {
-            ErroData(errorAno, (getString(R.string.ano_obrigatorio)));
-            flag = false;
-        } else
-            errorAno.setError(null);
-
-        /*if (Genero == 0) {
-            tratarErros(errorGenero, getString(R.string.genero_obrigatorio));
-            flag = false;
-        }else
-            errorGenero.setError(null);
-
-        if (Plataforma == 0) {
-            tratarErros(errorPlataforma, getString(R.string.plataforma_obrigatorio));
-            flag = false;
-        }else
-            errorPlataforma.setError(null);*/
-
-        if ((Mes != 0) && (Dia != 0) && (Ano != 0)) {
-            switch (Mes) {
-                case 1:
-                case 3:
-                case 5:
-                case 7:
-                case 8:
-                case 10:
-                case 12:
-                    if (Dia > 31) {
-                        erro = 1;
-                        flag = false;
-                    }
-                    break;
-                case 4:
-                case 6:
-                case 9:
-                case 11:
-                    if (Dia > 30) {
-                        erro = 1;
-                        flag = false;
-                    }
-                    break;
-                case 2:
-                    if (Ano % 4 == 0) {
-                        if (Dia > 29) {
-                            erro = 1;
-                            flag = false;
-                        }
-                    } else {
-                        if (Dia > 28) {
-                            erro = 1;
-                            flag = false;
-                        }
-                        break;
-                    }
-            }
-
-        } else {
-            erro = 1;
-        }
-
-        if (erro == 1) {
-            ErroData(errorDia, (getString(R.string.dias_obrigatorio)));
-            ErroData(errorMes, (getString(R.string.mes_obrigatorio)));
-            ErroData(errorAno, (getString(R.string.ano_obrigatorio)));
-        }
-
-        if (flag) {
-            finish();
-            Toast.makeText(this, getString(R.string.dados_sucesso), Toast.LENGTH_LONG).show();
-        } else {
-            return;
-        }
 
         if (Jogado == 1) {
             atividade = "Não jogado";
@@ -241,8 +183,6 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
         } else {
             atividade = "Completado";
         }
-
-        data = Dia + "/" + Mes + "/" + Ano;
 
         Jogo jogo = new Jogo();
 
@@ -296,7 +236,9 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
                 getContentResolver().insert(MyGamesListContentProvider.ENDERECO_JOGOS_PLATAFORMAS, jogoPlataformas.getContentValues());
             }
         }
-        finish();
+        if(flag){
+            finish();
+        }
     }
 
     public void CancelarJogo(View view){

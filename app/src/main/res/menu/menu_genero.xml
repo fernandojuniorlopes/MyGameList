@@ -14,11 +14,13 @@
         android:icon="@drawable/ic_edit_black_24dp"
         android:orderInCategory="100"
         android:title="@string/title_activity_editar_genero"
+        android:visible="false"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/EliminarGeneros"
         android:icon="@drawable/ic_delete_black_24dp"
         android:orderInCategory="100"
         android:title="@string/title_activity_eliminar_genero"
+        android:visible="false"
         app:showAsAction="never" />
 </menu>

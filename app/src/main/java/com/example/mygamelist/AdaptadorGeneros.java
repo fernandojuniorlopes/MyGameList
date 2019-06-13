@@ -158,7 +158,9 @@ public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.View
                 }
             }
 
-            }
+            ((GenerosActivity) context).atualizaOpcoesMenu();
+
+        }
 
         private void desSeleciona() {
             itemView.setBackgroundResource(android.R.color.white);

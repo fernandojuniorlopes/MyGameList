@@ -13,8 +13,8 @@ public class BdTableJogosPlataformas implements BaseColumns {
     public static final String NOME_TABELA = "jogosplataformas";
     public static final String ID_PLATAFORMA = "id_plataformas";
     public static final String ID_JOGO = "id_jogo";
-    public static final String ALIAS_NOME_PLATAFORMA = "nomeGenero";
-    public static final String CAMPO_NOME_PLATAFORMA = BdTablePlataformas.NOME_TABELA + "." + BdTablePlataformas.NOME_PLATAFORMA + " AS " + ALIAS_NOME_PLATAFORMA; // tabela de Generos (só de leitura)
+    public static final String ALIAS_NOME_PLATAFORMA = "nomePlataforma";
+    public static final String CAMPO_NOME_PLATAFORMA = BdTablePlataformas.NOME_TABELA + "." + BdTablePlataformas.NOME_PLATAFORMA + " AS " + ALIAS_NOME_PLATAFORMA; // tabela de Plataforma(só de leitura)
     public static final String [] TODAS_COLUNAS = new String[]{NOME_TABELA + "." +_ID, ID_JOGO, ID_PLATAFORMA, CAMPO_NOME_PLATAFORMA};
 
     public BdTableJogosPlataformas(SQLiteDatabase db) {

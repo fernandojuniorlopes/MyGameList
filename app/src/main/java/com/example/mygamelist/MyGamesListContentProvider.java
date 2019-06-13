@@ -327,6 +327,8 @@ public class MyGamesListContentProvider extends ContentProvider {
             case URI_JOGO_ESPECIFICO:
                 return new BdTableJogos(bd).delete(BdTableJogos._ID + "=?", new String[]{id});
             case URI_PLATAFORMA_ESPECIFICA:
+                return new BdTablePlataformas(bd).delete(BdTablePlataformas._ID + "=?", new String[]{id});
+            case URI_JOGO_PLATAFORMA_ESPECIFICO:
                 return new BdTableJogosPlataformas(bd).delete(BdTableJogosPlataformas._ID + "=?", new String[]{id});
             case URI_JOGO_GENERO_ESPECIFICO:
                 return new BdTableJogosGeneros(bd).delete(BdTableJogosGeneros._ID + "=?", new String[]{id});
@@ -365,6 +367,8 @@ public class MyGamesListContentProvider extends ContentProvider {
             case URI_JOGO_ESPECIFICO:
                 return new BdTableJogos(bd).update(values, BdTableJogos._ID + "=?", new String[]{id});
             case URI_PLATAFORMA_ESPECIFICA:
+                return new BdTablePlataformas(bd).update(values, BdTablePlataformas._ID + "=?", new String[]{id});
+            case URI_JOGO_PLATAFORMA_ESPECIFICO:
                 return new BdTableJogosPlataformas(bd).update(values, BdTableJogosPlataformas._ID + "=?", new String[]{id});
             case URI_JOGO_GENERO_ESPECIFICO:
                 return new BdTableJogosGeneros(bd).update(values, BdTableJogosGeneros._ID + "=?", new String[]{id});
