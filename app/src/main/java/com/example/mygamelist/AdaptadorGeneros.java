@@ -12,7 +12,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.ViewHolderGeneros> {
@@ -116,7 +115,7 @@ public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.View
 
         public ViewHolderGeneros(@NonNull View itemView) {
             super(itemView);
-            textViewNomeGenero  = itemView.findViewById(R.id.textViewGeneroItem);
+            textViewNomeGenero  = itemView.findViewById(R.id.textViewPlataformaItem);
 
             itemView.setOnClickListener(this);
         }

@@ -47,7 +47,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textViewGeneroItem"
+            android:id="@+id/textViewPlataformaItem"
             android:layout_width="352dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

@@ -1,7 +1,6 @@
 package com.example.mygamelist;
 
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -111,7 +110,7 @@ public class AdaptadorGenerosJogos extends RecyclerView.Adapter<AdaptadorGeneros
 
         public ViewHolderGenerosJogos(@NonNull View itemView) {
             super(itemView);
-            textViewNomeGenero  = itemView.findViewById(R.id.textViewGeneroItem);
+            textViewNomeGenero  = itemView.findViewById(R.id.textViewPlataformaItem);
 
             itemView.setOnClickListener(this);
         }

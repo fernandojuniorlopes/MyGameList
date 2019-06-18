@@ -117,7 +117,7 @@ public class AdaptadorPlataformas extends RecyclerView.Adapter<AdaptadorPlatafor
 
         public ViewHolderPlataformas(@NonNull View itemView) {
             super(itemView);
-            textViewNomePlataforma  = itemView.findViewById(R.id.textViewGeneroItem);
+            textViewNomePlataforma  = itemView.findViewById(R.id.textViewPlataformaItem);
 
             itemView.setOnClickListener(this);
         }
@@ -136,7 +136,7 @@ public class AdaptadorPlataformas extends RecyclerView.Adapter<AdaptadorPlatafor
                 viewHolderPlataformaSelecionada.desSeleciona();
             }
             viewHolderPlataformaSelecionada = this;
-            ((GenerosActivity) context).atualizaOpcoesMenu();
+            ((PlataformasActivity) context).atualizaOpcoesMenu();
             seleciona();
         }
 

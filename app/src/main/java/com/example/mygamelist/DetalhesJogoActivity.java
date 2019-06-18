@@ -34,6 +34,8 @@ public class DetalhesJogoActivity extends AppCompatActivity {
     ArrayList<Long> listaGeneros = new ArrayList<>();
     ArrayList<Long> listaPlataformas = new ArrayList<>();
 
+    private Cursor cursor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,13 +61,26 @@ public class DetalhesJogoActivity extends AppCompatActivity {
         }
 
         enderecoJogo = Uri.withAppendedPath(MyGamesListContentProvider.ENDERECO_JOGOS, String.valueOf(idJogo));
-        Cursor cursor = getContentResolver().query(enderecoJogo, BdTableJogos.TODAS_COLUNAS, null, null, null);
+        cursor = getContentResolver().query(enderecoJogo, BdTableJogos.TODAS_COLUNAS, null, null, null);
 
         if (!cursor.moveToNext()) {
             Toast.makeText(this, "Erro: não foi possível ler o Jogo", Toast.LENGTH_LONG).show();
             finish();
             return;
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_det_jogo, menu);
+
+        this.menu = menu;
+
+        return true;
+    }
+
+    public void atualizaGenerosPlataformas(){
         String NomeGeneros = "";
         JogoGenero jogosGeneros = null;
 
@@ -112,17 +127,8 @@ public class DetalhesJogoActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+        atualizaGenerosPlataformas();
         super.onResume();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_det_jogo, menu);
-
-        this.menu = menu;
-
-        return true;
     }
 
     @Override

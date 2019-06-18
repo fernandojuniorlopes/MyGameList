@@ -112,7 +112,7 @@ public class AdaptadorPlataformasJogos extends RecyclerView.Adapter<AdaptadorPla
 
         public ViewHolderPlataformasJogos(@NonNull View itemView) {
             super(itemView);
-            textViewNomePlataforma  = itemView.findViewById(R.id.textViewGeneroItem);
+            textViewNomePlataforma  = itemView.findViewById(R.id.textViewPlataformaItem);
 
             itemView.setOnClickListener(this);
         }
