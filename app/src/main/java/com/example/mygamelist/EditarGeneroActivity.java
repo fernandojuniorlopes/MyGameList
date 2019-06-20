@@ -29,7 +29,7 @@ public class EditarGeneroActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        TextviewGenero = findViewById(R.id.textViewPlataformaItem);
+        TextviewGenero = findViewById(R.id.textViewGeneroItem);
         Intent intent = getIntent();
 
         long idGenero = intent.getLongExtra(GenerosActivity.ID_GENERO, -1);
@@ -57,7 +57,7 @@ public class EditarGeneroActivity extends AppCompatActivity {
     }
 
     public void ConfirmarGenero(View view) {
-        EditText editTextNomeGenero = findViewById(R.id.textViewPlataformaItem);
+        EditText editTextNomeGenero = findViewById(R.id.textViewGeneroItem);
         String NomeGenero = editTextNomeGenero.getText().toString();
 
         if (NomeGenero.trim().length() == 0) {

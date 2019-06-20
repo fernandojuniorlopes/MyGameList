@@ -3,6 +3,8 @@ package com.example.mygamelist;
 import android.content.ContentValues;
 import android.database.Cursor;
 
+import java.sql.Blob;
+
 public class Jogo {
 
     private long Id;
@@ -11,6 +13,7 @@ public class Jogo {
     private String DataLancamento;
     private int favorito;
     private String nomeGenero;
+    private byte[] imagem;
 
     public String getNomeGenero() {
         return nomeGenero;
@@ -56,6 +59,14 @@ public class Jogo {
         this.favorito = favorito;
     }
 
+    public byte[] getImagem(){
+         return imagem;
+    }
+
+    public void setImagem(byte[] imagem) {
+        this.imagem = imagem;
+    }
+
     public ContentValues getContentValues() {
         ContentValues valores = new ContentValues();
 
@@ -63,6 +74,7 @@ public class Jogo {
         valores.put(BdTableJogos.CAMPO_ATIVIDADE, Atividade);
         valores.put(BdTableJogos.CAMPO_DATA_LANCAMENTO, DataLancamento);
         valores.put(BdTableJogos.CAMPO_FAVORITO, favorito);
+        valores.put(BdTableJogos.CAMPO_IMAGEM, imagem);
 
         return valores;
     }
@@ -88,6 +100,9 @@ public class Jogo {
                 cursor.getColumnIndex(BdTableJogos.CAMPO_FAVORITO)
         );
 
+        byte[] imagem = cursor.getBlob(
+                cursor.getColumnIndex(BdTableJogos.CAMPO_IMAGEM)
+        );
         //String nomeGenero = cursor.getString(
           //      cursor.getColumnIndex(BdTableJogos.ALIAS_NOME_GENERO));
 
@@ -99,6 +114,7 @@ public class Jogo {
         jogo.setAtividade(atividade);
         jogo.setDataLancamento(data_lancamento);
         jogo.setFavorito(favorito);
+        jogo.setImagem(imagem);
         //jogo.nomeGenero = nomeGenero;
 
         return jogo;

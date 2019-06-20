@@ -12,8 +12,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-
 public class AdaptadorPlataformas extends RecyclerView.Adapter<AdaptadorPlataformas.ViewHolderPlataformas> {
     private Cursor cursor;
     private Context context;
@@ -117,7 +115,7 @@ public class AdaptadorPlataformas extends RecyclerView.Adapter<AdaptadorPlatafor
 
         public ViewHolderPlataformas(@NonNull View itemView) {
             super(itemView);
-            textViewNomePlataforma  = itemView.findViewById(R.id.textViewPlataformaItem);
+            textViewNomePlataforma  = itemView.findViewById(R.id.textViewGeneroItem);
 
             itemView.setOnClickListener(this);
         }
@@ -146,7 +144,7 @@ public class AdaptadorPlataformas extends RecyclerView.Adapter<AdaptadorPlatafor
         }
 
         private void seleciona() {
-            itemView.setBackgroundResource(R.color.corMarcar);
+            itemView.setBackgroundResource(R.drawable.border_item_view);
         }
 
 

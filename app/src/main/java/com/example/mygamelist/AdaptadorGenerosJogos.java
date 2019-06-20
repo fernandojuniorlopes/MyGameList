@@ -18,6 +18,7 @@ public class AdaptadorGenerosJogos extends RecyclerView.Adapter<AdaptadorGeneros
     private Cursor cursor;
     private Context context;
     ArrayList<Long> listaIds = new ArrayList<>();
+    ArrayList<Long> listaGen = new ArrayList<>();
     int x;
 
     public void setCursor(Cursor cursor) {
@@ -103,6 +104,7 @@ public class AdaptadorGenerosJogos extends RecyclerView.Adapter<AdaptadorGeneros
     }
 
     private static ViewHolderGenerosJogos viewHolderGeneroJogoSelecionado = null;
+    private static ViewHolderGenerosJogos viewHolderGeneroJogoAntigo = null;
 
     public class ViewHolderGenerosJogos extends RecyclerView.ViewHolder implements  View.OnClickListener{
         private Genero genero;
@@ -110,14 +112,14 @@ public class AdaptadorGenerosJogos extends RecyclerView.Adapter<AdaptadorGeneros
 
         public ViewHolderGenerosJogos(@NonNull View itemView) {
             super(itemView);
-            textViewNomeGenero  = itemView.findViewById(R.id.textViewPlataformaItem);
-
+            textViewNomeGenero  = itemView.findViewById(R.id.textViewGeneroItem);
             itemView.setOnClickListener(this);
         }
 
         public void setGenero(Genero genero){
             this.genero= genero;
             textViewNomeGenero.setText(genero.getNome());
+
         }
 
         /**
@@ -153,11 +155,11 @@ public class AdaptadorGenerosJogos extends RecyclerView.Adapter<AdaptadorGeneros
 
         }
         private void desSeleciona() {
-            itemView.setBackgroundResource(android.R.color.white);
+            itemView.setBackgroundResource(R.color.colorBranca);
         }
 
         private void seleciona() {
-            itemView.setBackgroundResource(R.color.corMarcar);
+            itemView.setBackgroundResource(R.drawable.border_item_view);
         }
     }
     public ArrayList<Long> lista(){

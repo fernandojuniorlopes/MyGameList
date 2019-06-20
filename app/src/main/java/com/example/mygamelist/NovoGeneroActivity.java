@@ -23,11 +23,11 @@ public class NovoGeneroActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        textViewnomeGenero = (EditText) findViewById(R.id.textViewPlataformaItem);
+        textViewnomeGenero = (EditText) findViewById(R.id.textViewGeneroItem);
 
     }
     public void ConfirmarGenero(View view) {
-        EditText editTextNomeGenero = findViewById(R.id.textViewPlataformaItem);
+        EditText editTextNomeGenero = findViewById(R.id.textViewGeneroItem);
         String NomeGenero = editTextNomeGenero.getText().toString();
 
         if (NomeGenero.trim().length() == 0) {

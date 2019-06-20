@@ -14,7 +14,6 @@ import android.widget.CheckBox;
 import android.widget.CursorAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,8 +33,6 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-
-import static java.lang.Integer.valueOf;
 
 public class EditarJogoActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -136,6 +133,7 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
 
         Intent intent1 = new Intent(this, AdaptadorGenerosJogos.class);
         intent1.putExtra(LISTA_GENERO, listaGeneros);
+
 
         if (idJogo == -1) {
             Toast.makeText(this, "Erro: não foi possível ler o Jogo", Toast.LENGTH_LONG).show();
@@ -303,7 +301,9 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
             }
         }
 
-        if (lista.size() != 0) {
+        if (lista.size()==0) {
+            lista.addAll(listaGeneros);
+        }
             for (int i = 0; i < lista.size(); i++) {
                 JogoGenero jogoGeneros = new JogoGenero();
                 idgeneros = lista.get(i);
@@ -312,7 +312,6 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
 
                 getContentResolver().insert(MyGamesListContentProvider.ENDERECO_JOGOS_GENEROS, jogoGeneros.getContentValues());
             }
-        }
 
         ArrayList<Long> lista2 = adaptadorPlataformasJogos.lista();
         long idPlataforma;
@@ -341,7 +340,9 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
             }
         }
 
-        if (lista2.size() != 0) {
+        if (lista2.size()==0) {
+            lista2.addAll(listaPlataformas);
+        }
             for (int i = 0; i < lista2.size(); i++) {
                 JogoPlataforma jogoPlataforma = new JogoPlataforma();
                 idPlataforma = lista2.get(i);
@@ -350,7 +351,6 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
 
                 getContentResolver().insert(MyGamesListContentProvider.ENDERECO_JOGOS_PLATAFORMAS, jogoPlataforma.getContentValues());
             }
-        }
 
 
         if(flag){

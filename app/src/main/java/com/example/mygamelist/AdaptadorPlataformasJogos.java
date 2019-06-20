@@ -112,8 +112,7 @@ public class AdaptadorPlataformasJogos extends RecyclerView.Adapter<AdaptadorPla
 
         public ViewHolderPlataformasJogos(@NonNull View itemView) {
             super(itemView);
-            textViewNomePlataforma  = itemView.findViewById(R.id.textViewPlataformaItem);
-
+            textViewNomePlataforma  = itemView.findViewById(R.id.textViewGeneroItem);
             itemView.setOnClickListener(this);
         }
 
@@ -150,7 +149,6 @@ public class AdaptadorPlataformasJogos extends RecyclerView.Adapter<AdaptadorPla
                     listaIds.add(viewHolderPlataformasJogosSelecionada.plataforma.getId());
                 }
             }
-            //((PlataformasActivity) context).atualizaOpcoesMenu();
         }
 
         private void desSeleciona() {
@@ -158,7 +156,7 @@ public class AdaptadorPlataformasJogos extends RecyclerView.Adapter<AdaptadorPla
         }
 
         private void seleciona() {
-            itemView.setBackgroundResource(R.color.corMarcar);
+            itemView.setBackgroundResource(R.drawable.border_item_view);
         }
 
 

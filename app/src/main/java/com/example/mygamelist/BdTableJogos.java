@@ -15,8 +15,9 @@ public class BdTableJogos implements BaseColumns {
     public static final String CAMPO_ATIVIDADE = "atividade";
     public static final String CAMPO_DATA_LANCAMENTO = "datalancamento";
     public static final String CAMPO_FAVORITO = "favorito";
+    public static final String CAMPO_IMAGEM = "imagem";
 
-    public static final String [] TODAS_COLUNAS = new String[]{ NOME_TABELA + "." + _ID, CAMPO_NOME, CAMPO_ATIVIDADE, CAMPO_DATA_LANCAMENTO, CAMPO_FAVORITO};
+    public static final String [] TODAS_COLUNAS = new String[]{ NOME_TABELA + "." + _ID, CAMPO_NOME, CAMPO_ATIVIDADE, CAMPO_DATA_LANCAMENTO, CAMPO_FAVORITO, CAMPO_IMAGEM};
 
     public BdTableJogos(SQLiteDatabase db) {
         this.db = db;
@@ -29,7 +30,8 @@ public class BdTableJogos implements BaseColumns {
                         CAMPO_NOME + " TEXT NOT NULL," +
                         CAMPO_ATIVIDADE + " TEXT NOT NULL," +
                         CAMPO_DATA_LANCAMENTO + " TEXT NOT NULL," +
-                        CAMPO_FAVORITO + " INTEGER" +
+                        CAMPO_FAVORITO + " INTEGER," +
+                        CAMPO_IMAGEM + " BLOB"+
                         ")"
         );
     }

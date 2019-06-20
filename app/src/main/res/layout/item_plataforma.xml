@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/textViewPlataformaItem"
+        android:id="@+id/textViewGeneroItem"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginStart="8dp"

@@ -115,7 +115,7 @@ public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.View
 
         public ViewHolderGeneros(@NonNull View itemView) {
             super(itemView);
-            textViewNomeGenero  = itemView.findViewById(R.id.textViewPlataformaItem);
+            textViewNomeGenero  = itemView.findViewById(R.id.textViewGeneroItem);
 
             itemView.setOnClickListener(this);
         }
@@ -147,7 +147,7 @@ public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.View
         }
 
         private void seleciona() {
-            itemView.setBackgroundResource(R.color.corMarcar);
+            itemView.setBackgroundResource(R.drawable.border_item_view);
         }
     }
 

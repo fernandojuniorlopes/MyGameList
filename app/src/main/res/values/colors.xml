@@ -5,4 +5,9 @@
     <color name="colorAccent">#D81B60</color>
     <color name="colorRed">#FF0000</color>
     <color name="corMarcar">#00FF90</color>
+    <color name="colorAmarelo">#FFC107</color>
+    <color name="colorCinzento">#686762</color>
+    <color name="colorVerde">#0DB314</color>
+    <color name="colorAzul">#065FAC</color>
+    <color name="colorBranca">#fffafafa</color>
 </resources>

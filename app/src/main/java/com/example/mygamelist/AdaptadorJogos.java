@@ -2,9 +2,12 @@ package com.example.mygamelist;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -107,8 +110,8 @@ public class AdaptadorJogos extends RecyclerView.Adapter<AdaptadorJogos.ViewHold
     public class ViewHolderJogos extends RecyclerView.ViewHolder implements  View.OnClickListener{
         private TextView textViewTitulo;
         private TextView textViewAtividade;
-        private TextView textViewDataLancamento;
-        private TextView textViewFavorito;
+        private ImageView IconFavorito;
+        private  ImageView imagem;
 
         private Jogo jogo;
 
@@ -117,8 +120,8 @@ public class AdaptadorJogos extends RecyclerView.Adapter<AdaptadorJogos.ViewHold
 
             textViewTitulo = (TextView)itemView.findViewById(R.id.textViewNomeItem);
             textViewAtividade = (TextView)itemView.findViewById(R.id.textViewAtividadeItem);
-            textViewDataLancamento = (TextView)itemView.findViewById(R.id.textViewDataLancamentoItem);
-            textViewFavorito = (TextView)itemView.findViewById(R.id.textViewFavoritoItem);
+            IconFavorito = itemView.findViewById(R.id.imageViewFavoritos);
+            imagem = itemView.findViewById(R.id.imageViewFoto);
 
             itemView.setOnClickListener(this);
         }
@@ -128,8 +131,27 @@ public class AdaptadorJogos extends RecyclerView.Adapter<AdaptadorJogos.ViewHold
 
             textViewTitulo.setText(jogo.getNome());
             textViewAtividade.setText(jogo.getAtividade());
-            textViewDataLancamento.setText(jogo.getDataLancamento());
-            textViewFavorito.setText(String.valueOf(jogo.getFavorito()));
+
+            byte[] imagemByte = jogo.getImagem();
+
+            Bitmap bitmap = BitmapFactory.decodeByteArray(imagemByte, 0, imagemByte.length);
+
+            imagem.setImageBitmap(bitmap);
+
+
+            if(jogo.getFavorito()==1){
+                IconFavorito.setColorFilter(IconFavorito.getContext().getResources().getColor(R.color.colorAmarelo));
+            }else{
+                IconFavorito.setColorFilter(IconFavorito.getContext().getResources().getColor(R.color.colorCinzento));
+            }
+
+            if(jogo.getAtividade().equals("Não jogado")){
+                textViewAtividade.setTextColor(textViewAtividade.getContext().getResources().getColor(R.color.colorCinzento));
+            }else if(jogo.getAtividade().equals("A jogar")){
+                textViewAtividade.setTextColor(textViewAtividade.getContext().getResources().getColor(R.color.colorVerde));
+            }else{
+                textViewAtividade.setTextColor(textViewAtividade.getContext().getResources().getColor(R.color.colorAzul));
+            }
         }
 
         /**
@@ -154,10 +176,12 @@ public class AdaptadorJogos extends RecyclerView.Adapter<AdaptadorJogos.ViewHold
 
         private void desSeleciona() {
             itemView.setBackgroundResource(android.R.color.white);
+            textViewTitulo.setTextColor(textViewTitulo.getContext().getResources().getColor(R.color.colorCinzento));
         }
 
         private void seleciona() {
-            itemView.setBackgroundResource(R.color.corMarcar);
+            textViewTitulo.setTextColor(textViewTitulo.getContext().getResources().getColor(R.color.colorAmarelo));
+            itemView.setBackgroundResource(R.drawable.border_item_view);
         }
     }
 }
