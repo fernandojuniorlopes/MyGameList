@@ -56,8 +56,13 @@ public class DetalhesJogoActivity extends AppCompatActivity {
         imagem = findViewById(R.id.imageViewFotoJogo);
 
         Intent intent = getIntent();
-
-        idJogo = intent.getLongExtra(JogosActivity.ID_JOGO, -1);
+        if(intent.getLongExtra(JogosActivity.ID_JOGO, -1)!=-1){
+            idJogo = intent.getLongExtra(JogosActivity.ID_JOGO, -1);
+        }else if(intent.getLongExtra(JogosActivity.ID_JOGO, -1)!=-1){
+            idJogo = intent.getLongExtra(AdaptadorJogos.ID_JOGO, -1);
+        }else{
+            idJogo=-1;
+        }
 
         if (idJogo == -1) {
             Toast.makeText(this, "Erro: não foi possível ler o Jogo", Toast.LENGTH_LONG).show();
@@ -86,6 +91,26 @@ public class DetalhesJogoActivity extends AppCompatActivity {
     }
 
     public void atualizaGenerosPlataformas(){
+
+        Intent intent = getIntent();
+
+        idJogo = intent.getLongExtra(JogosActivity.ID_JOGO, -1);
+
+        if (idJogo == -1) {
+            Toast.makeText(this, "Erro: não foi possível ler o Jogo", Toast.LENGTH_LONG).show();
+            finish();
+            return;
+        }
+
+        enderecoJogo = Uri.withAppendedPath(MyGamesListContentProvider.ENDERECO_JOGOS, String.valueOf(idJogo));
+        cursor = getContentResolver().query(enderecoJogo, BdTableJogos.TODAS_COLUNAS, null, null, null);
+
+        if (!cursor.moveToNext()) {
+            Toast.makeText(this, "Erro: não foi possível ler o Jogo", Toast.LENGTH_LONG).show();
+            finish();
+            return;
+        }
+
         String NomeGeneros = "- ";
         JogoGenero jogosGeneros = null;
 

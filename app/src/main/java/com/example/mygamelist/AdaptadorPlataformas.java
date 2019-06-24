@@ -12,9 +12,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 public class AdaptadorPlataformas extends RecyclerView.Adapter<AdaptadorPlataformas.ViewHolderPlataformas> {
     private Cursor cursor;
     private Context context;
+    ArrayList<Long> listaIds = new ArrayList<>();
+    int x;
 
     public void setCursor(Cursor cursor) {
         if (this.cursor != cursor) {
@@ -51,7 +55,13 @@ public class AdaptadorPlataformas extends RecyclerView.Adapter<AdaptadorPlatafor
     @NonNull
     @Override
     public ViewHolderPlataformas onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemPlataforma = LayoutInflater.from(context).inflate(R.layout.item_plataforma, parent, false);
+        View itemPlataforma;
+
+        if(context instanceof PlataformasActivity) {
+            itemPlataforma = LayoutInflater.from(context).inflate(R.layout.item_plataforma, parent, false);
+        }else{
+            itemPlataforma = LayoutInflater.from(context).inflate(R.layout.item_plataforma_jogo, parent, false);
+        }
 
         return new ViewHolderPlataformas(itemPlataforma);
     }
@@ -115,13 +125,12 @@ public class AdaptadorPlataformas extends RecyclerView.Adapter<AdaptadorPlatafor
 
         public ViewHolderPlataformas(@NonNull View itemView) {
             super(itemView);
-            textViewNomePlataforma  = itemView.findViewById(R.id.textViewGeneroItem);
-
+            textViewNomePlataforma = itemView.findViewById(R.id.textViewGeneroItem);
             itemView.setOnClickListener(this);
         }
 
-        public void setPlataforma(Plataforma plataforma){
-            this.plataforma= plataforma;
+        public void setPlataforma(Plataforma plataforma) {
+            this.plataforma = plataforma;
             textViewNomePlataforma.setText(plataforma.getNome());
         }
 
@@ -129,13 +138,35 @@ public class AdaptadorPlataformas extends RecyclerView.Adapter<AdaptadorPlatafor
         public void onClick(View v) {
             Toast.makeText(context, plataforma.getNome(), Toast.LENGTH_SHORT).show();
 
+            if (context instanceof PlataformasActivity) {
+                if (viewHolderPlataformaSelecionada != null) {
+                    viewHolderPlataformaSelecionada.desSeleciona();
+                }
+                viewHolderPlataformaSelecionada = this;
+                ((PlataformasActivity) context).atualizaOpcoesMenu();
+                seleciona();
 
-            if (viewHolderPlataformaSelecionada != null) {
-                viewHolderPlataformaSelecionada.desSeleciona();
+            } else {
+                viewHolderPlataformaSelecionada = this;
+                seleciona();
+                x = 0;
+                if (listaIds.size() == 0) {
+                    listaIds.add(viewHolderPlataformaSelecionada.plataforma.getId());
+
+                } else {
+                    for (int i = 0; i < listaIds.size(); i++) {
+                        if (viewHolderPlataformaSelecionada.plataforma.getId() == listaIds.get(i)) {
+                            x = 1;
+                            listaIds.remove(viewHolderPlataformaSelecionada.plataforma.getId());
+                            desSeleciona();
+                        }
+                    }
+                    if (x == 0) {
+                        listaIds.add(viewHolderPlataformaSelecionada.plataforma.getId());
+                    }
+                }
             }
-            viewHolderPlataformaSelecionada = this;
-            ((PlataformasActivity) context).atualizaOpcoesMenu();
-            seleciona();
+
         }
 
 
@@ -147,6 +178,8 @@ public class AdaptadorPlataformas extends RecyclerView.Adapter<AdaptadorPlatafor
             itemView.setBackgroundResource(R.drawable.border_item_view);
         }
 
-
     }
+        public ArrayList<Long> lista(){
+            return listaIds;
+        }
 }

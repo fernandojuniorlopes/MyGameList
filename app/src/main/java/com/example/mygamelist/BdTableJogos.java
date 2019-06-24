@@ -35,10 +35,12 @@ public class BdTableJogos implements BaseColumns {
                         ")"
         );
     }
+
     public Cursor query(String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy) {
         return db.query(NOME_TABELA, columns, selection, selectionArgs, groupBy, having, orderBy);
 
     }
+
     public long insert(ContentValues values) {
         return db.insert(NOME_TABELA, null, values);
     }

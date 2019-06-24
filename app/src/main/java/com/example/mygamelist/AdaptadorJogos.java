@@ -1,6 +1,7 @@
 package com.example.mygamelist;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -19,17 +20,18 @@ import androidx.recyclerview.widget.RecyclerView;
 public class AdaptadorJogos extends RecyclerView.Adapter<AdaptadorJogos.ViewHolderJogos> {
     private Cursor cursor;
     private Context context;
-
-    public AdaptadorJogos(Context context)
-    {
-        this.context = context;
-    }
+    public static final String ID_JOGO = "ID_JOGO";
 
     public void setCursor(Cursor cursor) {
         if (this.cursor != cursor) {
             this.cursor = cursor;
             notifyDataSetChanged();
         }
+    }
+
+    public AdaptadorJogos(Context context)
+    {
+        this.context = context;
     }
 
     /**
@@ -55,8 +57,13 @@ public class AdaptadorJogos extends RecyclerView.Adapter<AdaptadorJogos.ViewHold
     @NonNull
     @Override
     public ViewHolderJogos onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemJogo = LayoutInflater.from(context).inflate(R.layout.item_jogo, parent, false);
+        View itemJogo;
+        if(context instanceof JogosActivity) {
+            itemJogo = LayoutInflater.from(context).inflate(R.layout.item_jogo, parent, false);
 
+        }else{
+            itemJogo = LayoutInflater.from(context).inflate(R.layout.item_jogo_main_activity, parent, false);
+        }
         return new ViewHolderJogos(itemJogo);
     }
 
@@ -129,28 +136,36 @@ public class AdaptadorJogos extends RecyclerView.Adapter<AdaptadorJogos.ViewHold
         public  void setJogo(Jogo jogo){
             this.jogo = jogo;
 
-            textViewTitulo.setText(jogo.getNome());
-            textViewAtividade.setText(jogo.getAtividade());
+            if(context instanceof JogosActivity) {
+                textViewTitulo.setText(jogo.getNome());
+                textViewAtividade.setText(jogo.getAtividade());
 
-            byte[] imagemByte = jogo.getImagem();
+                byte[] imagemByte = jogo.getImagem();
 
-            Bitmap bitmap = BitmapFactory.decodeByteArray(imagemByte, 0, imagemByte.length);
+                Bitmap bitmap = BitmapFactory.decodeByteArray(imagemByte, 0, imagemByte.length);
 
-            imagem.setImageBitmap(bitmap);
+                imagem.setImageBitmap(bitmap);
 
 
-            if(jogo.getFavorito()==1){
-                IconFavorito.setColorFilter(IconFavorito.getContext().getResources().getColor(R.color.colorAmarelo));
-            }else{
-                IconFavorito.setColorFilter(IconFavorito.getContext().getResources().getColor(R.color.colorCinzento));
-            }
+                if (jogo.getFavorito() == 1) {
+                    IconFavorito.setColorFilter(IconFavorito.getContext().getResources().getColor(R.color.colorAmarelo));
+                } else {
+                    IconFavorito.setColorFilter(IconFavorito.getContext().getResources().getColor(R.color.colorCinzento));
+                }
 
-            if(jogo.getAtividade().equals("Não jogado")){
-                textViewAtividade.setTextColor(textViewAtividade.getContext().getResources().getColor(R.color.colorCinzento));
-            }else if(jogo.getAtividade().equals("A jogar")){
-                textViewAtividade.setTextColor(textViewAtividade.getContext().getResources().getColor(R.color.colorVerde));
-            }else{
-                textViewAtividade.setTextColor(textViewAtividade.getContext().getResources().getColor(R.color.colorAzul));
+                if (jogo.getAtividade().equals("Não jogado")) {
+                    textViewAtividade.setTextColor(textViewAtividade.getContext().getResources().getColor(R.color.colorCinzento));
+                } else if (jogo.getAtividade().equals("A jogar")) {
+                    textViewAtividade.setTextColor(textViewAtividade.getContext().getResources().getColor(R.color.colorVerde));
+                } else {
+                    textViewAtividade.setTextColor(textViewAtividade.getContext().getResources().getColor(R.color.colorAzul));
+                }
+            }else {
+                    byte[] imagemByte = jogo.getImagem();
+
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(imagemByte, 0, imagemByte.length);
+
+                    imagem.setImageBitmap(bitmap);
             }
         }
 
@@ -163,15 +178,22 @@ public class AdaptadorJogos extends RecyclerView.Adapter<AdaptadorJogos.ViewHold
         public void onClick(View v) {
             Toast.makeText(context, jogo.getNome(), Toast.LENGTH_SHORT).show();
 
-            if (viewHolderJogoSelecionado != null) {
-                viewHolderJogoSelecionado.desSeleciona();
+            if(context instanceof JogosActivity) {
+                if (viewHolderJogoSelecionado != null) {
+                    viewHolderJogoSelecionado.desSeleciona();
+                }
+
+                viewHolderJogoSelecionado = this;
+
+                ((JogosActivity) context).atualizaOpcoesMenu();
+
+                seleciona();
+            }else{
+
+                Intent intent = new Intent((context), DetalhesJogoActivity.class);
+                intent.putExtra(ID_JOGO, jogo.getId());
+                context.startActivity(intent);
             }
-
-            viewHolderJogoSelecionado = this;
-
-            ((JogosActivity) context).atualizaOpcoesMenu();
-
-            seleciona();
         }
 
         private void desSeleciona() {

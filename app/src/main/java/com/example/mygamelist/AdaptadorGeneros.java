@@ -12,11 +12,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.ViewHolderGeneros> {
     private Cursor cursor;
     private Context context;
+    ArrayList<Long> listaIds = new ArrayList<>();
+    int x;
 
     public void setCursor(Cursor cursor) {
         if (this.cursor != cursor) {
@@ -53,8 +56,12 @@ public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.View
     @NonNull
     @Override
     public ViewHolderGeneros onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemGenero = LayoutInflater.from(context).inflate(R.layout.item_genero, parent, false);
-
+        View itemGenero;
+        if(context instanceof GenerosActivity) {
+            itemGenero = LayoutInflater.from(context).inflate(R.layout.item_genero, parent, false);
+        }else{
+            itemGenero = LayoutInflater.from(context).inflate(R.layout.item_genero_jogo, parent, false);
+        }
         return new ViewHolderGeneros(itemGenero);
     }
 
@@ -116,7 +123,6 @@ public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.View
         public ViewHolderGeneros(@NonNull View itemView) {
             super(itemView);
             textViewNomeGenero  = itemView.findViewById(R.id.textViewGeneroItem);
-
             itemView.setOnClickListener(this);
         }
 
@@ -134,14 +140,34 @@ public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.View
         public void onClick(View v) {
             Toast.makeText(context, genero.getNome(), Toast.LENGTH_SHORT).show();
 
-            if (viewHolderGeneroSelecionado != null) {
-                viewHolderGeneroSelecionado.desSeleciona();
-            }
-            viewHolderGeneroSelecionado = this;
-            ((GenerosActivity) context).atualizaOpcoesMenu();
-            seleciona();
-        }
+            if (context instanceof GenerosActivity) {
+                if (viewHolderGeneroSelecionado != null) {
+                    viewHolderGeneroSelecionado.desSeleciona();
+                }
+                viewHolderGeneroSelecionado = this;
+                ((GenerosActivity) context).atualizaOpcoesMenu();
+                seleciona();
+            } else {
+                viewHolderGeneroSelecionado = this;
+                seleciona();
+                x = 0;
+                if (listaIds.size() == 0) {
+                    listaIds.add(viewHolderGeneroSelecionado.genero.getId());
 
+                } else {
+                    for (int i = 0; i < listaIds.size(); i++) {
+                        if (viewHolderGeneroSelecionado.genero.getId() == listaIds.get(i)) {
+                            x = 1;
+                            listaIds.remove(viewHolderGeneroSelecionado.genero.getId());
+                            desSeleciona();
+                        }
+                    }
+                    if (x == 0) {
+                        listaIds.add(viewHolderGeneroSelecionado.genero.getId());
+                    }
+                }
+            }
+        }
         private void desSeleciona() {
             itemView.setBackgroundResource(android.R.color.white);
         }
@@ -149,6 +175,9 @@ public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.View
         private void seleciona() {
             itemView.setBackgroundResource(R.drawable.border_item_view);
         }
+    }
+    public ArrayList<Long> lista(){
+        return listaIds;
     }
 
 }

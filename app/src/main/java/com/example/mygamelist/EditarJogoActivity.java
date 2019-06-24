@@ -1,10 +1,15 @@
 package com.example.mygamelist;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -14,6 +19,7 @@ import android.widget.CheckBox;
 import android.widget.CursorAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +28,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
@@ -31,6 +38,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -60,15 +70,19 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
     Calendar calendar;
 
     private RecyclerView recyclerViewGeneros;
-    private AdaptadorGenerosJogos adaptadorGenerosJogos = new AdaptadorGenerosJogos(this);
+    private AdaptadorGeneros adaptadorGeneros = new AdaptadorGeneros(this);
     private RecyclerView recyclerViewPlataformas;
-    private AdaptadorPlataformasJogos adaptadorPlataformasJogos = new AdaptadorPlataformasJogos(this);
+    private AdaptadorPlataformas adaptadorPlataformas = new AdaptadorPlataformas(this);
 
     Cursor cursor2;
     Cursor cursor3;
 
     public static final String LISTA_GENERO = "LISTA_GENERO";
     public static final String LISTA_PLATAFORMA = "LISTA_PLATAFORMA";
+
+    private ImageView imagem;
+    private Button botaoImagem;
+    final int REQUEST_CODE_GALLERY = 999;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +123,9 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
         spinnerJogado = (Spinner) findViewById(R.id.spinnerJogado);
         checkBoxFavoritos = (CheckBox) findViewById(R.id.checkBoxFavoritos);
 
+        imagem = findViewById(R.id.imageViewFoto);
+        botaoImagem = findViewById(R.id.buttonProcurarImagem);
+
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         LinearLayoutManager layoutManager2
@@ -116,11 +133,11 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
 
         recyclerViewGeneros = (RecyclerView) findViewById(R.id.recyclerViewGeneros);
         recyclerViewGeneros.setLayoutManager(layoutManager);
-        recyclerViewGeneros.setAdapter(adaptadorGenerosJogos);
+        recyclerViewGeneros.setAdapter(adaptadorGeneros);
 
         recyclerViewPlataformas = (RecyclerView) findViewById(R.id.recyclerViewPlataformas);
         recyclerViewPlataformas.setLayoutManager(layoutManager2);
-        recyclerViewPlataformas.setAdapter(adaptadorPlataformasJogos);
+        recyclerViewPlataformas.setAdapter(adaptadorPlataformas);
 
         getSupportLoaderManager().initLoader(ID_CURSOR_LOADER_GENEROS, null, this);
         getSupportLoaderManager().initLoader(ID_CURSOR_LOADER_PLATAFORMAS, null, this);
@@ -131,9 +148,8 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
         listaGeneros = (ArrayList<Long>)intent.getSerializableExtra(DetalhesJogoActivity.LISTA_GEN);
         listaPlataformas = (ArrayList<Long>)intent.getSerializableExtra(DetalhesJogoActivity.LISTA_PLAT);
 
-        Intent intent1 = new Intent(this, AdaptadorGenerosJogos.class);
+        Intent intent1 = new Intent(this, AdaptadorGeneros.class);
         intent1.putExtra(LISTA_GENERO, listaGeneros);
-
 
         if (idJogo == -1) {
             Toast.makeText(this, "Erro: não foi possível ler o Jogo", Toast.LENGTH_LONG).show();
@@ -180,6 +196,23 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
         if(jogo.getFavorito()==1){
             checkBoxFavoritos.setChecked(true);
         }
+
+        byte[] imagemByte = jogo.getImagem();
+
+        Bitmap bitmap = BitmapFactory.decodeByteArray(imagemByte, 0, imagemByte.length);
+
+        imagem.setImageBitmap(bitmap);
+
+        botaoImagem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivityCompat.requestPermissions(
+                        EditarJogoActivity.this,
+                        new String []{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        REQUEST_CODE_GALLERY
+                );
+            }
+        });
     }
 
 
@@ -204,6 +237,48 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if(requestCode == REQUEST_CODE_GALLERY){
+            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivityForResult(intent, REQUEST_CODE_GALLERY);
+            }
+            else{
+                Toast.makeText(getApplicationContext(), "You don't have permisson", Toast.LENGTH_SHORT).show();
+            }
+            return;
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(requestCode == REQUEST_CODE_GALLERY && resultCode == RESULT_OK && data != null){
+            Uri uri = data.getData();
+
+            try {
+                InputStream inputStream = getContentResolver().openInputStream(uri);
+
+                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                imagem.setImageBitmap(bitmap);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private byte[] imageViewToByte(ImageView image){
+        Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        return byteArray;
     }
 
     public void ConfirmarJogo(View view) {
@@ -257,6 +332,12 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
         jogo.setAtividade(atividade);
         jogo.setFavorito(favoritos);
         jogo.setDataLancamento(data);
+        if(imagem != null) {
+            jogo.setImagem(imageViewToByte(imagem));
+        }else{
+            jogo.setImagem(null);
+        }
+
         long id = -1;
 
         if(flag) {
@@ -275,7 +356,7 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
         }
 
         ArrayList<Long> lista;
-        lista = adaptadorGenerosJogos.lista();
+        lista = adaptadorGeneros.lista();
         long idgeneros;
         for(int i=0; i<listaGeneros.size();i++){
            Long idvelho=listaGeneros.get(i);
@@ -313,7 +394,7 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
                 getContentResolver().insert(MyGamesListContentProvider.ENDERECO_JOGOS_GENEROS, jogoGeneros.getContentValues());
             }
 
-        ArrayList<Long> lista2 = adaptadorPlataformasJogos.lista();
+        ArrayList<Long> lista2 = adaptadorPlataformas.lista();
         long idPlataforma;
         for(int i=0; i<listaPlataformas.size();i++){
             Long idvelho=listaPlataformas.get(i);
@@ -355,6 +436,7 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
 
         if(flag){
             finish();
+
         }
     }
 
@@ -441,9 +523,9 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
         if(loader.getId()==ID_CURSOR_LOADER_GENEROS){
-            adaptadorGenerosJogos.setCursor(data);
+            adaptadorGeneros.setCursor(data);
         }else{
-            adaptadorPlataformasJogos.setCursor(data);
+            adaptadorPlataformas.setCursor(data);
         }
     }
 
@@ -459,9 +541,9 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
     @Override
     public void onLoaderReset(@NonNull Loader<Cursor> loader) {
         if(loader.getId()==ID_CURSOR_LOADER_GENEROS){
-            adaptadorGenerosJogos.setCursor(null);
+            adaptadorGeneros.setCursor(null);
         }else{
-            adaptadorPlataformasJogos.setCursor(null);
+            adaptadorPlataformas.setCursor(null);
         }
     }
 }

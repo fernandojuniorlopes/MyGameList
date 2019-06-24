@@ -13,14 +13,11 @@
         android:id="@+id/textViewNomeJogo"
         android:layout_width="208dp"
         android:layout_height="54dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="@dimen/margin_height"
-        android:layout_marginEnd="@dimen/standard_margin"
-        android:layout_marginRight="@dimen/standard_margin"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="15dp"
         android:autofillHints=""
         android:inputType=""
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageViewFoto"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -217,11 +214,11 @@
         android:id="@+id/buttonProcurarImagem"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginLeft="55dp"
         android:layout_marginTop="8dp"
-        android:text="Procurar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewFoto" />
+        android:text="Procurar Imagem"
+        app:layout_constraintStart_toEndOf="@+id/imageViewFoto"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNomeJogo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
