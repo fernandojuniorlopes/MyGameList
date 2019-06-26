@@ -57,11 +57,11 @@
 	<body>
 		<h4 id="jogosActivity">Jogos Activity</h4>
 	<p> Temos os items do Jogos onde podemos ver Nome, Atividade, se é um favorito ou não. Clicando num deles podemos mudar para uma atividade DetalhesdoJogoActivity. As atividades GenerosActivity e PlataformasActivity são similares a esta mas contêm os seus respetivos objetos</p>
-	</body>
+	
+<img src="images/JogosActivity.jpg" alt="jogosActivity">
+</body>
 	</html>
 	
-![test image size](images/JogosActivity.jpg) {:height="50%" width="50%"}
-
 <html>
 <head>
 	<meta charset="utf-8"/>
