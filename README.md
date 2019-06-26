@@ -37,3 +37,12 @@
 </html>
     
 ![](images/OtDKil7%20-%20Imgur.png)
+<html>
+<head>
+	<meta charset="utf-8"/>
+</head>
+	<body>
+		<h4 id="mainActivity">Main Activity</h4>
+	<p> Na Main Activity temos os Jogos Favoritos e um menu onde podemos mudar para atividades:Generos, Plataformas e Jogos</p>
+	</body>
+![](images/mainActivity.jpg)
