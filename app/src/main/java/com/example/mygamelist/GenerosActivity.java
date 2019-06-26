@@ -81,21 +81,18 @@ public class GenerosActivity extends AppCompatActivity implements LoaderManager.
         if (id == R.id.AdicionarGeneros) {
             Intent intent = new Intent(GenerosActivity.this, NovoGeneroActivity.class);
             startActivity(intent);
-            Toast.makeText(this, getString(R.string.itemadicionarnovojogo), Toast.LENGTH_LONG).show();
             return true;
         }
         else if (id == R.id.EditarGeneros) {
             Intent intent = new Intent(GenerosActivity.this, EditarGeneroActivity.class);
             intent.putExtra(ID_GENERO, adaptadorGeneros.getGeneroSelecionado().getId());
             startActivity(intent);
-            Toast.makeText(this, getString(R.string.EditarJogo), Toast.LENGTH_LONG).show();
             return true;
         }
         else if (id == R.id.EliminarGeneros) {
             Intent intent = new Intent(GenerosActivity.this, EliminarGeneroActivity.class);
             intent.putExtra(ID_GENERO, adaptadorGeneros.getGeneroSelecionado().getId());
             startActivity(intent);
-            Toast.makeText(this, getString(R.string.itemeliminarjogo), Toast.LENGTH_LONG).show();
             return true;
         }
         return super.onOptionsItemSelected(item);

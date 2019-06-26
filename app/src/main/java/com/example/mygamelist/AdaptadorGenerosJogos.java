@@ -127,7 +127,6 @@ public class AdaptadorGenerosJogos extends RecyclerView.Adapter<AdaptadorGeneros
          */
         @Override
         public void onClick(View v) {
-            Toast.makeText(context, genero.getNome(), Toast.LENGTH_SHORT).show();
 
             viewHolderGeneroJogoSelecionado = this;
             seleciona();

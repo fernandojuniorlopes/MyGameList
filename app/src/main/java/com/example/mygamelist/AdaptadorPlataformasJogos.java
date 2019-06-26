@@ -129,7 +129,6 @@ public class AdaptadorPlataformasJogos extends RecyclerView.Adapter<AdaptadorPla
          */
         @Override
         public void onClick(View v) {
-            Toast.makeText(context, plataforma.getNome(), Toast.LENGTH_SHORT).show();
 
             viewHolderPlataformasJogosSelecionada = this;
             seleciona();

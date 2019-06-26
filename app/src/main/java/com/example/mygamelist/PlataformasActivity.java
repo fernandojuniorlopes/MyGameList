@@ -81,21 +81,18 @@ public class PlataformasActivity extends AppCompatActivity implements LoaderMana
         if (id == R.id.AdicionarPlataformas) {
             Intent intent = new Intent(PlataformasActivity.this, NovaPlataformaActivity.class);
             startActivity(intent);
-            Toast.makeText(this, getString(R.string.itemadicionarnovojogo), Toast.LENGTH_LONG).show();
             return true;
         }
         else if (id == R.id.EditarPlataforma) {
             Intent intent = new Intent(PlataformasActivity.this, EditarPlataformaActivity.class);
             intent.putExtra(ID_PLATAFORMA, adaptadorPlataformas.getPlataformaSelecionada().getId());
             startActivity(intent);
-            Toast.makeText(this, getString(R.string.EditarJogo), Toast.LENGTH_LONG).show();
             return true;
         }
         else if (id == R.id.EliminarPlataforma) {
             Intent intent = new Intent(PlataformasActivity.this, EliminarPlataformaActivity.class);
             intent.putExtra(ID_PLATAFORMA, adaptadorPlataformas.getPlataformaSelecionada().getId());
             startActivity(intent);
-            Toast.makeText(this, getString(R.string.itemeliminarjogo), Toast.LENGTH_LONG).show();
             return true;
         }
         return super.onOptionsItemSelected(item);

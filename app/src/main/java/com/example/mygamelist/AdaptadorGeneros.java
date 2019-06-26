@@ -139,7 +139,6 @@ public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.View
          */
         @Override
         public void onClick(View v) {
-            Toast.makeText(context, genero.getNome(), Toast.LENGTH_SHORT).show();
 
             if (viewHolderGeneroSelecionado != null) {
                     viewHolderGeneroSelecionado.desSeleciona();

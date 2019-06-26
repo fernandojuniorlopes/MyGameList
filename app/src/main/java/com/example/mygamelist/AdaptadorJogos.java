@@ -176,7 +176,6 @@ public class AdaptadorJogos extends RecyclerView.Adapter<AdaptadorJogos.ViewHold
          */
         @Override
         public void onClick(View v) {
-            Toast.makeText(context, jogo.getNome(), Toast.LENGTH_SHORT).show();
 
             if(context instanceof JogosActivity) {
                 if (viewHolderJogoSelecionado != null) {

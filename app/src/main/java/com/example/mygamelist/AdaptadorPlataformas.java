@@ -131,7 +131,6 @@ public class AdaptadorPlataformas extends RecyclerView.Adapter<AdaptadorPlatafor
 
         @Override
         public void onClick(View v) {
-            Toast.makeText(context, plataforma.getNome(), Toast.LENGTH_SHORT).show();
 
                 if (viewHolderPlataformaSelecionada != null) {
                     viewHolderPlataformaSelecionada.desSeleciona();

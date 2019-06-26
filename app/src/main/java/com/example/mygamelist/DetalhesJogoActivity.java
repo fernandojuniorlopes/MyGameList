@@ -177,14 +177,12 @@ public class DetalhesJogoActivity extends AppCompatActivity {
             intent.putExtra(LISTA_GEN, listaGeneros);
             intent.putExtra(LISTA_PLAT, listaPlataformas);
             startActivity(intent);
-            Toast.makeText(this, getString(R.string.EditarJogo), Toast.LENGTH_LONG).show();
             return true;
         }
         else if (id == R.id.EliminarJogo) {
             Intent intent = new Intent(DetalhesJogoActivity.this, EliminarJogoActivity.class);
             intent.putExtra(ID_JOGO, idJogo);
             startActivity(intent);
-            Toast.makeText(this, getString(R.string.detalhes), Toast.LENGTH_LONG).show();
             return true;
         }
         return super.onOptionsItemSelected(item);
