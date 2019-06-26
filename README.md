@@ -60,7 +60,7 @@
 	</body>
 	</html>
 	
-![](images/JogosActivity.jpg)
+![](images/JogosActivity.jpg) <!-- .element height="50%" width="50%" -->
 
 <html>
 <head>
