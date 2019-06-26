@@ -45,4 +45,5 @@
 		<h4 id="mainActivity">Main Activity</h4>
 	<p> Na Main Activity temos os Jogos Favoritos e um menu onde podemos mudar para atividades:Generos, Plataformas e Jogos</p>
 	</body>
+	</html>
 ![](images/mainActivity.jpg)
