@@ -44,28 +44,28 @@
 </head>
 	<body>
 		<h4 id="mainActivity">Main Activity</h4>
-	<p> Na Main Activity temos os Jogos Favoritos e um menu onde podemos mudar para atividades: Generos, Plataformas e Jogos(O botão da atividade dos jogos está na barra debaixo do menu)</p>
-	</body>
-	</html>
-	
-![](images/mainActivity.jpg)
-
-<html>
-<head>
-	<meta charset="utf-8"/>
-</head>
-	<body>
-		<h4 id="jogosActivity">Jogos Activity</h4>
-	<p> Temos os items do Jogos onde podemos ver Nome, Atividade, se é um favorito ou não. Desta atividade podemos saltar para a Atividade NovoJogo, ou clicando num dos podemos mudar para uma atividade DetalhesdoJogoActivity. As atividades GenerosActivity e PlataformasActivity são similares a esta mas contêm os seus respetivos objetos</p>
+	<p> Na Main Activity temos os Jogos Favoritos e um menu onde podemos mudar para atividades: Generos, Plataformas e Jogos(O botão da atividade dos jogos está na barra debaixo do menu).</p>
+	<img src="images/images/mainActivity.jpg" alt="mainActivity" width="500" height="600">
+	<br>
+	<h4 id="jogosActivity">Jogos Activity</h4>
+	<p> Temos os items do Jogos onde podemos ver Nome, Atividade, se é um favorito ou não. Desta atividade podemos saltar para a Atividade NovoJogo, ou clicando num dos podemos mudar para uma atividade DetalhesdoJogoActivity. As atividades GenerosActivity e PlataformasActivity são similares a esta mas contêm os seus respetivos objetos.</p>
 	<img src="images/JogosActivity.jpg" alt="jogosActivity" width="500" height="600">
 	<br>	
 		<h4 id="NovoJogoActivity">NovoJogoActivity</h4>
-	<p> Nesta atividade podemos adicionar um novo jogo e os seus respetivos parametros. Existem Atividades NovoGenero e NovaPlataforma similares a esta mas com os seus respetivos objetos</p>
+	<p> Nesta atividade podemos adicionar um novo jogo e os seus respetivos parametros. Existem Atividades NovoGenero e NovaPlataforma similares a esta mas com os seus respetivos objetos.</p>
 	<img src="images/NovoJogoActivity.jpg.jpg" alt="novoJogoActivity" width="500" height="600">
 		<br>
 <h4 id="DetalhesActivity">Detalhes Jogos Activity</h4>
 	<p> Nesta atividade podemos encontrar mais alguma informação sobre o jogo e temos um menu onde podemos mudar para as atividades EditarJogoActivity e EliminarJogoActivity</p>
 	<img src="images/detalhesJogoActivity.jpg" alt="detalheJogoActivity" width="500" height="600">
+		<br>
+		<h4 id="EditarJogoActivity">Editar Jogo Activity</h4>
+	<p> Nesta atividade podemos alterar todos os atributos dos jogos. As atividades EditarGenerosActivity e EditarPlataformasActivity são similares a esta mas contêm os seus respetivos objetos.</p>
+		<img src="images/EditarJogoActivity.jpg" alt="editarjogoActivity" width="500" height="600">
+		<br>
+		<h4 id="EliminarJogoActivity">Eliminar Jogo Activity</h4>
+	<p> Nesta atividade podemos eliminar um jogo. As atividades EliminarGenerosActivity e EliminarPlataformasActivity são similares a esta mas contêm os seus respetivos objetos.</p>
+		<img src="images/EliminarJogosActivity.jpg" alt="eliminarjogoActivity" width="500" height="600">
 	</body>
 </html>
 
