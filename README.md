@@ -60,7 +60,7 @@
 	</body>
 	</html>
 	
-![](images/JogosActivity.jpg) {:height="50%" width="50%"}
+![test image size](images/JogosActivity.jpg) {:height="50%" width="50%"}
 
 <html>
 <head>
