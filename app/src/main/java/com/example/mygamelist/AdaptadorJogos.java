@@ -197,7 +197,7 @@ public class AdaptadorJogos extends RecyclerView.Adapter<AdaptadorJogos.ViewHold
         }
 
         private void desSeleciona() {
-            itemView.setBackgroundResource(android.R.color.white);
+            itemView.setBackgroundResource(R.color.colorItemBackground);
             textViewTitulo.setTextColor(textViewTitulo.getContext().getResources().getColor(R.color.colorCinzento));
         }
 

@@ -143,7 +143,7 @@ public class AdaptadorPlataformas extends RecyclerView.Adapter<AdaptadorPlatafor
 
 
         private void desSeleciona() {
-            itemView.setBackgroundResource(android.R.color.white);
+            itemView.setBackgroundResource(R.color.colorItemBackground);
             textViewNomePlataforma.setTextColor(textViewNomePlataforma.getContext().getResources().getColor(R.color.colorCinzento));
         }
 

@@ -1,6 +1,5 @@
 package com.example.mygamelist;
 
-import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -28,7 +28,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
@@ -39,8 +38,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -83,6 +80,7 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
     private ImageView imagem;
     private Button botaoImagem;
     final int REQUEST_CODE_GALLERY = 999;
+    private byte imageInByte[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +91,7 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         selectDate = findViewById(R.id.buttonData);
-        date = findViewById(R.id.textViewdataLanc);
+        date = findViewById(R.id.textViewDataLancamento);
 
         selectDate.setOnClickListener(new View.OnClickListener() {
                                           /**
@@ -124,7 +122,6 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
         checkBoxFavoritos = (CheckBox) findViewById(R.id.checkBoxFavoritos);
 
         imagem = findViewById(R.id.imageViewFoto);
-        botaoImagem = findViewById(R.id.buttonProcurarImagem);
 
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
@@ -201,27 +198,11 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
         Bitmap bitmap = BitmapFactory.decodeByteArray(imagemByte, 0, imagemByte.length);
 
         imagem.setImageBitmap(bitmap);
-
-        botaoImagem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ActivityCompat.requestPermissions(
-                        EditarJogoActivity.this,
-                        new String []{Manifest.permission.READ_EXTERNAL_STORAGE},
-                        REQUEST_CODE_GALLERY
-                );
-            }
-        });
     }
 
 
     @Override
     protected void onResume() {
-        Intent intent = getIntent();
-
-        idJogo = intent.getLongExtra(DetalhesJogoActivity.ID_JOGO, -1);
-        listaGeneros = (ArrayList<Long>)intent.getSerializableExtra(DetalhesJogoActivity.LISTA_GEN);
-        listaPlataformas = (ArrayList<Long>)intent.getSerializableExtra(DetalhesJogoActivity.LISTA_PLAT);
         getSupportLoaderManager().restartLoader(ID_CURSOR_LOADER_GENEROS, null, this);
         getSupportLoaderManager().restartLoader(ID_CURSOR_LOADER_PLATAFORMAS, null, this);
         super.onResume();
@@ -252,7 +233,7 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
                 startActivityForResult(intent, REQUEST_CODE_GALLERY);
             }
             else{
-                Toast.makeText(getApplicationContext(), "You don't have permisson", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.sem_permicao), Toast.LENGTH_SHORT).show();
             }
             return;
         }
@@ -261,28 +242,28 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(requestCode == REQUEST_CODE_GALLERY && resultCode == RESULT_OK && data != null){
-            Uri uri = data.getData();
-
-            try {
-                InputStream inputStream = getContentResolver().openInputStream(uri);
-
-                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                imagem.setImageBitmap(bitmap);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-
         super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == REQUEST_CODE_GALLERY && resultCode == RESULT_OK && data != null){
+
+            Uri selectedImage = data.getData();
+            imagem.setImageURI(selectedImage);
+            convertToByte();
+        }
     }
 
-    private byte[] imageViewToByte(ImageView image){
-        Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
+    public void getImage(View view) {
+
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, REQUEST_CODE_GALLERY);
+    }
+
+
+    private void convertToByte() {
+        Bitmap image = ((BitmapDrawable)imagem.getDrawable()).getBitmap();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        byte[] byteArray = stream.toByteArray();
-        return byteArray;
+        image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        imageInByte = stream.toByteArray();
     }
 
     public void ConfirmarJogo(View view) {
@@ -309,13 +290,6 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
         } else
             textViewnomejogo.setError(null);
 
-        if (data.trim().length() == 0) {
-            date.setError("Data é obrigatória");
-            date.requestFocus();
-            flag = false;
-        } else
-            date.setError(null);
-
         if (Jogado == 0) {
             tratarErros(errorJogado, (getString(R.string.jogados_obrigatorio)));
             flag = false;
@@ -323,35 +297,32 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
             errorJogado.setError(null);
 
         if (Jogado == 1) {
-            atividade = "Não jogado";
+            atividade = getString(R.string.nao_jogado);
         } else if (Jogado == 2) {
-            atividade = "A jogar";
+            atividade = getString(R.string.a_jogar);
         } else {
-            atividade = "Completado";
+            atividade = getString(R.string.completado);
         }
-
-        Jogo jogo = new Jogo();
-
-        jogo.setNome(NomeJogo);
-        jogo.setAtividade(atividade);
-        jogo.setFavorito(favoritos);
-        jogo.setDataLancamento(data);
-        if(imagem != null) {
-            jogo.setImagem(imageViewToByte(imagem));
-        }else{
-            jogo.setImagem(null);
-        }
-
-        long id = -1;
 
         if(flag) {
+
+            Jogo jogo = new Jogo();
+
+            jogo.setNome(NomeJogo);
+            jogo.setAtividade(atividade);
+            jogo.setFavorito(favoritos);
+            jogo.setDataLancamento(data);
+
+            convertToByte();
+            jogo.setImagem(imageInByte);
+
             try {
                 getContentResolver().update(enderecoJogo, jogo.getContentValues(), null,null);
-                Toast.makeText(this, "Jogo guardado com sucesso", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.jogo_sucesso), Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 Snackbar.make(
                         textViewnomejogo,
-                        "Erro a guardar Jogo",
+                        getString(R.string.error_guardar),
                         Snackbar.LENGTH_LONG)
                         .show();
 

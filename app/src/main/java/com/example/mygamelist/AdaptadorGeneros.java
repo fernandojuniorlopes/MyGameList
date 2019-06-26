@@ -150,7 +150,7 @@ public class AdaptadorGeneros extends RecyclerView.Adapter<AdaptadorGeneros.View
 
         }
         private void desSeleciona() {
-            itemView.setBackgroundResource(android.R.color.white);
+            itemView.setBackgroundResource(R.color.colorItemBackground);
             textViewNomeGenero.setTextColor(textViewNomeGenero.getContext().getResources().getColor(R.color.colorCinzento));
         }
 

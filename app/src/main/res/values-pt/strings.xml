@@ -32,7 +32,6 @@
     <string name="title_activity_editar_jogo">Editar Jogo</string>
     <string name="mensagem_aviso">Tem a certeza que quer eliminar ?</string>
     <string name="titulo_aviso">Mensagem de aviso</string>
-    <string name="completado">Completado</string>
     <string name="atividade">Atividade</string>
     <string name="dias_obrigatorio"> dd </string>
     <string name="mes_obrigatorio"> mm </string>
@@ -55,4 +54,29 @@
     <string name="botao_cancelar">Cancelar</string>
     <string name="add_favoritos">Adicionar aos favoritos</string>
     <string name="title_activity_detalhes_jogo">DetalhesJogoActivity</string>
+    <string name="textviewnomejogo">textviewGameName</string>
+    <string name="genero">Genero</string>
+    <string name="data">Data</string>
+    <string name="procurar_imagem">Procurar imagem</string>
+    <string name="release_date">Data Lançamento</string>
+    <string name="data_obrigatoria">Data é obrigatória</string>
+    <string name="nao_jogado">Não jogado</string>
+    <string name="a_jogar">A jogar</string>
+    <string name="completado">Completado</string>
+    <string name="error_guardar">Erro a guardar jogo</string>
+    <string name="jogo_sucesso">Jogo guardado com sucesso</string>
+    <string name="sem_permicao">Não tem permição</string>
+    <string name="erro_ler_jogo">Erro não foi possível ler o Jogo</string>
+    <string name="detalhes">Detalhes do Jogo</string>
+    <string name="num_plat">Numero de plataformas</string>
+    <string name="erro_gen">Erro a guardar genero</string>
+    <string name="save_gen">Genero guardado com sucesso</string>
+    <string name="erro_plat">Erro a guardar Plataforma</string>
+    <string name="save_plat">Plataforma guardada com sucesso</string>
+    <string name="genero_del">Genero:</string>
+    <string name="textviewnomejogodel">TextViewNomeJogo</string>
+    <string name="textviewdel">TextView</string>
+    <string name="plataformasdel">Plataformas:</string>
+    <string name="datadel">Data</string>
+    <string name="atividadede">Atividade:</string>
 </resources>

@@ -78,7 +78,7 @@ public class DetalhesJogoActivity extends AppCompatActivity {
         }
 
         if (idJogo == -1) {
-            Toast.makeText(this, "Erro: não foi possível ler o Jogo", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.erro_ler_jogo), Toast.LENGTH_LONG).show();
             finish();
             return;
         }
@@ -87,7 +87,7 @@ public class DetalhesJogoActivity extends AppCompatActivity {
         cursor = getContentResolver().query(enderecoJogo, BdTableJogos.TODAS_COLUNAS, null, null, null);
 
         if (!cursor.moveToNext()) {
-            Toast.makeText(this, "Erro: não foi possível ler o Jogo", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.erro_ler_jogo), Toast.LENGTH_LONG).show();
             finish();
             return;
         }
@@ -96,7 +96,7 @@ public class DetalhesJogoActivity extends AppCompatActivity {
         cursor = getContentResolver().query(enderecoJogo, BdTableJogos.TODAS_COLUNAS, null, null, null);
 
         if (!cursor.moveToNext()) {
-            Toast.makeText(this, "Erro: não foi possível ler o Jogo", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.erro_ler_jogo), Toast.LENGTH_LONG).show();
             finish();
             return;
         }
@@ -184,7 +184,7 @@ public class DetalhesJogoActivity extends AppCompatActivity {
             Intent intent = new Intent(DetalhesJogoActivity.this, EliminarJogoActivity.class);
             intent.putExtra(ID_JOGO, idJogo);
             startActivity(intent);
-            Toast.makeText(this, "Detalhes do Jogo", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.detalhes), Toast.LENGTH_LONG).show();
             return true;
         }
         return super.onOptionsItemSelected(item);

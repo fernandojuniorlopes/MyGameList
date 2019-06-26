@@ -4,6 +4,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -14,6 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +33,7 @@ public class EliminarJogoActivity extends AppCompatActivity {
     private TextView textViewPlataformas;
     private TextView textViewData;
     private TextView textViewAtividade;
+    private ImageView imageViewFav;
     private Button botaoEliminar;
     private Button botaoCancelar;
     public static final String ID_JOGO = "ID_JOGO";
@@ -37,10 +41,11 @@ public class EliminarJogoActivity extends AppCompatActivity {
     public static final String LISTA_PLAT = "LISTA_PLAT";
     private Cursor cursor2;
     private Cursor cursor3;
+    private ImageView imagem;
 
-    String NomeGeneros = "";
+    String NomeGeneros = "- ";
     JogoGenero jogosGeneros = null;
-    String NomePlataformas = "";
+    String NomePlataformas = "- ";
     JogoPlataforma jogosPlataformas = null;
 
     long idJogo;
@@ -62,6 +67,7 @@ public class EliminarJogoActivity extends AppCompatActivity {
         textViewAtividade = findViewById(R.id.textViewAtividade);
         botaoEliminar = findViewById(R.id.buttonEliminar);
         botaoCancelar = findViewById(R.id.buttonCancelar);
+        imagem = findViewById(R.id.imageViewFotoJogo);
         Intent intent = getIntent();
 
         idJogo = intent.getLongExtra(JogosActivity.ID_JOGO, -1);
@@ -90,8 +96,8 @@ public class EliminarJogoActivity extends AppCompatActivity {
         while(cursor2.moveToNext()) {
             jogosGeneros = JogoGenero.fromCursor(cursor2);
             if (jogosGeneros.getId_jogo() == idJogo) {
-                NomeGeneros += "-";
                 NomeGeneros += jogosGeneros.getNomeGenero();
+                NomeGeneros += "; ";
             }
         }
 
@@ -99,14 +105,13 @@ public class EliminarJogoActivity extends AppCompatActivity {
 
         cursor3 = tabelaJogosPlataforma.query(BdTableJogosPlataformas.TODAS_COLUNAS, null,null,null,null,null);
 
-        String NomePlataformas = "";
         JogoPlataforma jogoPlataforma = null;
 
         while(cursor3.moveToNext()) {
             jogoPlataforma = JogoPlataforma.fromCursor(cursor3);
             if (jogoPlataforma.getId_jogo() == idJogo) {
-                NomePlataformas += "-";
                 NomePlataformas += jogoPlataforma.getNomePlataforma();
+                NomePlataformas += "; ";
             }
         }
 
@@ -118,6 +123,12 @@ public class EliminarJogoActivity extends AppCompatActivity {
         textViewAtividade.setText(jogo.getAtividade());
         textViewData.setText(jogo.getDataLancamento());
         textViewPlataformas.setText(NomePlataformas);
+
+        byte[] imagemByte = jogo.getImagem();
+
+        Bitmap bitmap = BitmapFactory.decodeByteArray(imagemByte, 0, imagemByte.length);
+
+        imagem.setImageBitmap(bitmap);
     }
 
     public void Eliminar(View view){

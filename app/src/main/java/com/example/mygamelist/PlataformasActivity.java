@@ -161,7 +161,7 @@ public class PlataformasActivity extends AppCompatActivity implements LoaderMana
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
         adaptadorPlataformas.setCursor(data);
-        Toast.makeText(this, "numero de plataformas " + data.getCount(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.num_plat) + data.getCount(), Toast.LENGTH_SHORT).show();
     }
 
     /**

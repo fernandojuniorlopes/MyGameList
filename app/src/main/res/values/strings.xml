@@ -23,7 +23,6 @@
     <string name="dados_sucesso">Data saved successfully</string>
     <string name="itemeditarjogo">Edit</string>
     <string name="itemeliminarjogo">Delete</string>
-    <string name="completado">Completed</string>
     <string name="titulo_aviso">Warning message!</string>
     <string name="mensagem_aviso">Are you sure you want to delete it?</string>
     <string name="spinner_plataforma">Choose platform</string>
@@ -63,7 +62,27 @@
     <string name="title_activity_detalhes_jogo">DetalhesJogoActivity</string>
     <string name="textviewnomejogo">TextViewNomeJogo</string>
     <string name="genero">Genero</string>
-    <string name="data">Data:</string>
+    <string name="data">Date</string>
     <string name="procurar_imagem">Procurar Imagem</string>
-    <string name="release_date">Release date</string>
+    <string name="release_date">Data Lançamento</string>
+    <string name="data_obrigatoria">Date is required</string>
+    <string name="nao_jogado">Not played</string>
+    <string name="a_jogar">Playing</string>
+    <string name="completado">Completed</string>
+    <string name="error_guardar">Error saving game</string>
+    <string name="jogo_sucesso">Game successfully saved</string>
+    <string name="sem_permicao">You do not have permisson</string>
+    <string name="erro_ler_jogo">Error Not possible to read game</string>
+    <string name="erro_gen">Error saving genre</string>
+    <string name="detalhes">Game details</string>
+    <string name="num_plat">Number of platforms</string>
+    <string name="save_gen">Genre saved successfully</string>
+    <string name="erro_plat">Error saving platform</string>
+    <string name="save_plat">Plat saved successfully</string>
+    <string name="genero_del">Genero:</string>
+    <string name="textviewnomejogodel">TextViewNomeJogo</string>
+    <string name="textviewdel">TextView</string>
+    <string name="plataformasdel">Plataformas:</string>
+    <string name="datadel">Date</string>
+    <string name="atividadede">Atividade:</string>
 </resources>

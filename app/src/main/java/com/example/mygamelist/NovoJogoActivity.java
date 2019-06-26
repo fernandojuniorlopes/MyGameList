@@ -1,13 +1,11 @@
 package com.example.mygamelist;
 
-import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -28,7 +26,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.CursorLoader;
@@ -39,8 +36,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -66,6 +61,7 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
     int month;
     int dayOfMonth;
     Calendar calendar;
+    int validacaoData=0;
 
 
     private RecyclerView recyclerViewGeneros;
@@ -105,6 +101,7 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
                             }
                         }, year, month, dayOfMonth);
                 datePickerDialog.show();
+                validacaoData=1;
             }
         });
 
@@ -113,7 +110,6 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
         checkBoxFavoritos = (CheckBox) findViewById(R.id.checkBoxFavoritos);
 
         imagem = findViewById(R.id.imageViewFoto);
-        botaoImagem = findViewById(R.id.buttonProcurarImagem);
 
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
@@ -142,7 +138,7 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
                 startActivityForResult(intent, REQUEST_CODE_GALLERY);
             }
             else{
-                Toast.makeText(getApplicationContext(), "You don't have permisson", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.sem_permicao), Toast.LENGTH_SHORT).show();
             }
             return;
         }
@@ -229,8 +225,8 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
         } else
             textViewnomejogo.setError(null);
 
-        if (data.trim().length() == 0) {
-            date.setError("Data é obrigatória");
+        if (validacaoData==0) {
+            date.setError(getString(R.string.data_obrigatoria));
             date.requestFocus();
             flag = false;
         } else
@@ -243,11 +239,11 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
             errorJogado.setError(null);
 
         if (Jogado == 1) {
-            atividade = "Não jogado";
+            atividade = getString(R.string.nao_jogado);
         } else if (Jogado == 2) {
-            atividade = "A jogar";
+            atividade = getString(R.string.a_jogar);
         } else {
-            atividade = "Completado";
+            atividade = getString(R.string.completado);
         }
 
 
@@ -268,11 +264,11 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
             try {
                 Uri uri = getContentResolver().insert(MyGamesListContentProvider.ENDERECO_JOGOS, jogo.getContentValues());
                 id = Long.valueOf(uri.getLastPathSegment());
-                Toast.makeText(this, "Jogo guardado com sucesso", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.jogo_sucesso), Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 Snackbar.make(
                         textViewnomejogo,
-                        "Erro a guardar Jogo",
+                        getString(R.string.error_guardar),
                         Snackbar.LENGTH_LONG)
                         .show();
 

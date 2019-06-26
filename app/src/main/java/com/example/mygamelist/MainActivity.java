@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.CursorAdapter;
 import android.widget.Toast;
 
@@ -37,7 +38,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
@@ -47,10 +47,18 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         recyclerViewJogos.setLayoutManager(layoutManager);
 
         getSupportLoaderManager().initLoader(ID_CURSOR_LOADER_JOGOS, null, this);
+
     }
+
 
     @Override
     protected void onRestart() {
+        LinearLayoutManager layoutManager
+                = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+
+        recyclerViewJogos = (RecyclerView) findViewById(R.id.recyclerViewJogos);
+        recyclerViewJogos.setAdapter(adaptadorJogos);
+        recyclerViewJogos.setLayoutManager(layoutManager);
         super.onRestart();
     }
 
@@ -96,22 +104,18 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.Settings) {
-            Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
             return true;
         } else if (id == R.id.Jogos) {
             Intent intent = new Intent(MainActivity.this, JogosActivity.class);
             startActivity(intent);
-            Toast.makeText(this, "JogosActivity", Toast.LENGTH_LONG).show();
             return true;
         } else if (id == R.id.Plataformas) {
             Intent intent = new Intent(MainActivity.this, PlataformasActivity.class);
             startActivity(intent);
-            Toast.makeText(this, "PlataformasActivity", Toast.LENGTH_LONG).show();
             return true;
         } else if (id == R.id.Generos) {
             Intent intent = new Intent(MainActivity.this, GenerosActivity.class);
             startActivity(intent);
-            Toast.makeText(this, "GenerosActivity", Toast.LENGTH_LONG).show();
             return true;
         }
 

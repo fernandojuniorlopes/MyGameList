@@ -49,12 +49,12 @@ public class NovaPlataformaActivity extends AppCompatActivity {
         try {
             getContentResolver().insert(MyGamesListContentProvider.ENDERECO_PLATAFORMAS, plataforma.getContentValues());
 
-            Toast.makeText(this, "Jogo guardado com sucesso", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.save_plat), Toast.LENGTH_SHORT).show();
             finish();
         } catch (Exception e) {
             Snackbar.make(
                     editTextnomeplataforma,
-                    "Erro a guardar Jogo",
+                    getString(R.string.erro_plat),
                     Snackbar.LENGTH_LONG)
                     .show();
 

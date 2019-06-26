@@ -48,12 +48,12 @@ public class NovoGeneroActivity extends AppCompatActivity {
         try {
             getContentResolver().insert(MyGamesListContentProvider.ENDERECO_GENEROS, genero.getContentValues());
 
-            Toast.makeText(this, "Jogo guardado com sucesso", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.save_gen), Toast.LENGTH_SHORT).show();
             finish();
         } catch (Exception e) {
             Snackbar.make(
                     editTextNomeGenero,
-                    "Erro a guardar Jogo",
+                    getString(R.string.erro_gen),
                     Snackbar.LENGTH_LONG)
                     .show();
 
