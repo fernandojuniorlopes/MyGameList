@@ -9,12 +9,13 @@
     tools:showIn="@layout/activity_editar_jogo"
     tools:ignore="PrivateResource">
 
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textViewNomeJogo"
         android:layout_width="208dp"
         android:layout_height="54dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginLeft="50dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="25dp"
         android:layout_marginTop="15dp"
         android:autofillHints=""
         android:inputType=""
@@ -48,7 +49,7 @@
         android:id="@+id/buttonCancelar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="90dp"
         android:layout_marginRight="90dp"
         android:onClick="CancelarJogo"
@@ -71,55 +72,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recyclerViewPlataformas" />
 
-    <TextView
-        android:id="@+id/textViewRelease"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
-        android:text="@string/release"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerJogado" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textViewDataLancamento"
-        android:layout_width="184dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:autofillHints=""
-        android:inputType=""
-        app:layout_constraintBottom_toTopOf="@+id/checkBoxFavoritos"
-        app:layout_constraintStart_toEndOf="@+id/textViewRelease"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerJogado">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textViewdataLanc"
-            android:layout_width="172dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:hint="Date" />
-    </com.google.android.material.textfield.TextInputLayout>
-
     <CheckBox
         android:id="@+id/checkBoxFavoritos"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         android:text="@string/add_favoritos"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewRelease" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonData" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:background="@drawable/border_recycler_view"
@@ -155,15 +120,10 @@
         android:id="@+id/buttonData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="8dp"
-        android:text="Data"
-        app:layout_constraintBottom_toTopOf="@+id/checkBoxFavoritos"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/data"
         app:layout_constraintStart_toEndOf="@+id/textViewDataLancamento"
         app:layout_constraintTop_toBottomOf="@+id/spinnerJogado" />
 
@@ -201,24 +161,41 @@
 
     <ImageView
         android:id="@+id/imageViewFoto"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="100dp"
+        android:layout_height="110dp"
+        android:onClick="getImage"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/ic_launcher_round"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/ic_launcher_round" />
+        android:contentDescription="TODO" />
 
     <Button
         android:id="@+id/buttonProcurarImagem"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_marginStart="55dp"
-        android:layout_marginLeft="55dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
         android:layout_marginTop="8dp"
-        android:text="Procurar Imagem"
+        android:text="@string/procurar_imagem"
         app:layout_constraintStart_toEndOf="@+id/imageViewFoto"
         app:layout_constraintTop_toBottomOf="@+id/textViewNomeJogo" />
+
+    <TextView
+        android:id="@+id/textViewDataLancamento"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/release_date"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintBottom_toTopOf="@+id/checkBoxFavoritos"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerJogado" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

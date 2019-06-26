@@ -54,4 +54,5 @@
     <string name="jogo_elimando_sucesso">O jogo foi eliminado com sucesso!</string>
     <string name="botao_cancelar">Cancelar</string>
     <string name="add_favoritos">Adicionar aos favoritos</string>
+    <string name="title_activity_detalhes_jogo">DetalhesJogoActivity</string>
 </resources>

@@ -28,6 +28,7 @@ public class DetalhesJogoActivity extends AppCompatActivity {
     private TextView textViewPlataformas;
     private TextView textViewData;
     private TextView textViewAtividade;
+    private ImageView imageViewFav;
     private Menu menu;
     public static final String ID_JOGO = "ID_JOGO";
     public static final String LISTA_GEN = "LISTA_GEN";
@@ -54,12 +55,24 @@ public class DetalhesJogoActivity extends AppCompatActivity {
         textViewData = findViewById(R.id.textViewData);
         textViewAtividade = findViewById(R.id.textViewAtividade);
         imagem = findViewById(R.id.imageViewFotoJogo);
+        imageViewFav =findViewById(R.id.imageViewFavoritos);
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_det_jogo, menu);
+
+        this.menu = menu;
+
+        return true;
+    }
+
+    public void atualizaGenerosPlataformas(){
         Intent intent = getIntent();
         if(intent.getLongExtra(JogosActivity.ID_JOGO, -1)!=-1){
             idJogo = intent.getLongExtra(JogosActivity.ID_JOGO, -1);
-        }else if(intent.getLongExtra(JogosActivity.ID_JOGO, -1)!=-1){
-            idJogo = intent.getLongExtra(AdaptadorJogos.ID_JOGO, -1);
         }else{
             idJogo=-1;
         }
@@ -74,29 +87,6 @@ public class DetalhesJogoActivity extends AppCompatActivity {
         cursor = getContentResolver().query(enderecoJogo, BdTableJogos.TODAS_COLUNAS, null, null, null);
 
         if (!cursor.moveToNext()) {
-            Toast.makeText(this, "Erro: não foi possível ler o Jogo", Toast.LENGTH_LONG).show();
-            finish();
-            return;
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_det_jogo, menu);
-
-        this.menu = menu;
-
-        return true;
-    }
-
-    public void atualizaGenerosPlataformas(){
-
-        Intent intent = getIntent();
-
-        idJogo = intent.getLongExtra(JogosActivity.ID_JOGO, -1);
-
-        if (idJogo == -1) {
             Toast.makeText(this, "Erro: não foi possível ler o Jogo", Toast.LENGTH_LONG).show();
             finish();
             return;
@@ -148,6 +138,11 @@ public class DetalhesJogoActivity extends AppCompatActivity {
         textViewnomeGenero.setText(NomeGeneros);
         jogo = Jogo.fromCursor(cursor);
 
+        if(jogo.getFavorito()==1){
+            imageViewFav.setColorFilter(getResources().getColor(R.color.colorAmarelo));
+        }else{
+            imageViewFav.setColorFilter(getResources().getColor(R.color.colorCinzento));
+        }
         textViewnomejogo.setText(jogo.getNome());
         textViewnomeGenero.setText(NomeGeneros);
         textViewAtividade.setText(jogo.getAtividade());

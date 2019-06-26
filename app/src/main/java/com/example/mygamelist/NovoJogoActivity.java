@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -43,8 +44,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import static java.lang.Integer.valueOf;
-
 public class NovoJogoActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static  final int ID_CURSOR_LOADER_GENEROS =0;
@@ -58,6 +57,7 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
     private ImageView imagem;
     private Button botaoImagem;
     final int REQUEST_CODE_GALLERY = 999;
+    private byte imageInByte[];
 
     private Button selectDate;
     TextView date;
@@ -69,9 +69,9 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
 
 
     private RecyclerView recyclerViewGeneros;
-    private AdaptadorGeneros adaptadorGeneros = new AdaptadorGeneros(this);
+    private AdaptadorGenerosJogos adaptadorGeneros = new AdaptadorGenerosJogos(this);
     private RecyclerView recyclerViewPlataformas;
-    private AdaptadorPlataformas adaptadorPlataformas = new AdaptadorPlataformas(this);
+    private AdaptadorPlataformasJogos adaptadorPlataformas = new AdaptadorPlataformasJogos(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +82,7 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         selectDate = findViewById(R.id.buttonData);
-        date = findViewById(R.id.textViewdataLanc);
+        date = findViewById(R.id.textViewDataLancamento);
 
         selectDate.setOnClickListener(new View.OnClickListener() {
             /**
@@ -131,16 +131,6 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
         getSupportLoaderManager().initLoader(ID_CURSOR_LOADER_GENEROS, null, this);
         getSupportLoaderManager().initLoader(ID_CURSOR_LOADER_PLATAFORMAS, null, this);
 
-        botaoImagem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ActivityCompat.requestPermissions(
-                        NovoJogoActivity.this,
-                        new String []{Manifest.permission.READ_EXTERNAL_STORAGE},
-                        REQUEST_CODE_GALLERY
-                );
-            }
-        });
     }
 
     @Override
@@ -161,20 +151,27 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(requestCode == REQUEST_CODE_GALLERY && resultCode == RESULT_OK && data != null){
-            Uri uri = data.getData();
-
-            try {
-                InputStream inputStream = getContentResolver().openInputStream(uri);
-
-                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                imagem.setImageBitmap(bitmap);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-
         super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == REQUEST_CODE_GALLERY && resultCode == RESULT_OK && data != null){
+
+            Uri selectedImage = data.getData();
+            imagem.setImageURI(selectedImage);
+            convertToByte();
+        }
+    }
+
+    public void getImage(View view) {
+
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent, REQUEST_CODE_GALLERY);
+    }
+
+    private void convertToByte() {
+        Bitmap image = ((BitmapDrawable)imagem.getDrawable()).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        imageInByte = stream.toByteArray();
     }
 
     @Override
@@ -253,21 +250,21 @@ public class NovoJogoActivity extends AppCompatActivity implements LoaderManager
             atividade = "Completado";
         }
 
-        Jogo jogo = new Jogo();
-
-        jogo.setNome(NomeJogo);
-        jogo.setAtividade(atividade);
-        jogo.setFavorito(favoritos);
-        jogo.setDataLancamento(data);
-        if(imagem != null) {
-            jogo.setImagem(imageViewToByte(imagem));
-        }else{
-            jogo.setImagem(null);
-        }
 
         long id = -1;
 
         if(flag) {
+
+            Jogo jogo = new Jogo();
+
+            jogo.setNome(NomeJogo);
+            jogo.setAtividade(atividade);
+            jogo.setFavorito(favoritos);
+            jogo.setDataLancamento(data);
+
+            convertToByte();
+            jogo.setImagem(imageInByte);
+
             try {
                 Uri uri = getContentResolver().insert(MyGamesListContentProvider.ENDERECO_JOGOS, jogo.getContentValues());
                 id = Long.valueOf(uri.getLastPathSegment());

@@ -155,8 +155,6 @@ public class EliminarJogoActivity extends AppCompatActivity {
                 }
                 Toast.makeText(EliminarJogoActivity.this, getString(R.string.jogo_elimando_sucesso), Toast.LENGTH_SHORT).show();
                 finish();
-                Intent intent = new Intent(EliminarJogoActivity.this, JogosActivity.class);
-                startActivity(intent);
             }
         });
             builder.show();

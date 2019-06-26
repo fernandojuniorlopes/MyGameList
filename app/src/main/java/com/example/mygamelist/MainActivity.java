@@ -20,13 +20,12 @@ import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import static com.example.mygamelist.BdTableJogos.CAMPO_ATIVIDADE;
 import static com.example.mygamelist.BdTableJogos.CAMPO_FAVORITO;
 import static com.example.mygamelist.BdTableJogos.NOME_TABELA;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    private static  final int ID_CURSOR_LOADER_JOGOS =0;
+    private static final int ID_CURSOR_LOADER_JOGOS =0;
 
     private RecyclerView recyclerViewJogos;
     private AdaptadorJogos adaptadorJogos = new AdaptadorJogos(this);
@@ -40,7 +39,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        LinearLayoutManager layoutManager
+                = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
 
+        recyclerViewJogos = (RecyclerView) findViewById(R.id.recyclerViewJogos);
+        recyclerViewJogos.setAdapter(adaptadorJogos);
+        recyclerViewJogos.setLayoutManager(layoutManager);
 
         getSupportLoaderManager().initLoader(ID_CURSOR_LOADER_JOGOS, null, this);
     }
@@ -190,6 +194,5 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoaderReset(@NonNull Loader<Cursor> loader) {
             adaptadorJogos.setCursor(null);
-
     }
 }

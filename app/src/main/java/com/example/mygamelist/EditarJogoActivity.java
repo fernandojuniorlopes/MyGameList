@@ -70,9 +70,9 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
     Calendar calendar;
 
     private RecyclerView recyclerViewGeneros;
-    private AdaptadorGeneros adaptadorGeneros = new AdaptadorGeneros(this);
+    private AdaptadorGenerosJogos adaptadorGenerosJogos = new AdaptadorGenerosJogos(this);
     private RecyclerView recyclerViewPlataformas;
-    private AdaptadorPlataformas adaptadorPlataformas = new AdaptadorPlataformas(this);
+    private AdaptadorPlataformasJogos adaptadorPlataformasJogos = new AdaptadorPlataformasJogos(this);
 
     Cursor cursor2;
     Cursor cursor3;
@@ -131,25 +131,24 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
         LinearLayoutManager layoutManager2
                 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
 
-        recyclerViewGeneros = (RecyclerView) findViewById(R.id.recyclerViewGeneros);
-        recyclerViewGeneros.setLayoutManager(layoutManager);
-        recyclerViewGeneros.setAdapter(adaptadorGeneros);
-
-        recyclerViewPlataformas = (RecyclerView) findViewById(R.id.recyclerViewPlataformas);
-        recyclerViewPlataformas.setLayoutManager(layoutManager2);
-        recyclerViewPlataformas.setAdapter(adaptadorPlataformas);
-
-        getSupportLoaderManager().initLoader(ID_CURSOR_LOADER_GENEROS, null, this);
-        getSupportLoaderManager().initLoader(ID_CURSOR_LOADER_PLATAFORMAS, null, this);
-
         Intent intent = getIntent();
 
         idJogo = intent.getLongExtra(DetalhesJogoActivity.ID_JOGO, -1);
         listaGeneros = (ArrayList<Long>)intent.getSerializableExtra(DetalhesJogoActivity.LISTA_GEN);
         listaPlataformas = (ArrayList<Long>)intent.getSerializableExtra(DetalhesJogoActivity.LISTA_PLAT);
 
-        Intent intent1 = new Intent(this, AdaptadorGeneros.class);
-        intent1.putExtra(LISTA_GENERO, listaGeneros);
+
+        recyclerViewGeneros = (RecyclerView) findViewById(R.id.recyclerViewGeneros);
+        recyclerViewGeneros.setLayoutManager(layoutManager);
+        recyclerViewGeneros.setAdapter(adaptadorGenerosJogos);
+
+        recyclerViewPlataformas = (RecyclerView) findViewById(R.id.recyclerViewPlataformas);
+        recyclerViewPlataformas.setLayoutManager(layoutManager2);
+        recyclerViewPlataformas.setAdapter(adaptadorPlataformasJogos);
+
+        getSupportLoaderManager().initLoader(ID_CURSOR_LOADER_GENEROS, null, this);
+        getSupportLoaderManager().initLoader(ID_CURSOR_LOADER_PLATAFORMAS, null, this);
+
 
         if (idJogo == -1) {
             Toast.makeText(this, "Erro: não foi possível ler o Jogo", Toast.LENGTH_LONG).show();
@@ -218,6 +217,11 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
 
     @Override
     protected void onResume() {
+        Intent intent = getIntent();
+
+        idJogo = intent.getLongExtra(DetalhesJogoActivity.ID_JOGO, -1);
+        listaGeneros = (ArrayList<Long>)intent.getSerializableExtra(DetalhesJogoActivity.LISTA_GEN);
+        listaPlataformas = (ArrayList<Long>)intent.getSerializableExtra(DetalhesJogoActivity.LISTA_PLAT);
         getSupportLoaderManager().restartLoader(ID_CURSOR_LOADER_GENEROS, null, this);
         getSupportLoaderManager().restartLoader(ID_CURSOR_LOADER_PLATAFORMAS, null, this);
         super.onResume();
@@ -356,35 +360,35 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
         }
 
         ArrayList<Long> lista;
-        lista = adaptadorGeneros.lista();
+        lista = adaptadorGenerosJogos.lista();
         long idgeneros;
         for(int i=0; i<listaGeneros.size();i++){
            Long idvelho=listaGeneros.get(i);
            for(int j=0;j<lista.size();j++){
                if(idvelho.compareTo(lista.get(j))==0){
-                   listaGeneros.remove(idvelho);
+                   listaGeneros.remove(i);
                    lista.remove(j);
                }
            }
         }
 
         JogoGenero jogosGeneros = null;
-        while(cursor2.moveToNext()) {
-            jogosGeneros = JogoGenero.fromCursor(cursor2);
-            if (jogosGeneros.getId_jogo() == idJogo) {
-                for(int i=0;i<listaGeneros.size();i++){
-                    if(jogosGeneros.getId_genero() == listaGeneros.get(i)){
-                        long idJogoApagar = jogosGeneros.getId();
-                        Uri endereçoJogoGenApagar = Uri.withAppendedPath(MyGamesListContentProvider.ENDERECO_JOGOS_GENEROS, String.valueOf(idJogoApagar));
-                        getContentResolver().delete(endereçoJogoGenApagar, null,null);
+        if(lista.size()!=0) {
+            while (cursor2.moveToNext()) {
+                jogosGeneros = JogoGenero.fromCursor(cursor2);
+                if (jogosGeneros.getId_jogo() == idJogo) {
+                    for (int i = 0; i < listaGeneros.size(); i++) {
+                        if (jogosGeneros.getId_genero() == listaGeneros.get(i)) {
+                            long idJogoApagar = jogosGeneros.getId();
+                            Uri endereçoJogoGenApagar = Uri.withAppendedPath(MyGamesListContentProvider.ENDERECO_JOGOS_GENEROS, String.valueOf(idJogoApagar));
+                            getContentResolver().delete(endereçoJogoGenApagar, null, null);
+                        }
                     }
                 }
             }
         }
 
-        if (lista.size()==0) {
-            lista.addAll(listaGeneros);
-        }
+        if (lista.size()!=0) {
             for (int i = 0; i < lista.size(); i++) {
                 JogoGenero jogoGeneros = new JogoGenero();
                 idgeneros = lista.get(i);
@@ -393,37 +397,38 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
 
                 getContentResolver().insert(MyGamesListContentProvider.ENDERECO_JOGOS_GENEROS, jogoGeneros.getContentValues());
             }
+        }
 
-        ArrayList<Long> lista2 = adaptadorPlataformas.lista();
+        ArrayList<Long> lista2 = adaptadorPlataformasJogos.lista();
         long idPlataforma;
-        for(int i=0; i<listaPlataformas.size();i++){
-            Long idvelho=listaPlataformas.get(i);
-            for(int j=0;j<lista2.size();j++){
-                if(idvelho.compareTo(lista2.get(j))==0){
-                    listaPlataformas.remove(idvelho);
-                    lista2.remove(j);
+            for (int i = 0; i < listaPlataformas.size(); i++) {
+                Long idvelho = listaPlataformas.get(i);
+                for (int j = 0; j < lista2.size(); j++) {
+                    if (idvelho.compareTo(lista2.get(j)) == 0) {
+                        listaPlataformas.remove(i);
+                        lista2.remove(j);
+                    }
                 }
             }
-        }
 
 
         JogoPlataforma jogosPlataformas = null;
+        if(lista2.size()!=0) {
         while(cursor3.moveToNext()) {
             jogosPlataformas = JogoPlataforma.fromCursor(cursor3);
             if (jogosPlataformas.getId_jogo() == idJogo) {
-                for(int i=0;i<listaPlataformas.size();i++){
-                    if(jogosPlataformas.getId_plataforma() == listaPlataformas.get(i)){
+                for (int i = 0; i < listaPlataformas.size(); i++) {
+                    if (jogosPlataformas.getId_plataforma() == listaPlataformas.get(i)) {
                         long idJogoPlataformaApagar = jogosPlataformas.getId();
                         Uri endereçoJogoPlataformaApagar = Uri.withAppendedPath(MyGamesListContentProvider.ENDERECO_JOGOS_PLATAFORMAS, String.valueOf(idJogoPlataformaApagar));
-                        getContentResolver().delete(endereçoJogoPlataformaApagar, null,null);
+                        getContentResolver().delete(endereçoJogoPlataformaApagar, null, null);
                     }
                 }
             }
         }
-
-        if (lista2.size()==0) {
-            lista2.addAll(listaPlataformas);
         }
+
+        if (lista2.size()!=0) {
             for (int i = 0; i < lista2.size(); i++) {
                 JogoPlataforma jogoPlataforma = new JogoPlataforma();
                 idPlataforma = lista2.get(i);
@@ -432,11 +437,11 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
 
                 getContentResolver().insert(MyGamesListContentProvider.ENDERECO_JOGOS_PLATAFORMAS, jogoPlataforma.getContentValues());
             }
+        }
 
 
         if(flag){
             finish();
-
         }
     }
 
@@ -523,9 +528,9 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
         if(loader.getId()==ID_CURSOR_LOADER_GENEROS){
-            adaptadorGeneros.setCursor(data);
+            adaptadorGenerosJogos.setCursor(data);
         }else{
-            adaptadorPlataformas.setCursor(data);
+            adaptadorPlataformasJogos.setCursor(data);
         }
     }
 
@@ -541,9 +546,9 @@ public class EditarJogoActivity extends AppCompatActivity implements LoaderManag
     @Override
     public void onLoaderReset(@NonNull Loader<Cursor> loader) {
         if(loader.getId()==ID_CURSOR_LOADER_GENEROS){
-            adaptadorGeneros.setCursor(null);
+            adaptadorGenerosJogos.setCursor(null);
         }else{
-            adaptadorPlataformas.setCursor(null);
+            adaptadorPlataformasJogos.setCursor(null);
         }
     }
 }

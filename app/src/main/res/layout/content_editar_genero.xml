@@ -44,7 +44,7 @@
         android:inputType=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" tools:targetApi="o">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textViewGeneroItem"

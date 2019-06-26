@@ -17,8 +17,6 @@ import java.util.ArrayList;
 public class AdaptadorPlataformas extends RecyclerView.Adapter<AdaptadorPlataformas.ViewHolderPlataformas> {
     private Cursor cursor;
     private Context context;
-    ArrayList<Long> listaIds = new ArrayList<>();
-    int x;
 
     public void setCursor(Cursor cursor) {
         if (this.cursor != cursor) {
@@ -31,6 +29,7 @@ public class AdaptadorPlataformas extends RecyclerView.Adapter<AdaptadorPlatafor
     {
         this.context = context;
     }
+
 
     /**
      * Called when RecyclerView needs a new {@link ViewHolder} of the given type to represent
@@ -57,13 +56,9 @@ public class AdaptadorPlataformas extends RecyclerView.Adapter<AdaptadorPlatafor
     public ViewHolderPlataformas onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemPlataforma;
 
-        if(context instanceof PlataformasActivity) {
-            itemPlataforma = LayoutInflater.from(context).inflate(R.layout.item_plataforma, parent, false);
-        }else{
-            itemPlataforma = LayoutInflater.from(context).inflate(R.layout.item_plataforma_jogo, parent, false);
-        }
+        itemPlataforma = LayoutInflater.from(context).inflate(R.layout.item_plataforma, parent, false);
 
-        return new ViewHolderPlataformas(itemPlataforma);
+        return new AdaptadorPlataformas.ViewHolderPlataformas(itemPlataforma);
     }
 
     /**
@@ -138,48 +133,24 @@ public class AdaptadorPlataformas extends RecyclerView.Adapter<AdaptadorPlatafor
         public void onClick(View v) {
             Toast.makeText(context, plataforma.getNome(), Toast.LENGTH_SHORT).show();
 
-            if (context instanceof PlataformasActivity) {
                 if (viewHolderPlataformaSelecionada != null) {
                     viewHolderPlataformaSelecionada.desSeleciona();
                 }
                 viewHolderPlataformaSelecionada = this;
                 ((PlataformasActivity) context).atualizaOpcoesMenu();
                 seleciona();
-
-            } else {
-                viewHolderPlataformaSelecionada = this;
-                seleciona();
-                x = 0;
-                if (listaIds.size() == 0) {
-                    listaIds.add(viewHolderPlataformaSelecionada.plataforma.getId());
-
-                } else {
-                    for (int i = 0; i < listaIds.size(); i++) {
-                        if (viewHolderPlataformaSelecionada.plataforma.getId() == listaIds.get(i)) {
-                            x = 1;
-                            listaIds.remove(viewHolderPlataformaSelecionada.plataforma.getId());
-                            desSeleciona();
-                        }
-                    }
-                    if (x == 0) {
-                        listaIds.add(viewHolderPlataformaSelecionada.plataforma.getId());
-                    }
-                }
-            }
-
         }
 
 
         private void desSeleciona() {
             itemView.setBackgroundResource(android.R.color.white);
+            textViewNomePlataforma.setTextColor(textViewNomePlataforma.getContext().getResources().getColor(R.color.colorCinzento));
         }
 
         private void seleciona() {
+            textViewNomePlataforma.setTextColor(textViewNomePlataforma.getContext().getResources().getColor(android.R.color.white));
             itemView.setBackgroundResource(R.drawable.border_item_view);
         }
 
     }
-        public ArrayList<Long> lista(){
-            return listaIds;
-        }
 }
